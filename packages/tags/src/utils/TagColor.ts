@@ -1,22 +1,11 @@
-export class TagColor {
-  private cache: Map<string, number> = new Map();
+import { Cache } from "./Cache";
 
-  public get(tag: string) {
-    if (!this.cache.has(tag)) {
-      this.cache.set(tag, this.generateColor(tag));
-    }
-    return this.cache.get(tag)!;
-  }
-
-  public update(tag: string, color: number) {
-    this.cache.set(tag, color);
-  }
-
-  private generateColor(tag: string) {
+export class TagColor extends Cache<string, number> {
+  public default(key: string): number {
     let numberHash = 0;
 
-    for (let i = 0; i < tag.length; i++) {
-      numberHash += (i + 1) * tag.charCodeAt(i);
+    for (let i = 0; i < key.length; i++) {
+      numberHash += (i + 1) * key.charCodeAt(i);
     }
 
     return numberHash % 360;

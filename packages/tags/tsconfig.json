@@ -20,6 +20,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
+    // see https://pouchdb.com/guides/setup-pouchdb.html#typescript
+    // "allowSyntheticDefaultImports": true,
+    // "esModuleInterop": true,
+
     "types": ["vitest/globals"]
   },
   "include": ["src"]

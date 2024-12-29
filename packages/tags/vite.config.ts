@@ -13,4 +13,7 @@ export default defineConfig({
     globals: true,
   },
   plugins: [tsconfigPaths()],
+  define: {
+    global: {},
+  },
 });

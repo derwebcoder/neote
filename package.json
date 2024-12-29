@@ -4,7 +4,7 @@
   "description": "Note taking made brainless but smart",
   "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "vitest"
   },
   "workspaces": [
     "apps/*",
@@ -19,5 +19,6 @@
     "prettier": "3.4.2",
     "typescript": "^5.7.2",
     "typescript-eslint": "^8.18.2"
-  }
+  },
+  "dependencies": {}
 }

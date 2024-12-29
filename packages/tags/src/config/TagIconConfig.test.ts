@@ -1,4 +1,4 @@
-import { TagIconMap } from "./TagIconMap";
+import { TagIconMap } from "./TagIconConfig";
 
 describe("TagIconMap", () => {
   it("should have the expected entries", () => {
