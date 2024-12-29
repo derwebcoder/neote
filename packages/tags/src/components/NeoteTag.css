@@ -30,8 +30,8 @@ neote-tag {
   .chip-dark & {
     padding-inline: 6px;
     border-radius: 15px;
-    color: hsl(var(--hue-color) 50% 90% / 100%);
-    background-color: hsl(var(--hue-color) 100% 25% / 100%);
+    color: hsl(var(--hue-color) 50% 97% / 100%);
+    background-color: hsl(var(--hue-color) 100% 32% / 100%);
     font-weight: 700;
   }
 
@@ -69,7 +69,7 @@ neote-tag {
     padding-inline: 4px;
 
     &::before {
-      background: hsl(var(--hue-color) 50% 90% / 100%);
+      background: hsl(var(--hue-color) 50% 97% / 100%);
       z-index: 1;
     }
 
@@ -79,7 +79,7 @@ neote-tag {
       width: 20px;
       height: 20px;
       border-radius: 99px;
-      background: hsl(var(--hue-color) 100% 20% / 100%);
+      background: hsl(var(--hue-color) 100% 32% / 100%);
       position: absolute;
       inset-inline-start: 2px;
     }
