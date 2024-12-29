@@ -1,8 +1,8 @@
 import PouchDB from "pouchdb-browser";
-import { TagBasic, TagExistingDocument } from "../models/Tag";
+import { TagBasic, TagDocument } from "../models/Tag";
 
 export class TagDB {
-  private db = new PouchDB<TagExistingDocument>("tags");
+  private db = new PouchDB<TagDocument>("tags");
 
   constructor() {}
 
@@ -12,6 +12,13 @@ export class TagDB {
 
   public async getAll() {
     return this.db.allDocs({ include_docs: true });
+  }
+
+  public async create(id: string, tag: TagBasic) {
+    return await this.db.put({
+      _id: id,
+      ...tag,
+    });
   }
 
   public async update(id: string, tag: TagBasic) {
@@ -34,9 +41,7 @@ export class TagDB {
   }
 
   public async watch(
-    callback: (
-      change: PouchDB.Core.ChangesResponseChange<TagExistingDocument>,
-    ) => void,
+    callback: (change: PouchDB.Core.ChangesResponseChange<TagDocument>) => void,
   ) {
     this.db
       .changes({ live: true, since: "now", include_docs: true })

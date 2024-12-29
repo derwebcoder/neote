@@ -1,4 +1,4 @@
-import { generateDefaultColor } from "../config/TagColorConfig";
+import { generateDefaultHue } from "../config/TagColorConfig";
 import { getDefaultIcon, TagIconMap } from "../config/TagIconConfig";
 import { TagDB } from "../db/TagDB";
 import { Tag, TagExistingDocument } from "../models/Tag";
@@ -25,33 +25,43 @@ export class TagService {
         // we can assert here because we set `include_docs: true` in the watch method
         const tag = this.convertDocToTag(change.doc!);
         this.cache.set(change.id, tag);
-        this.announce(tag);
+        this.publish(tag);
       }
     });
   }
 
   public get(name: string) {
-    if (!this.cache.has(name)) {
+    const nameCleaned = name.toLowerCase();
+    if (!this.cache.has(nameCleaned)) {
       return new Tag(
-        name,
+        nameCleaned,
         "",
         getDefaultIcon(),
-        generateDefaultColor(name),
+        generateDefaultHue(nameCleaned),
         "draft",
       );
     }
-    return this.cache.get(name);
+    return this.cache.get(nameCleaned)!;
   }
 
   public async update(tag: Tag) {
     try {
-      await this.db.update(tag.name, {
-        description: tag.description,
-        icon: tag.icon,
-        hue: tag.hue,
-      });
+      const params = [
+        tag.name,
+        {
+          description: tag.description,
+          icon: tag.icon,
+          hue: tag.hue,
+        },
+      ] as const;
+      if (tag.state === "draft") {
+        await this.db.create(...params);
+      } else {
+        await this.db.update(...params);
+      }
+      tag.state = "stored";
       this.cache.set(tag.name, tag);
-      this.announce(tag);
+      this.publish(tag);
       return tag;
     } catch (e) {
       console.error(e);
@@ -69,7 +79,7 @@ export class TagService {
     return false;
   }
 
-  public watch(name: string, callback: (tag: Tag) => void) {
+  public observe(name: string, callback: (tag: Tag) => void) {
     this.watcher[name] = this.watcher[name] || [];
     this.watcher[name].push(callback);
 
@@ -78,7 +88,7 @@ export class TagService {
     };
   }
 
-  private announce(tag: Tag) {
+  private publish(tag: Tag) {
     if (this.watcher[tag.name]) {
       this.watcher[tag.name].forEach((callback) => {
         callback(tag);
@@ -95,8 +105,9 @@ export class TagService {
       }
       const tag = this.convertDocToTag(tagDoc);
       this.cache.set(result.id, tag);
-      this.announce(tag);
+      this.publish(tag);
     });
+    console.log("hydrated");
     return true;
   }
 

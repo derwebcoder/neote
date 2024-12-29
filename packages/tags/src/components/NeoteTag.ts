@@ -2,8 +2,9 @@ import { DI } from "@neote/dependency-injection";
 import { TagIconMap } from "../config/TagIconConfig";
 import { Tag } from "../models/Tag";
 import { TagService } from "../services/TagService";
+import "./NeoteTag.css";
 
-export class TagComponent extends HTMLElement {
+export class NeoteTag extends HTMLElement {
   static observedAttributes = ["name"];
   private tag?: Tag;
   private tagService?: TagService;
@@ -45,9 +46,8 @@ export class TagComponent extends HTMLElement {
 
     this.tagService = await DI.resolveAsync("TagService");
     this.tag = this.tagService.get(name);
-    console.log("load", this.tag);
 
-    this.unwatch = this.tagService.watch(name, (tag) => {
+    this.unwatch = this.tagService.observe(name, (tag) => {
       this.tag = tag;
       this.render();
     });
@@ -57,11 +57,9 @@ export class TagComponent extends HTMLElement {
 
   private async render() {
     if (!this.tag) {
-      console.log("render none");
       this.innerText = "";
       return;
     }
-    console.log("render", this.tag);
     this.innerText = this.tag.name;
 
     this.style.setProperty(
@@ -73,4 +71,4 @@ export class TagComponent extends HTMLElement {
   }
 }
 
-customElements.define("neote-tag", TagComponent);
+customElements.define("neote-tag", NeoteTag);

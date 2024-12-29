@@ -6,11 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/src/styles/tagStyles.css" />
     <title>Vite + TS</title>
+    <style>
+      #app {
+        margin: 1rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 20px;
+
+        .story {
+          width: 45%;
+          min-height: 200px;
+          padding: 5px;
+          display: grid;
+          grid-template-rows: min-content 1fr;
+          gap: 10px;
+
+          & > span {
+            font-family: system-ui, sans-serif;
+            font-size: 0.8rem;
+            font-weight: bold;
+          }
+
+          & > .story-root {
+            background: #f9f9f9;
+          }
+        }
+      }
+    </style>
   </head>
   <body>
     <div id="app">
-      Hello world
-      <neote-tag name="hello"></neote-tag>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

@@ -1,4 +1,4 @@
-export const generateDefaultColor = (key: string): number => {
+export const generateDefaultHue = (key: string): number => {
   let numberHash = 0;
 
   for (let i = 0; i < key.length; i++) {
