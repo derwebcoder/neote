@@ -1,3 +1,4 @@
+import { html } from "@neote/render";
 import "./NeoteHueSelect.css";
 
 type HueSelectEventDetail = { hue: number };
@@ -37,15 +38,21 @@ export class HueSelectComponent extends HTMLElement {
   private async render() {
     this.innerHTML = "";
 
-    const colorWheelWrapper = document.createElement("div");
-    colorWheelWrapper.className = "color-wheel-wrapper";
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_, colorWheelWrapper, colorWheel, hueInput]: [
+      HTMLDivElement,
+      HTMLDivElement,
+      HTMLDivElement,
+      HTMLInputElement,
+    ] = html`
+      <div>
+        <div ref class="color-wheel-wrapper">
+          <div ref class="color-wheel"></div>
+        </div>
+        <input ref type="number" value="${this.getAttribute("hue") ?? "0"}" />
+      </div>
+    `;
 
-    const colorWheel = document.createElement("div");
-    colorWheel.className = "color-wheel";
-
-    const hueInput = document.createElement("input");
-    hueInput.type = "number";
-    hueInput.value = this.getAttribute("hue") ?? "0";
     hueInput.addEventListener("change", (e) => {
       e.stopPropagation();
       const hue = Number.parseInt(hueInput.value, 10);
@@ -62,7 +69,6 @@ export class HueSelectComponent extends HTMLElement {
       this.updateHue(Math.round(hue));
     });
 
-    colorWheelWrapper.appendChild(colorWheel);
     this.appendChild(colorWheelWrapper);
     this.appendChild(hueInput);
   }

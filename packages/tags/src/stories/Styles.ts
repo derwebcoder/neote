@@ -1,3 +1,4 @@
+import { html } from "@neote/render";
 import { getCenteredWrapper, Story } from "./storyUtils";
 
 export const storyStyles: Story = {
@@ -28,10 +29,10 @@ export const storyStyles: Story = {
 };
 
 const createTagStyle = (style: string) => {
-  const wrapper = document.createElement("div");
-  wrapper.classList.add(style);
-  const tag = document.createElement("neote-tag");
-  tag.setAttribute("name", style);
-  wrapper.appendChild(tag);
+  const [wrapper] = html`
+    <div class="${style}">
+      <neote-tag name="${style}"></neote-tag>
+    </div>
+  `;
   return wrapper;
 };

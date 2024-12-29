@@ -1,3 +1,5 @@
+import { html } from "@neote/render";
+
 export type Story = {
   title: string;
   order: number;
@@ -5,13 +7,18 @@ export type Story = {
 };
 
 export const getCenteredWrapper = () => {
-  const wrapper = document.createElement("div");
-  wrapper.style.display = "flex";
-  wrapper.style.justifyContent = "center";
-  wrapper.style.alignItems = "center";
-  wrapper.style.height = "100%";
-  wrapper.style.width = "100%";
-  wrapper.style.padding = "8px";
-  wrapper.style.boxSizing = "border-box";
+  const [wrapper] = html`
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        padding: 8px;
+        box-sizing: border-box;
+      "
+    ></div>
+  `;
   return wrapper;
 };

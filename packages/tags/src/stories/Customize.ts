@@ -1,7 +1,11 @@
 import { DI } from "@neote/dependency-injection";
 import { TagIconMap } from "../config/TagIconConfig";
 import { getCenteredWrapper, Story } from "./storyUtils";
-import { HueSelectEvent } from "../components/NeoteHueSelect";
+import {
+  HueSelectComponent,
+  HueSelectEvent,
+} from "../components/NeoteHueSelect";
+import { html, rawHtml } from "@neote/render";
 
 export const storyCustomize: Story = {
   title: "Customize",
@@ -13,33 +17,10 @@ export const storyCustomize: Story = {
       const tag = tagService.get("universe");
       console.log({ tag });
 
-      const wrapper = getCenteredWrapper();
-      wrapper.style.display = "flex";
-      wrapper.style.flexDirection = "column";
-      wrapper.style.gap = "25px";
-      wrapper.className = "chip-light";
+      const container = getCenteredWrapper();
+      container.className = "chip-light";
 
-      const settings = document.createElement("div");
-      settings.style.display = "flex";
-      settings.style.gap = "8px";
-
-      const iconSelect = document.createElement("select");
       const icons = Object.keys(TagIconMap);
-      for (const icon of icons) {
-        const option = document.createElement("option");
-        option.setAttribute("value", icon);
-        option.innerText = icon;
-        if (icon === tag.icon) {
-          option.setAttribute("selected", "true");
-        }
-        iconSelect.appendChild(option);
-      }
-      iconSelect.addEventListener("change", () => {
-        const value = iconSelect.value;
-        tag.icon = value as keyof typeof TagIconMap;
-        tagService.update(tag);
-      });
-
       const styles = [
         "basic",
         "chip-light",
@@ -49,42 +30,74 @@ export const storyCustomize: Story = {
         "chip-icon-dark",
         "neon",
       ];
-      const styleSelect = document.createElement("select");
-      for (const style of styles) {
-        const option = document.createElement("option");
-        option.setAttribute("value", style);
-        option.innerText = style;
-        if (style === "chip-light") {
-          option.setAttribute("selected", "true");
-        }
-        styleSelect.appendChild(option);
-      }
-      styleSelect.addEventListener("change", () => {
-        const style = styleSelect.value;
-        wrapper.className = style;
+
+      const [wrapper, iconSelect, styleSelect, hueSelect]: [
+        HTMLDivElement,
+        HTMLSelectElement,
+        HTMLSelectElement,
+        HueSelectComponent,
+      ] = html`
+        <div
+          style="display: flex; flex-direction: column; gap: 25px; justify-content: center; align-items: center;"
+        >
+          <div style="display: flex; gap: 8px;">
+            <select ref>
+              ${icons
+                .map((icon) =>
+                  rawHtml(
+                    html` <option
+                      value="${icon}"
+                      ${icon === tag.icon ? "selected" : ""}
+                    >
+                      ${icon}
+                    </option>`,
+                  ),
+                )
+                .join("")}
+            </select>
+            <select ref>
+              ${styles
+                .map((style) =>
+                  rawHtml(
+                    html` <option
+                      value="${style}"
+                      ${style === "chip-light" ? "selected" : ""}
+                    >
+                      ${style}
+                    </option>`,
+                  ),
+                )
+                .join("")}
+            </select>
+            <neote-hue-select
+              ref
+              hue="${tag.hue.toString()}"
+              style="width: 75px;"
+            ></neote-hue-select>
+          </div>
+          <neote-tag name="universe"></neote-tag>
+        </div>
+      `;
+      container.appendChild(wrapper);
+
+      iconSelect.addEventListener("change", () => {
+        const value = iconSelect.value;
+        tag.icon = value as keyof typeof TagIconMap;
+        tagService.update(tag);
       });
 
-      const hueSelect = document.createElement("neote-hue-select");
-      hueSelect.style.width = "75px";
-      hueSelect.setAttribute("hue", tag.hue.toString());
+      styleSelect.addEventListener("change", () => {
+        const style = styleSelect.value;
+        container.className = style;
+      });
+
       hueSelect.addEventListener("hue-select", (e: HueSelectEvent) => {
         const hue = e.detail?.hue ?? 0;
         tag.hue = hue;
         tagService.update(tag);
       });
 
-      settings.appendChild(iconSelect);
-      settings.appendChild(styleSelect);
-      settings.appendChild(hueSelect);
-
-      wrapper.appendChild(settings);
-
-      const tagElement = document.createElement("neote-tag");
-      tagElement.setAttribute("name", tag.name);
-
-      wrapper.appendChild(tagElement);
-
-      root.appendChild(wrapper);
+      root.appendChild(container);
     }, 100);
   },
 };
