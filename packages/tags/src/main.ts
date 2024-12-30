@@ -1,6 +1,7 @@
 import { DI } from "@neote/dependency-injection";
 import "./components/NeoteTag";
 import "./components/NeoteHueSelect";
+import "./components/NeoteTagStyleSelection";
 import { TagService } from "./services/TagService";
 import * as stories from "./stories";
 import { html } from "@neote/render";

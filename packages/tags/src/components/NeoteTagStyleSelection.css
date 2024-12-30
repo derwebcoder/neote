@@ -1,0 +1,26 @@
+neote-tag-style-selection {
+  position: relative;
+  height: max-content;
+  display: block;
+
+  .wrapper {
+    height: max-content;
+    display: grid;
+    grid-template-columns: clamp(100px, 30%, 200px) 1fr;
+    gap: 20px;
+
+    select {
+      height: max-content;
+    }
+
+    .preview {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      p {
+        max-width: 300px;
+      }
+    }
+  }
+}

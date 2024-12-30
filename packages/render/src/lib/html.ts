@@ -1,3 +1,14 @@
+/**
+ * Renders a given template string.
+ *
+ * (!) Not optimised for performance.
+ *
+ * Add a `ref` attribute to each element you want to get as part of the return value
+ *
+ * @param template
+ * @param expressions
+ * @returns a tuple of the wrapper element and all with `ref` marked elements
+ */
 export const html = <ROOT extends HTMLElement, REFS extends HTMLElement[]>(
   template: TemplateStringsArray,
   ...expressions: string[]

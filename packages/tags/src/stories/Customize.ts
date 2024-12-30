@@ -6,6 +6,7 @@ import {
   HueSelectEvent,
 } from "../components/NeoteHueSelect";
 import { html, rawHtml } from "@neote/render";
+import { TagStyles } from "../config/TagStyleConfig";
 
 export const storyCustomize: Story = {
   title: "Customize",
@@ -18,18 +19,9 @@ export const storyCustomize: Story = {
       console.log({ tag });
 
       const container = getCenteredWrapper();
-      container.className = "chip-light";
+      container.setAttribute("data-tag-style", "chip-light");
 
       const icons = Object.keys(TagIconMap);
-      const styles = [
-        "basic",
-        "chip-light",
-        "chip-dark",
-        "chip-border",
-        "chip-icon-light",
-        "chip-icon-dark",
-        "neon",
-      ];
 
       const [wrapper, iconSelect, styleSelect, hueSelect]: [
         HTMLDivElement,
@@ -56,18 +48,16 @@ export const storyCustomize: Story = {
                 .join("")}
             </select>
             <select ref>
-              ${styles
-                .map((style) =>
-                  rawHtml(
-                    html` <option
-                      value="${style}"
-                      ${style === "chip-light" ? "selected" : ""}
-                    >
-                      ${style}
-                    </option>`,
-                  ),
-                )
-                .join("")}
+              ${TagStyles.map((style) =>
+                rawHtml(
+                  html` <option
+                    value="${style}"
+                    ${style === "chip-light" ? "selected" : ""}
+                  >
+                    ${style}
+                  </option>`,
+                ),
+              ).join("")}
             </select>
             <neote-hue-select
               ref
@@ -88,7 +78,7 @@ export const storyCustomize: Story = {
 
       styleSelect.addEventListener("change", () => {
         const style = styleSelect.value;
-        container.className = style;
+        container.setAttribute("data-tag-style", style);
       });
 
       hueSelect.addEventListener("hue-select", (e: HueSelectEvent) => {

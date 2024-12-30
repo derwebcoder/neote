@@ -1,5 +1,6 @@
 import { html } from "@neote/render";
 import { getCenteredWrapper, Story } from "./storyUtils";
+import { TagStyles } from "../config/TagStyleConfig";
 
 export const storyStyles: Story = {
   title: "Styles",
@@ -10,27 +11,18 @@ export const storyStyles: Story = {
     wrapper.style.flexDirection = "column";
     wrapper.style.gap = "5px";
 
-    const styles = [
-      "basic",
-      "chip-light",
-      "chip-dark",
-      "chip-border",
-      "chip-icon-light",
-      "chip-icon-dark",
-      "neon",
-    ];
-
-    for (const style of styles) {
+    for (const style of TagStyles) {
       const tag = createTagStyle(style);
       wrapper.appendChild(tag);
     }
+
     root.appendChild(wrapper);
   },
 };
 
 const createTagStyle = (style: string) => {
   const [wrapper] = html`
-    <div class="${style}">
+    <div data-tag-style="${style}">
       <neote-tag name="${style}"></neote-tag>
     </div>
   `;

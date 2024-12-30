@@ -19,7 +19,7 @@ neote-tag {
     margin-inline-end: 4px;
   }
 
-  .chip-light & {
+  [data-tag-style="chip-light"] & {
     padding-inline: 6px;
     border-radius: 15px;
     background: hsl(var(--hue-color) 50% 90% / 100%);
@@ -27,15 +27,15 @@ neote-tag {
     font-weight: 700;
   }
 
-  .chip-dark & {
+  [data-tag-style="chip-dark"] & {
     padding-inline: 6px;
     border-radius: 15px;
+    background-color: hsl(var(--hue-color) 70% 45% / 100%);
     color: hsl(var(--hue-color) 50% 97% / 100%);
-    background-color: hsl(var(--hue-color) 100% 32% / 100%);
     font-weight: 700;
   }
 
-  .chip-border & {
+  [data-tag-style="chip-border"] & {
     padding-inline: 6px;
     border-radius: 15px;
     border-width: 1px;
@@ -45,7 +45,7 @@ neote-tag {
     font-weight: 700;
   }
 
-  .chip-icon-light & {
+  [data-tag-style="chip-icon-light"] & {
     padding-inline: 4px;
 
     &::before {
@@ -65,7 +65,7 @@ neote-tag {
     }
   }
 
-  .chip-icon-dark & {
+  [data-tag-style="chip-icon-dark"] & {
     padding-inline: 4px;
 
     &::before {
@@ -79,13 +79,41 @@ neote-tag {
       width: 20px;
       height: 20px;
       border-radius: 99px;
-      background: hsl(var(--hue-color) 100% 32% / 100%);
+      background: hsl(var(--hue-color) 70% 45% / 100%);
       position: absolute;
       inset-inline-start: 2px;
     }
   }
 
-  .neon & {
+  [data-tag-style="token-gradient-light"] & {
+    padding-inline: 6px;
+    border-radius: 5px;
+    background: linear-gradient(
+      135deg,
+      hsl(calc(var(--hue-color) - 60) 50% 90% / 100%) 0%,
+      hsl(var(--hue-color) 50% 90% / 100%) 30%,
+      hsl(var(--hue-color) 50% 90% / 100%) 70%,
+      hsl(calc(var(--hue-color) + 60) 50% 90% / 100%) 100%
+    );
+    color: hsl(var(--hue-color) 100% 20% / 100%);
+    font-weight: 700;
+  }
+
+  [data-tag-style="token-gradient-dark"] & {
+    padding-inline: 6px;
+    border-radius: 5px;
+    background: linear-gradient(
+      135deg,
+      hsl(calc(var(--hue-color) - 20) 70% 48% / 100%) 0%,
+      hsl(var(--hue-color) 70% 48% / 100%) 30%,
+      hsl(var(--hue-color) 70% 48% / 100%) 70%,
+      hsl(calc(var(--hue-color) + 20) 70% 48% / 100%) 100%
+    );
+    color: hsl(var(--hue-color) 100% 97% / 100%);
+    font-weight: 700;
+  }
+
+  [data-tag-style="neon"] & {
     padding-inline: 6px;
 
     &::after {
