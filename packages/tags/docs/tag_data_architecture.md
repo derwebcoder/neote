@@ -14,6 +14,7 @@ The `TagService` always returns a `Tag` object.
 For non-existing tags, it creates a new Tag with default values and the `'draft'` state.
 It should be the only way to access tag data.
 The `TagService` also provides a pubsub API to listen for changes to specific tags, using the PouchDB `watch` API.
+(!) Only one TagService should exist at a time! One should be created during initialisation and then be injected and resolved through dependency injection.
 
 ### models/Tag
 This class stores all data specific for a single Tag. It is a one-time snapshot of a tag state.
