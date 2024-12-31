@@ -3,6 +3,7 @@ import {
   TagStyle,
   TagStyles,
 } from "../config/TagStyleConfig";
+import { local } from "../utils/localStorage";
 
 export class TagStyleService {
   private LS_KEY = "tag_style";
@@ -27,12 +28,12 @@ export class TagStyleService {
 
   public updateStyle(style: TagStyle) {
     this.state = style;
-    localStorage.setItem(this.LS_KEY, style);
+    local.set(this.LS_KEY, style);
     this.init();
   }
 
   private load(): TagStyle {
-    const storedValue = localStorage.getItem(this.LS_KEY);
+    const storedValue = local.get(this.LS_KEY);
     if (!storedValue || !TagStyles.includes(storedValue as TagStyle)) {
       return getDefaultTagStyle();
     }
