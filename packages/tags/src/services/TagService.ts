@@ -13,10 +13,8 @@ export class TagService {
   private cache: Map<string, Tag> = new Map();
   private watcher: Record<string, Array<(tag: Tag) => void>> = {};
 
-  constructor() {
-    this.db = new TagDB();
-
-    this.hydrateCache();
+  private constructor(tagDB: TagDB) {
+    this.db = tagDB;
 
     this.db.watch(async (change) => {
       if (change.deleted) {
@@ -28,6 +26,12 @@ export class TagService {
         this.publish(tag);
       }
     });
+  }
+
+  public static async construct(tagDB: TagDB) {
+    const tagService = new this(tagDB);
+    await tagService.hydrateCache();
+    return tagService;
   }
 
   public get(name: string) {
@@ -47,21 +51,20 @@ export class TagService {
   public async update(tag: Tag) {
     try {
       const params = [
-        tag.name,
+        tag.getName(),
         {
-          description: tag.description,
-          icon: tag.icon,
-          hue: tag.hue,
+          description: tag.getDescription(),
+          icon: tag.getIcon(),
+          hue: tag.getHue(),
         },
       ] as const;
-      if (tag.state === "draft") {
+      if (tag.getState() === "draft") {
         await this.db.create(...params);
       } else {
         await this.db.update(...params);
       }
-      tag.state = "stored";
-      this.cache.set(tag.name, tag);
-      this.publish(tag);
+      tag.setState("stored");
+      this.cache.set(tag.getName(), tag);
       return tag;
     } catch (e) {
       console.error(e);
@@ -89,14 +92,14 @@ export class TagService {
   }
 
   private publish(tag: Tag) {
-    if (this.watcher[tag.name]) {
-      this.watcher[tag.name].forEach((callback) => {
+    if (this.watcher[tag.getName()]) {
+      this.watcher[tag.getName()].forEach((callback) => {
         callback(tag);
       });
     }
   }
 
-  private async hydrateCache() {
+  public async hydrateCache() {
     const tags = await this.db.getAll();
     tags.rows.forEach((result) => {
       const tagDoc = result.doc;
@@ -107,7 +110,6 @@ export class TagService {
       this.cache.set(result.id, tag);
       this.publish(tag);
     });
-    console.log("hydrated");
     return true;
   }
 

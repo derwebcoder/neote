@@ -60,14 +60,14 @@ export class NeoteTag extends HTMLElement {
       this.innerText = "";
       return;
     }
-    this.innerText = this.tag.name;
+    this.innerText = this.tag.getName();
 
     this.style.setProperty(
       "--icon",
-      `url(data:image/svg+xml;utf8,${encodeURIComponent(TagIconMap[this.tag.icon])})`,
+      `url(data:image/svg+xml;utf8,${encodeURIComponent(TagIconMap[this.tag.getIcon()])})`,
     );
 
-    this.style.setProperty("--hue-color", this.tag.hue.toString());
+    this.style.setProperty("--hue-color", this.tag.getHue().toString());
   }
 }
 

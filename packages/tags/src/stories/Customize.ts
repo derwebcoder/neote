@@ -12,82 +12,78 @@ export const storyCustomize: Story = {
   title: "Customize",
   order: 30,
   render: (root: HTMLElement) => {
-    // because otherwise tagService will return default in the beginning
-    window.setTimeout(() => {
-      const tagService = DI.resolve("TagService");
-      const tag = tagService.get("universe");
-      console.log({ tag });
+    const tagService = DI.resolve("TagService");
+    const tag = tagService.get("universe");
 
-      const container = getCenteredWrapper();
-      container.setAttribute("data-tag-style", "chip-light");
+    const container = getCenteredWrapper();
+    container.setAttribute("data-tag-style", "chip-light");
 
-      const icons = Object.keys(TagIconMap);
+    const icons = Object.keys(TagIconMap);
 
-      const [wrapper, iconSelect, styleSelect, hueSelect]: [
-        HTMLDivElement,
-        HTMLSelectElement,
-        HTMLSelectElement,
-        HueSelectComponent,
-      ] = html`
-        <div
-          style="display: flex; flex-direction: column; gap: 25px; justify-content: center; align-items: center;"
-        >
-          <div style="display: flex; gap: 8px;">
-            <select ref>
-              ${icons
-                .map((icon) =>
-                  rawHtml(
-                    html` <option
-                      value="${icon}"
-                      ${icon === tag.icon ? "selected" : ""}
-                    >
-                      ${icon}
-                    </option>`,
-                  ),
-                )
-                .join("")}
-            </select>
-            <select ref>
-              ${TagStyles.map((style) =>
+    const [wrapper, iconSelect, styleSelect, hueSelect]: [
+      HTMLDivElement,
+      HTMLSelectElement,
+      HTMLSelectElement,
+      HueSelectComponent,
+    ] = html`
+      <div
+        style="display: flex; flex-direction: column; gap: 25px; justify-content: center; align-items: center;"
+      >
+        <div style="display: flex; gap: 8px;">
+          <select ref>
+            ${icons
+              .map((icon) =>
                 rawHtml(
                   html` <option
-                    value="${style}"
-                    ${style === "chip-light" ? "selected" : ""}
+                    value="${icon}"
+                    ${icon === tag.getIcon() ? "selected" : ""}
                   >
-                    ${style}
+                    ${icon}
                   </option>`,
                 ),
-              ).join("")}
-            </select>
-            <neote-hue-select
-              ref
-              hue="${tag.hue.toString()}"
-              style="width: 75px;"
-            ></neote-hue-select>
-          </div>
-          <neote-tag name="universe"></neote-tag>
+              )
+              .join("")}
+          </select>
+          <select ref>
+            ${TagStyles.map((style) =>
+              rawHtml(
+                html` <option
+                  value="${style}"
+                  ${style === "chip-light" ? "selected" : ""}
+                >
+                  ${style}
+                </option>`,
+              ),
+            ).join("")}
+          </select>
+          <neote-hue-select
+            ref
+            hue="${tag.getHue().toString()}"
+            style="width: 75px;"
+          ></neote-hue-select>
         </div>
-      `;
-      container.appendChild(wrapper);
+        <neote-tag name="universe"></neote-tag>
+      </div>
+    `;
+    container.appendChild(wrapper);
 
-      iconSelect.addEventListener("change", () => {
-        const value = iconSelect.value;
-        tag.icon = value as keyof typeof TagIconMap;
-        tagService.update(tag);
-      });
+    iconSelect.addEventListener("change", () => {
+      const value = iconSelect.value;
+      tag.setIcon(value as keyof typeof TagIconMap);
+      tagService.update(tag);
+    });
 
-      styleSelect.addEventListener("change", () => {
-        const style = styleSelect.value;
-        container.setAttribute("data-tag-style", style);
-      });
+    styleSelect.addEventListener("change", () => {
+      const style = styleSelect.value;
+      container.setAttribute("data-tag-style", style);
+    });
 
-      hueSelect.addEventListener("hue-select", (e: HueSelectEvent) => {
-        const hue = e.detail?.hue ?? 0;
-        tag.hue = hue;
-        tagService.update(tag);
-      });
+    hueSelect.addEventListener("hue-select", (e: HueSelectEvent) => {
+      const hue = e.detail?.hue ?? 0;
+      tag.setHue(hue);
+      tagService.update(tag);
+    });
 
-      root.appendChild(container);
-    }, 100);
+    root.appendChild(container);
   },
 };

@@ -2,9 +2,14 @@ import PouchDB from "pouchdb-browser";
 import { TagBasic, TagDocument } from "../models/Tag";
 
 export class TagDB {
-  private db = new PouchDB<TagDocument>("tags");
+  private db;
 
-  constructor() {}
+  constructor(
+    options?: PouchDB.Configuration.DatabaseConfiguration,
+    dbSuffix: string = "",
+  ) {
+    this.db = new PouchDB<TagDocument>(`tags${dbSuffix}`, options);
+  }
 
   public async get(name: string) {
     return this.db.get(name);
@@ -46,5 +51,9 @@ export class TagDB {
     this.db
       .changes({ live: true, since: "now", include_docs: true })
       .on("change", callback);
+  }
+
+  public async xxxBEWARE__destroy() {
+    await this.db.destroy();
   }
 }

@@ -57,8 +57,8 @@ export class NeoteTagStyleSelection extends HTMLElement {
           <p class="${previewClass}" style="${previewStyle}">
             <neote-tag name="thought"></neote-tag>
             <neote-tag name="philosophy"></neote-tag> Is the
-            <neote-tag name="universe"></neote-tag> really expanding or are we
-            just shrinking?
+            <neote-tag name="universe"></neote-tag> really expanding or are our
+            minds just shrinking?
           </p>
         </div>
       </div>

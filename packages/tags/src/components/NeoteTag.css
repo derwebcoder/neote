@@ -90,10 +90,10 @@ neote-tag {
     border-radius: 5px;
     background: linear-gradient(
       135deg,
-      hsl(calc(var(--hue-color) - 60) 50% 90% / 100%) 0%,
+      hsl(calc(var(--hue-color) - 90) 50% 90% / 100%) 0%,
       hsl(var(--hue-color) 50% 90% / 100%) 30%,
       hsl(var(--hue-color) 50% 90% / 100%) 70%,
-      hsl(calc(var(--hue-color) + 60) 50% 90% / 100%) 100%
+      hsl(calc(var(--hue-color) + 90) 50% 90% / 100%) 100%
     );
     color: hsl(var(--hue-color) 100% 20% / 100%);
     font-weight: 700;
@@ -104,10 +104,10 @@ neote-tag {
     border-radius: 5px;
     background: linear-gradient(
       135deg,
-      hsl(calc(var(--hue-color) - 20) 70% 48% / 100%) 0%,
+      hsl(calc(var(--hue-color) - 30) 70% 48% / 100%) 0%,
       hsl(var(--hue-color) 70% 48% / 100%) 30%,
       hsl(var(--hue-color) 70% 48% / 100%) 70%,
-      hsl(calc(var(--hue-color) + 20) 70% 48% / 100%) 100%
+      hsl(calc(var(--hue-color) + 30) 70% 48% / 100%) 100%
     );
     color: hsl(var(--hue-color) 100% 97% / 100%);
     font-weight: 700;

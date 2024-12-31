@@ -5,23 +5,30 @@ import "./components/NeoteTagStyleSelection";
 import { TagService } from "./services/TagService";
 import * as stories from "./stories";
 import { html } from "@neote/render";
+import { TagDB } from "./db/TagDB";
 
-DI.inject("TagService", new TagService());
+(async () => {
+  const db = new TagDB();
+  const tagService = await TagService.construct(db);
+  DI.inject("TagService", tagService);
 
-const app = document.getElementById("app");
+  const app = document.getElementById("app");
 
-if (!app) {
-  throw new Error("#app missing in index.html");
-}
+  if (!app) {
+    throw new Error("#app missing in index.html");
+  }
 
-const storiesSorted = Object.values(stories).sort((a, b) => a.order - b.order);
-for (const story of storiesSorted) {
-  const [wrapper, storyRoot] = html`
-    <div class="story">
-      <span>${story.title}</span>
-      <div ref class="story-root"></div>
-    </div>
-  `;
-  story.render(storyRoot);
-  app.appendChild(wrapper);
-}
+  const storiesSorted = Object.values(stories).sort(
+    (a, b) => a.order - b.order,
+  );
+  for (const story of storiesSorted) {
+    const [wrapper, storyRoot] = html`
+      <div class="story">
+        <span>${story.title}</span>
+        <div ref class="story-root"></div>
+      </div>
+    `;
+    story.render(storyRoot);
+    app.appendChild(wrapper);
+  }
+})();
