@@ -22,7 +22,7 @@ export const storyHueSelect: Story = {
         <neote-hue-select ref style="width: 75px;"></neote-hue-select>
         <div
           ref
-          style="font-family: system, sans-serif; font-size: 14px; height: 150px; overflow-y: scroll; padding: 15px;"
+          style="font-family: system-ui, sans-serif; font-size: 14px; height: 150px; overflow-y: scroll; padding: 15px;"
         >
           <span style="display: block; font-weight: bold; padding-bottom: 8px;"
             >Event Log</span

@@ -18,7 +18,7 @@ export const storyStyleSelection: Story = {
     const [selection]: [NeoteTagStyleSelection] = html`
       <neote-tag-style-selection
         value="${tagStyleService.getStyle()}"
-        preview-style="font-family: system, sans-serif; font-size: 14px; line-height: 1.4;"
+        preview-style="font-family: system-ui, sans-serif; font-size: 14px; line-height: 1.4;"
       >
       </neote-tag-style-selection>
     `;
