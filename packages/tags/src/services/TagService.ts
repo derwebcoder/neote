@@ -1,3 +1,4 @@
+import { matchSorter } from "match-sorter";
 import { generateDefaultHue } from "../config/TagColorConfig";
 import { getDefaultIcon, TagIconMap } from "../config/TagIconConfig";
 import { TagDB } from "../db/TagDB";
@@ -89,6 +90,20 @@ export class TagService {
     return () => {
       this.watcher[name] = this.watcher[name].filter((cb) => cb !== callback);
     };
+  }
+
+  public async find(query: string, limit = 20) {
+    const tags = [...(await this.cache.values())];
+    const matches = matchSorter(tags, query, {
+      keys: [
+        "name",
+        {
+          key: "description",
+          maxRanking: matchSorter.rankings.STARTS_WITH,
+        },
+      ],
+    });
+    return matches.slice(0, limit);
   }
 
   private publish(tag: Tag) {

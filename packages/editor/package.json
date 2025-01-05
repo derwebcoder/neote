@@ -13,6 +13,9 @@
     "test": "NODE_NO_WARNINGS=1 vitest"
   },
   "devDependencies": {
+    "@neote/dependency-injection": "^1.0.0",
+    "@neote/render": "^1.0.0",
+    "@neote/tags": "^1.0.0",
     "@neote/theme": "^1.0.0",
     "@testing-library/dom": "^10.4.0",
     "@testing-library/jest-dom": "^6.6.3",

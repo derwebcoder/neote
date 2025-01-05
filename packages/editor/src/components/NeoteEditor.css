@@ -4,6 +4,13 @@ neote-editor {
   width: 100%;
   height: 100%;
 
+  .tiptap {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem;
+  }
+
+  /* Placeholder extension */
   p.is-editor-empty:first-child::before {
     font-size: 14px;
     content: attr(data-placeholder);

@@ -31,6 +31,7 @@
     "@neote/render": "^1.0.0",
     "events": "^3.3.0",
     "feather-icons": "^4.29.2",
+    "match-sorter": "^8.0.0",
     "pouchdb-adapter-memory": "^9.0.0",
     "pouchdb-browser": "^9.0.0"
   }

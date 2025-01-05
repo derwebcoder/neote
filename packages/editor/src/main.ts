@@ -1,4 +1,5 @@
 import "./components/NeoteEditor";
+import "./components/NeoteTagSuggestions";
 import * as stories from "./stories";
 import { html } from "@neote/render";
 import "./index.css";
