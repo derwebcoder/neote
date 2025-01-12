@@ -1,6 +1,8 @@
 import "./NeoteEditor.css";
-import { Editor } from "@tiptap/core";
+import { AnyExtension, Editor, Extension } from "@tiptap/core";
 import { getBaseExtensions } from "../extensions/Base";
+import { getTagExtension } from "../extensions/Tags";
+import { DI } from "@neote/dependency-injection";
 
 /**
  * A custom element displaying a rich text editor using TipTap internally.
@@ -45,11 +47,26 @@ export class NeoteEditor extends HTMLElement {
 
   private init() {
     this.innerHTML = "";
+    const extensionTagMode = this.getAttribute("extension-tag") ?? "disabled";
+    let extensionTag: AnyExtension | null = null;
+
+    if (extensionTagMode !== "disabled") {
+      try {
+        const tagService = DI.resolve("TagService");
+        extensionTag = getTagExtension(tagService, {
+          selectOnly: extensionTagMode === "selectonly",
+        });
+      } catch (e) {
+        console.error("Initiated Editor but TagService was not available.", e);
+      }
+    }
+
     this.editor = new Editor({
       element: this,
       extensions: [
         ...getBaseExtensions(this.getAttribute("placeholder") || ""),
-      ],
+        extensionTag,
+      ].filter(Boolean) as Extension[],
       content: this.getAttribute("content"),
     });
   }

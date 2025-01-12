@@ -31,6 +31,7 @@
     "vitest": "^2.1.8"
   },
   "dependencies": {
+    "@floating-ui/dom": "^1.6.13",
     "@neote/dependency-injection": "^1.0.0",
     "@neote/render": "^1.0.0",
     "@tiptap/core": "^2.11.0",

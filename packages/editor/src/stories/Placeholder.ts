@@ -3,7 +3,7 @@ import { getCenteredWrapper, Story } from "./storyUtils";
 
 export const storyPlaceholder: Story = {
   title: "Placeholder",
-  order: 0,
+  order: 10,
   render: (root: HTMLElement) => {
     const wrapper = getCenteredWrapper();
 
