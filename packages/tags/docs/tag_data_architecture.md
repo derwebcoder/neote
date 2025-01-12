@@ -1,3 +1,5 @@
+[[All docs](../../../docs/index.md)]
+
 # Tag Data Architecture
 
 Tags are stored locally in indexedDB and are being accessed through PouchDB. The main access point for other parts of the code is the `TagService`.
