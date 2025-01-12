@@ -4,8 +4,6 @@
 
 Offline-first a.k.a. local-first has been around for a while. There are plenty solutions out there to enable local (and therefore offline) data management and syncing the local data with remote data stores. They often implement conflict resolution to allow multiple states to co-exist and eventuelly sync again.
 
-This table is an overview of different solutions I found and had a look at (not tried out all of them on my own).
-
 In a first version of this app I used [Dexie.js](https://dexie.org/) to store data locally (with not intention to sync eventuelly). Based on the learnings of the first version I explored different alternatives that would meet the following requirements:
 
 - (hard) Offline only
@@ -24,6 +22,10 @@ In a first version of this app I used [Dexie.js](https://dexie.org/) to store da
   - I don't even want to be able to see any user content. If (strong) encryption support is already built-in, even better. Otherwise I will need to find a way to handle this myself. Which may come as a drawback of other features (like full-text search).
 - (soft) Low maintenance
   - If it comes to it, it should not require changes in the data structure / format to enable remote syncing.
+
+
+This following is an overview of different solutions I found and had a look at. The evaluation is only meant for this project. It was done in January 2025 and might be outdated when you're reading this. I didn't have a thorough look through all of the tools, it was mostly done by reading through their documentation.
+
 
 ## Tools
 
