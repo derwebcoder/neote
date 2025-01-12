@@ -41,7 +41,8 @@ export class NeoteTag extends HTMLElement {
     this.unwatch?.();
 
     if (!name) {
-      throw new Error("neote-tag: attribute 'name' is required");
+      this.render();
+      return;
     }
 
     this.tagService = await DI.resolveAsync("TagService");
@@ -56,18 +57,15 @@ export class NeoteTag extends HTMLElement {
   }
 
   private async render() {
-    if (!this.tag) {
-      this.innerText = "";
-      return;
-    }
-    this.innerText = this.tag.getName();
+    this.innerText =
+      this.tag?.getName() ?? this.getAttribute("name") ?? "(unknown)";
 
     this.style.setProperty(
       "--icon",
-      `url(data:image/svg+xml;utf8,${encodeURIComponent(TagIconMap[this.tag.getIcon()])})`,
+      `url(data:image/svg+xml;utf8,${encodeURIComponent(TagIconMap[this.tag?.getIcon() ?? "hash"])})`,
     );
 
-    this.style.setProperty("--hue-color", this.tag.getHue().toString());
+    this.style.setProperty("--hue-color", this.tag?.getHue().toString() ?? "1");
   }
 }
 
