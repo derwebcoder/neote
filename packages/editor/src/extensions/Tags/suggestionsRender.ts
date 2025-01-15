@@ -34,7 +34,7 @@ export const getSuggestionRender = (
 
         listener = (e: TagSelectEvent) => {
           const tag = e.detail?.tag;
-          props.command({ id: tag });
+          props.command({ name: tag });
         };
         component.addEventListener("tag-select", listener);
 
@@ -50,12 +50,6 @@ export const getSuggestionRender = (
         }
 
         component.setAttribute("query", props.query);
-        component.removeEventListener("tag-select", listener);
-        listener = (e: TagSelectEvent) => {
-          const tag = e.detail?.tag;
-          props.command({ id: tag });
-        };
-        component.addEventListener("tag-select", listener);
 
         positionPopup(getClientRect, component);
       },

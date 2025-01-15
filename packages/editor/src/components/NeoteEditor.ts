@@ -2,7 +2,6 @@ import "./NeoteEditor.css";
 import { AnyExtension, Editor, Extension } from "@tiptap/core";
 import { getBaseExtensions } from "../extensions/Base";
 import { getTagExtension } from "../extensions/Tags";
-import { DI } from "@neote/dependency-injection";
 
 /**
  * A custom element displaying a rich text editor using TipTap internally.
@@ -52,8 +51,7 @@ export class NeoteEditor extends HTMLElement {
 
     if (extensionTagMode !== "disabled") {
       try {
-        const tagService = DI.resolve("TagService");
-        extensionTag = getTagExtension(tagService, {
+        extensionTag = getTagExtension({
           selectOnly: extensionTagMode === "selectonly",
         });
       } catch (e) {
