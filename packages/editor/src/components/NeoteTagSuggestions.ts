@@ -16,6 +16,7 @@ export type TagSelectEvent = CustomEventInit<TagSelectEventDetail>;
 export class NeoteTagSuggestions extends HTMLElement {
   static observedAttributes = ["query"];
   private tagService?: TagService;
+  // note, this index starts at 1, because we use it with :nth-child()
   private selectedIndex = 1;
   private items: Tag[] = [];
 
@@ -30,6 +31,7 @@ export class NeoteTagSuggestions extends HTMLElement {
   }
 
   connectedCallback() {
+    this.handleSelect();
     this.update().then(() => this.render());
   }
 
@@ -51,15 +53,18 @@ export class NeoteTagSuggestions extends HTMLElement {
   }
 
   private upHandler() {
-    const nextIndex =
-      (this.selectedIndex + this.items.length - 1) % this.items.length;
+    const numberOfOptions =
+      this.items.length + (this.isAddingNewTagOptionAvailable() ? 1 : 0);
+    const nextIndex = (this.selectedIndex - 1) % numberOfOptions;
     this.selectedIndex = nextIndex;
     this.scrollToView(nextIndex);
     this.render();
   }
 
   private downHandler() {
-    const nextIndex = (this.selectedIndex + 1) % this.items.length;
+    const numberOfOptions =
+      this.items.length + (this.isAddingNewTagOptionAvailable() ? 1 : 0);
+    const nextIndex = (this.selectedIndex + 1) % numberOfOptions;
     this.selectedIndex = nextIndex;
     this.scrollToView(nextIndex);
     this.render();
@@ -83,7 +88,7 @@ export class NeoteTagSuggestions extends HTMLElement {
       const itemElement = this.querySelector(
         `button:nth-child(${this.selectedIndex})`,
       );
-      itemElement?.dispatchEvent(new Event("click"));
+      itemElement?.dispatchEvent(new Event("click", { bubbles: true }));
       event.preventDefault();
       event.stopPropagation();
       return true;
@@ -92,17 +97,24 @@ export class NeoteTagSuggestions extends HTMLElement {
     return false;
   }
 
-  private dispatchSelect(e: KeyboardEvent | MouseEvent) {
-    const tag = (e.currentTarget as HTMLElement).getAttribute("data-tag");
-    if (!tag) {
-      return;
-    }
-    this.dispatchEvent(
-      new CustomEvent<TagSelectEventDetail>("tag-select", {
-        bubbles: true,
-        detail: { tag },
-      }),
-    );
+  private handleSelect() {
+    this.addEventListener("click", (e: KeyboardEvent | MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const tag =
+        target.getAttribute("data-tag") ??
+        target.parentElement?.getAttribute("data-tag") ??
+        target.parentElement?.parentElement?.getAttribute("data-tag");
+      if (!tag) {
+        return;
+      }
+      e.stopPropagation();
+      this.dispatchEvent(
+        new CustomEvent<TagSelectEventDetail>("tag-select", {
+          bubbles: true,
+          detail: { tag },
+        }),
+      );
+    });
   }
 
   private async update() {
@@ -111,7 +123,29 @@ export class NeoteTagSuggestions extends HTMLElement {
       return;
     }
     const query = this.getAttribute("query")?.toLowerCase().trim() ?? "";
+
     this.items = await tagService.find(query, 15);
+
+    if (this.items.length > 0) {
+      if (this.isAddingNewTagOptionAvailable()) {
+        this.selectedIndex = 2;
+      } else {
+        this.selectedIndex = 1;
+      }
+    }
+  }
+
+  /**
+   * the option to add a new term is only available if:
+   * - the option selectOnly is not active
+   * - the user has entered some text (the query)
+   * - the first item is not an exact match
+   */
+  private isAddingNewTagOptionAvailable() {
+    const query = this.getAttribute("query")?.trim() ?? "";
+    const selectOnly = this.hasAttribute("select-only");
+    const isExactMatch = this.items[0]?.getName() === query;
+    return !selectOnly && query.length > 0 && !isExactMatch;
   }
 
   private async render() {
@@ -129,18 +163,22 @@ export class NeoteTagSuggestions extends HTMLElement {
     this.className =
       "bg-white border border-stone-400 rounded-md shadow flex flex-col gap-1 scroll-auto px-3 py-2 overflow-y-auto max-h-64";
 
+    let selectedIndex = this.selectedIndex;
     if (selectOnly) {
       if (this.items.length <= 0) {
         return this.renderEmpty();
       }
     } else {
-      const isExactMatch = this.items[0]?.getName() === query;
-      if (!selectOnly && !isExactMatch) {
+      if (this.isAddingNewTagOptionAvailable()) {
         this.renderAddNewTag(query);
+        // if we render the option to add a new tag,
+        // we need to decrement the index so that it matches when we
+        // render the items
+        selectedIndex = selectedIndex - 1;
       }
     }
 
-    this.renderTags(this.items);
+    this.renderTags(this.items, selectedIndex);
   }
 
   private async renderEmpty() {
@@ -153,14 +191,19 @@ export class NeoteTagSuggestions extends HTMLElement {
       return;
     }
     const [wrapper] = html`
-      <button type="button" class="text-start">
-        New tag <neote-tag name="${query}"></neote-tag>
+      <button
+        type="button"
+        class="${this.selectedIndex === 1 ? "selected" : ""} text-start"
+        data-tag="${query}"
+      >
+        <span class="text-sm text-stone-500">New tag</span>
+        <neote-tag name="${query}"></neote-tag>
       </button>
     `;
     this.appendChild(wrapper);
   }
 
-  private async renderTags(tags: Tag[]) {
+  private async renderTags(tags: Tag[], selectedIndex: number) {
     const [wrapper] = html`
       <div>
         ${tags
@@ -169,7 +212,7 @@ export class NeoteTagSuggestions extends HTMLElement {
               <button
                 type="button"
                 data-tag="${tag.getName()}"
-                class="${index + 1 === this.selectedIndex
+                class="${index + 1 === selectedIndex
                   ? "selected"
                   : ""} text-start"
               >
@@ -180,9 +223,6 @@ export class NeoteTagSuggestions extends HTMLElement {
           .join("")}
       </div>
     `;
-    wrapper.querySelectorAll("button").forEach((button) => {
-      button.addEventListener("click", this.dispatchSelect);
-    });
     this.append(...wrapper.children);
   }
 }
