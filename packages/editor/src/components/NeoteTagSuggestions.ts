@@ -79,7 +79,7 @@ export class NeoteTagSuggestions extends HTMLElement {
       return true;
     }
 
-    if (event.key === "Enter" || event.key === " ") {
+    if (event.key === "Enter") {
       const itemElement = this.querySelector(
         `button:nth-child(${this.selectedIndex})`,
       );
