@@ -161,7 +161,7 @@ export class NeoteTagSuggestions extends HTMLElement {
 
     this.innerHTML = "";
     this.className =
-      "bg-white border border-stone-400 rounded-md shadow flex flex-col gap-1 scroll-auto px-3 py-2 overflow-y-auto max-h-64";
+      "bg-white border border-stone-400 rounded-md shadow flex flex-col scroll-auto px-1 py-1 overflow-y-auto max-h-64";
 
     let selectedIndex = this.selectedIndex;
     if (selectOnly) {
@@ -193,7 +193,9 @@ export class NeoteTagSuggestions extends HTMLElement {
     const [wrapper] = html`
       <button
         type="button"
-        class="${this.selectedIndex === 1 ? "selected" : ""} text-start"
+        class="${this.selectedIndex === 1
+          ? "bg-stone-300 rounded"
+          : ""} px-2 py-1 text-start hover:bg-stone-200"
         data-tag="${query}"
       >
         <span class="text-sm text-stone-500">New tag</span>
@@ -213,8 +215,8 @@ export class NeoteTagSuggestions extends HTMLElement {
                 type="button"
                 data-tag="${tag.getName()}"
                 class="${index + 1 === selectedIndex
-                  ? "selected"
-                  : ""} text-start"
+                  ? "bg-stone-300 rounded"
+                  : ""} px-2 py-1 text-start hover:bg-stone-200"
               >
                 <neote-tag name="${tag.getName()}"></neote-tag>
               </button>
