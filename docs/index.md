@@ -5,6 +5,7 @@ Includes relevant high-level documentation about the project, architecture overv
 ## Architecture
 
 - [Data Architecture of Tags](../packages/tags/docs/tag_data_architecture.md)
+- [Tiptap Custom Extensions](../packages/editor/docs/tiptap_custom_extensions.md)
 
 ## Research and Decisions
 

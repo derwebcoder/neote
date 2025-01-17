@@ -9,6 +9,12 @@ import { parseHTML } from "./parse";
 import { addAttributes } from "./attributes";
 import { getSuggestionRender } from "./suggestionsRender";
 
+/*
+
+  see also the documentation in
+  /docs/tiptap_custom_extensions.md
+
+*/
 export const getTagExtension = (options?: {
   selectOnly: boolean;
 }): AnyExtension => {

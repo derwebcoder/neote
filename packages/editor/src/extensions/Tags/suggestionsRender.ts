@@ -20,18 +20,24 @@ export const getSuggestionRender = (
           return;
         }
 
+        // we want to attach the component to the editor
+        // for easier positioning
         wrapper = props.editor.$doc.element.parentElement!;
 
         component = document.createElement(
           "neote-tag-suggestions",
         ) as NeoteTagSuggestions;
 
+        // positions the component absolute via CSS
+        // we can't use classes as they will be overriden
         component.setAttribute("data-popover", "true");
 
         if (selectOnly) {
           component.setAttribute("select-only", "true");
         }
 
+        // The component triggers a custom event `tag-select`
+        // which contains the selected tag name
         listener = (e: TagSelectEvent) => {
           const tag = e.detail?.tag;
           props.command({ name: tag });
@@ -40,6 +46,7 @@ export const getSuggestionRender = (
 
         wrapper.appendChild(component);
 
+        // position the component relative to the user input
         positionPopup(getClientRect, component);
       },
 
@@ -49,8 +56,10 @@ export const getSuggestionRender = (
           return;
         }
 
+        // the query could have changed
         component.setAttribute("query", props.query);
 
+        // the position of the user input could have changed
         positionPopup(getClientRect, component);
       },
 
@@ -61,6 +70,10 @@ export const getSuggestionRender = (
           return true;
         }
 
+        // the extension needs to handle the user input
+        // and forwards this to the component
+        // which can either act on it (return true, for example for up/down/enter)
+        // or ignore it (return false), so it will be handled by tiptap / other extensions
         return component.onExternalKeyDown(props);
       },
 

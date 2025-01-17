@@ -7,7 +7,9 @@ type TagSelectEventDetail = { tag: string };
 export type TagSelectEvent = CustomEventInit<TagSelectEventDetail>;
 
 /**
- * A custom element displaying a rich text editor using TipTap internally.
+ * A custom element displaying a list of tags
+ *
+ * note: This component is not responsible for positioning!
  *
  * @element neote-tag-suggestions
  * @attr {string} query The query to search for tags
@@ -55,7 +57,11 @@ export class NeoteTagSuggestions extends HTMLElement {
   private upHandler() {
     const numberOfOptions =
       this.items.length + (this.isAddingNewTagOptionAvailable() ? 1 : 0);
-    const nextIndex = (this.selectedIndex - 1) % numberOfOptions;
+    let nextIndex = (this.selectedIndex - 1) % (numberOfOptions + 1);
+    if (nextIndex === 0) {
+      nextIndex = numberOfOptions;
+    }
+
     this.selectedIndex = nextIndex;
     this.scrollToView(nextIndex);
     this.render();
@@ -64,13 +70,21 @@ export class NeoteTagSuggestions extends HTMLElement {
   private downHandler() {
     const numberOfOptions =
       this.items.length + (this.isAddingNewTagOptionAvailable() ? 1 : 0);
-    const nextIndex = (this.selectedIndex + 1) % numberOfOptions;
+    let nextIndex = (this.selectedIndex + 1) % (numberOfOptions + 1);
+    if (nextIndex === 0) {
+      nextIndex = 1;
+    }
+
     this.selectedIndex = nextIndex;
     this.scrollToView(nextIndex);
     this.render();
   }
 
   /**
+   * Tiptap requires a callback that receives the KeyboardEvent
+   * The callback needs to return true if the event has been handled by this component
+   * or false to forward the event to the next extension or tiptap
+   *
    * @returns true if the event has been handled here, otherwise false to be handled externally
    */
   public onExternalKeyDown({ event }: { event: KeyboardEvent }) {
@@ -85,21 +99,34 @@ export class NeoteTagSuggestions extends HTMLElement {
     }
 
     if (event.key === "Enter") {
+      // We simulate a click on the currently selected item
+      // this will then be handled by the click event listener
+      // in `handleSelect()`
       const itemElement = this.querySelector(
         `button:nth-child(${this.selectedIndex})`,
       );
       itemElement?.dispatchEvent(new Event("click", { bubbles: true }));
+
+      // to prevent creating a new line
       event.preventDefault();
       event.stopPropagation();
+
       return true;
     }
 
     return false;
   }
 
+  /**
+   * Adds an event listener to the list to listen for
+   * click or keyboard events and triggers the custom
+   * `tag-select` event with the tag name taken from the `data-tag` attribute
+   */
   private handleSelect() {
     this.addEventListener("click", (e: KeyboardEvent | MouseEvent) => {
       const target = e.target as HTMLElement;
+
+      // the user could have clicked on a child element of the button
       const tag =
         target.getAttribute("data-tag") ??
         target.parentElement?.getAttribute("data-tag") ??
@@ -107,7 +134,10 @@ export class NeoteTagSuggestions extends HTMLElement {
       if (!tag) {
         return;
       }
+
+      // don't expose the click event outside of the component
       e.stopPropagation();
+
       this.dispatchEvent(
         new CustomEvent<TagSelectEventDetail>("tag-select", {
           bubbles: true,
@@ -117,6 +147,10 @@ export class NeoteTagSuggestions extends HTMLElement {
     });
   }
 
+  /**
+   * Updates the component state by querying the tagService
+   * and updating the selectedIndex
+   */
   private async update() {
     const tagService = this.tagService;
     if (!tagService) {
@@ -148,6 +182,9 @@ export class NeoteTagSuggestions extends HTMLElement {
     return !selectOnly && query.length > 0 && !isExactMatch;
   }
 
+  /**
+   * Renders the list
+   */
   private async render() {
     const tagService = this.tagService;
 
@@ -163,6 +200,10 @@ export class NeoteTagSuggestions extends HTMLElement {
     this.className =
       "bg-white border border-stone-400 rounded-md shadow flex flex-col scroll-auto px-1 py-1 overflow-y-auto max-h-64";
 
+    // We can render three different things based on the current state
+    // - Empty state (only if selectOnly is true, otherwise it's (always) possible to create a new tag)
+    // - Add new tag (only if selectOnly is false and isAddingNewTagOptionAvailable() returns true)
+    // - The list of tags (can be nothing if no match)
     let selectedIndex = this.selectedIndex;
     if (selectOnly) {
       if (this.items.length <= 0) {
@@ -181,11 +222,21 @@ export class NeoteTagSuggestions extends HTMLElement {
     this.renderTags(this.items, selectedIndex);
   }
 
+  /**
+   * Renders the empty state.
+   * A part of the `render()` function
+   */
   private async renderEmpty() {
-    const [wrapper] = html` <div class="text-stone-500">No results</div> `;
+    const [wrapper] = html`
+      <div class="px-3 py-1 text-stone-500">No results</div>
+    `;
     this.appendChild(wrapper);
   }
 
+  /**
+   * Renders the add new tag option.
+   * A part of the `render()` function
+   */
   private async renderAddNewTag(query: string) {
     if (query === "") {
       return;
@@ -205,6 +256,11 @@ export class NeoteTagSuggestions extends HTMLElement {
     this.appendChild(wrapper);
   }
 
+  /**
+   * The list of found tags
+   * It needs the selectedIndex provided and can't use the component state
+   * because it does not know whether the option to add a new is also being rendered
+   */
   private async renderTags(tags: Tag[], selectedIndex: number) {
     const [wrapper] = html`
       <div>
