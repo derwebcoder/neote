@@ -20,21 +20,5 @@ neote-editor {
     pointer-events: none;
   }
 
-  /* For example for list items */
-  * > p {
-    margin-block: 0.1em !important;
-  }
 
-  code {
-    background-color: #eee;
-    border-radius: 0.4rem;
-    font-size: 0.85rem;
-    padding: 0.25em 0.3em;
-    font-weight: 300 !important;
-
-    &::after,
-    &::before {
-      display: none;
-    }
-  }
 }

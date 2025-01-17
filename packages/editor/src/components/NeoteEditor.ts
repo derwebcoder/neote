@@ -69,7 +69,7 @@ export class NeoteEditor extends HTMLElement {
       editorProps: {
         attributes: {
           role: "textbox",
-          class: `prose prose-stone prose-sm`,
+          class: `user-content`,
         },
       },
     });
