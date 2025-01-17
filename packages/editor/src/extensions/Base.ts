@@ -12,21 +12,6 @@ export const getBaseExtensions = (placeholder: string): AnyExtension[] => {
       // like here: https://github.com/ueberdosis/tiptap/issues/632#issuecomment-600536493
       // you can find the extended heading below.
       heading: false,
-      bulletList: {
-        HTMLAttributes: {
-          class: "list-disc list-inside text-gray-800 dark:text-white",
-        },
-      },
-      orderedList: {
-        HTMLAttributes: {
-          class: "list-decimal list-inside text-gray-800 dark:text-white",
-        },
-      },
-      blockquote: {
-        HTMLAttributes: {
-          class: "text-gray-800 sm:text-xl dark:text-white",
-        },
-      },
     }),
     ListKeymap,
     Placeholder.configure({
@@ -45,7 +30,7 @@ export const getBaseExtensions = (placeholder: string): AnyExtension[] => {
               find: new RegExp(`^(#{${level}}) $`),
               type: this.type,
               getAttributes: {
-                level: 1,
+                level,
               },
             }),
           );

@@ -17,7 +17,6 @@ export const getTagExtension = (options?: {
     name: "tags",
     parseHTML,
     addAttributes,
-    priority: 9999,
   }).configure({
     renderHTML,
     suggestion: {

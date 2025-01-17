@@ -66,6 +66,12 @@ export class NeoteEditor extends HTMLElement {
         extensionTag,
       ].filter(Boolean) as Extension[],
       content: this.getAttribute("content"),
+      editorProps: {
+        attributes: {
+          role: "textbox",
+          class: `prose prose-stone prose-sm`,
+        },
+      },
     });
   }
 }
