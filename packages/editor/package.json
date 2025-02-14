@@ -23,8 +23,6 @@
     "autoprefixer": "^10.4.20",
     "global-jsdom": "^25.0.0",
     "jsdom": "^25.0.1",
-    "postcss": "^8.4.49",
-    "tailwindcss": "^3.4.17",
     "typescript": "^5.7.2",
     "vite": "^6.0.5",
     "vite-tsconfig-paths": "^5.1.4",
@@ -34,12 +32,14 @@
     "@floating-ui/dom": "^1.6.13",
     "@neote/dependency-injection": "^1.0.0",
     "@neote/render": "^1.0.0",
+    "@tailwindcss/vite": "^4.0.6",
     "@tiptap/core": "^2.11.0",
     "@tiptap/extension-list-keymap": "^2.11.0",
     "@tiptap/extension-mention": "^2.11.0",
     "@tiptap/extension-placeholder": "^2.11.0",
     "@tiptap/pm": "^2.11.0",
     "@tiptap/starter-kit": "^2.11.0",
-    "@tiptap/suggestion": "^2.11.0"
+    "@tiptap/suggestion": "^2.11.0",
+    "tailwindcss": "^4.0.6"
   }
 }

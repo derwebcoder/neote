@@ -4,6 +4,7 @@
 
 import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   // we ignore this error for now until vitest 3.0.0 is out
@@ -13,7 +14,7 @@ export default defineConfig({
     environment: "jsdom",
     globals: true,
   },
-  plugins: [tsconfigPaths()],
+  plugins: [tsconfigPaths(), tailwindcss()],
   define: {
     global: {},
   },

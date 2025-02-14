@@ -1,1 +1,10 @@
-@import url('@neote/theme/styles');
+/*
+  If needed, we could add package specific tailwindcss component styles in here.
+  (!) Then we would also need to export this file in the packcage.json
+
+  see https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
+*/
+
+@layer components {
+
+}
