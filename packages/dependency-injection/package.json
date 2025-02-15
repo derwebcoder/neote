@@ -13,14 +13,10 @@
     "test": "vitest"
   },
   "devDependencies": {
-    "@types/feather-icons": "^4.29.4",
     "typescript": "^5.7.2",
     "vite": "^6.0.5",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^2.1.8"
+    "vitest": "^3.0.5"
   },
-  "dependencies": {
-    "@neote/tags": "^1.0.0",
-    "feather-icons": "^4.29.2"
-  }
+  "dependencies": {}
 }
