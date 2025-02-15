@@ -43,7 +43,7 @@
   "lit-plugin.rules.no-unknown-property": "off",
   "lit-plugin.rules.no-unknown-slot": "off",
   "lit-plugin.rules.no-unknown-tag-name": "off",
-  "tailwindCSS.experimental.classRegex": ["class:\\s*?[\"'`]([^\"'`]*).*?,"],
+  // "tailwindCSS.experimental.classRegex": ["class:\\s*?[\"'`]([^\"'`]*).*?,"],
   "files.associations": {
     "*.css": "tailwindcss"
   }
