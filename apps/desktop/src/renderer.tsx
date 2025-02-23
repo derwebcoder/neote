@@ -26,9 +26,19 @@
  * ```
  */
 
-import "./index.css";
+// import { StrictMode } from 'react'
+// import { createRoot } from 'react-dom/client'
+// import {App} from '@neote/web'
+
+// createRoot(document.getElementById('root')!).render(
+//   <StrictMode>
+//     <App />
+//   </StrictMode>,
+// )
+
+import "@neote/web/main"
 
 console.log(
-  '👋 This message is being logged by "renderer.ts", included via Vite',
-  versions,
+  '👋 This message is being logged by "renderer.ts", included via Vite thanks',
+  // versions,
 );

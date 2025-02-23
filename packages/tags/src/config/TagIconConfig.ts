@@ -1,88 +1,33 @@
-import feather from "feather-icons";
+// import { icons } from "feather-icons";
+import * as icons from "lucide";
 
 export const getDefaultIcon = (): keyof typeof TagIconMap => {
   return "hash";
 };
 
+const getSvgIcon = (icon: any) => {
+  const svg = icons.createElement(icon);
+  svg.setAttribute("width", "16");
+  svg.setAttribute("height", "16");
+  svg.setAttribute("stroke-width", "1.5");
+  return svg.outerHTML;
+};
+
 export const TagIconMap = {
-  "alert-triangle": feather.icons["alert-triangle"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  bookmark: feather.icons["bookmark"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  calendar: feather.icons["calendar"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  gift: feather.icons["gift"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  hash: feather.icons["hash"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  heart: feather.icons["heart"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  "help-circle": feather.icons["help-circle"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  info: feather.icons["info"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  lock: feather.icons["lock"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  mail: feather.icons["mail"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  "map-pin": feather.icons["map-pin"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  shield: feather.icons["shield"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  star: feather.icons["star"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  user: feather.icons["user"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  users: feather.icons["users"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
-  zap: feather.icons["zap"].toSvg({
-    width: 16,
-    height: 16,
-    "stroke-width": 1.5,
-  }),
+  "triangle-alert": getSvgIcon(icons.TriangleAlert),
+  bookmark: getSvgIcon(icons.Bookmark),
+  calendar: getSvgIcon(icons.Calendar),
+  gift: getSvgIcon(icons.Gift),
+  hash: getSvgIcon(icons.Hash),
+  heart: getSvgIcon(icons.Heart),
+  "circle-help": getSvgIcon(icons.CircleHelp),
+  info: getSvgIcon(icons.Info),
+  lock: getSvgIcon(icons.Lock),
+  mail: getSvgIcon(icons.Mail),
+  "map-pin": getSvgIcon(icons.MapPin),
+  shield: getSvgIcon(icons.Shield),
+  star: getSvgIcon(icons.Star),
+  user: getSvgIcon(icons.User),
+  users: getSvgIcon(icons.Users),
+  zap: getSvgIcon(icons.Zap),
 } as const;
