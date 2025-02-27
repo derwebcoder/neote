@@ -18,13 +18,16 @@ export function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a> */}
       </div>
-      <h1>Vite + React + Electronics!</h1>
+      <h1>Vite + React + Electronic!</h1>
       <neote-editor></neote-editor>
       <neote-tag name="peter"></neote-tag>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          count graf is {count + 1}
+          There is no antidote {count + 1}
         </button>
+        <p>
+          You are using Chrome {window.versions?.chrome()}. Nice!
+        </p>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>

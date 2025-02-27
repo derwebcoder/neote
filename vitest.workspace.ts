@@ -1,8 +1,8 @@
-import { defineWorkspace } from 'vitest/config'
+import { defineWorkspace } from "vitest/config";
 
+// see https://vitest.dev/guide/workspace#defining-a-workspace
 export default defineWorkspace([
-  "./packages/editor/vite.config.ts",
-  "./packages/dependency-injection/vite.config.ts",
-  "./packages/tags/vite.config.ts",
-  "./packages/render/vite.config.ts"
-])
+  "/config/*/vite.config.ts",
+  "/packages/*/vite.config.ts",
+  "/apps/*/vite.config.ts",
+]);

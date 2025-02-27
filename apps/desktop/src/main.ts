@@ -21,14 +21,13 @@ const createWindow = () => {
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     // mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
     mainWindow.loadURL("http://localhost:5173/");
+    // Open the DevTools.
+    mainWindow.webContents.openDevTools();
   } else {
     mainWindow.loadFile(
       path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
     );
   }
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
 };
 
 // This method will be called when Electron has finished
