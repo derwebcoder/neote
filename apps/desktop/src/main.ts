@@ -1,6 +1,7 @@
-import { app, BrowserWindow } from "electron";
+import { app, BrowserWindow, ipcMain } from "electron";
 import path from "node:path";
 import started from "electron-squirrel-startup";
+import OpenAI from "openai";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -34,6 +35,24 @@ const createWindow = () => {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
+  const openai = new OpenAI({
+    baseURL: "http://localhost:11434/v1/",
+    // required but ignored
+    apiKey: "ollama",
+  });
+
+  ipcMain.handle("ai:chatCompletion", async (event, messages) => {
+    try {
+      const completion = await openai.chat.completions.create({
+        model: "llama3.2",
+        messages,
+      });
+      return completion.choices[0].message;
+    } catch (error) {
+      return false;
+    }
+  });
+
   createWindow();
 });
 

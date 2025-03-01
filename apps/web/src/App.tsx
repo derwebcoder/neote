@@ -8,6 +8,21 @@ import '@neote/tags'
 export function App() {
   const [count, setCount] = useState(0)
 
+  const sendMessage = async () => {
+    console.log('sendMessage')
+    const response = await (window as any).neote.ai.chatCompletion([
+      {
+        "role": "system",
+        "content": "You always respond in poem format."
+      },
+      {
+        "role": "user",
+        "content": "Hello!"
+      }
+    ])
+    console.log('response', response)
+  }
+
   return (
     <>
       <div>
@@ -18,11 +33,11 @@ export function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a> */}
       </div>
-      <h1>Vite + React + Electronic!</h1>
+      <h1>Vite + React + Electronics!</h1>
       <neote-editor></neote-editor>
       <neote-tag name="peter"></neote-tag>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button onClick={sendMessage}>
           There is no antidote {count + 1}
         </button>
         <p>
