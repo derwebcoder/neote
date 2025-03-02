@@ -1,11 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
   // we point this to our web project folder
   root: "../web/",
-  plugins: [react()],
+  plugins: [react(), tailwindcss()],
   build: {
     // this is relative to the `root` directory, so we need to go back to our desktop folder
     // and in the original VitePlugin of Forge, this is a string template that receives the

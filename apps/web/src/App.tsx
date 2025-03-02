@@ -9,7 +9,7 @@ export function App() {
   const [count, setCount] = useState(0)
 
   const sendMessage = async () => {
-    console.log('sendMessage')
+    console.log('sendMessage');
     const response = await (window as any).neote.ai.chatCompletion([
       {
         "role": "system",
