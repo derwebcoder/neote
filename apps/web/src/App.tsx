@@ -4,6 +4,7 @@ import viteLogo from './assets/vite.svg'
 import './App.css'
 import '@neote/editor'
 import '@neote/tags'
+import { Button } from '@neote/ui'
 
 export function App() {
   const [count, setCount] = useState(0)
@@ -33,13 +34,13 @@ export function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a> */}
       </div>
-      <h1>Vite + React + Electronics!</h1>
+      <h1 className='text-amber-500 font-extrabold'>Vite + React + Electronics!</h1>
       <neote-editor></neote-editor>
       <neote-tag name="peter"></neote-tag>
       <div className="card">
-        <button onClick={sendMessage}>
+        <Button onClick={sendMessage}>
           There is no antidote {count + 1}
-        </button>
+        </Button>
         <p>
           You are using Chrome {window.versions?.chrome()}. Nice!
         </p>

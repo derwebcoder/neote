@@ -18,6 +18,7 @@
     "@neote/editor": "^1.0.0",
     "@neote/tags": "^1.0.0",
     "@neote/types": "^1.0.0",
+    "@neote/ui": "^1.0.0",
     "@tailwindcss/vite": "^4.0.9",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
