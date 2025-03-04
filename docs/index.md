@@ -11,5 +11,6 @@ Includes relevant high-level documentation about the project, architecture overv
 
 - [Monorepo](./adrs/monorepo.md)
 - [Offline First](./adrs/offline_first.md)
+- [React](./adrs/react.md)
 - [Routing Library](./adrs/routing_library.md)
 - [Web and Desktop App Architecture](./adrs/web+desktop_app_architecture.md)
