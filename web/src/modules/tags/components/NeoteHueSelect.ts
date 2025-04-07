@@ -1,4 +1,4 @@
-import { html } from "@/modules/render";
+import { html, render } from "lit-html";
 import "./NeoteHueSelect.css";
 
 type HueSelectEventDetail = { hue: number };
@@ -38,20 +38,23 @@ export class HueSelectComponent extends HTMLElement {
   private async render() {
     this.innerHTML = "";
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [_, colorWheelWrapper, colorWheel, hueInput]: [
-      HTMLDivElement,
-      HTMLDivElement,
-      HTMLDivElement,
-      HTMLInputElement,
-    ] = html`
-      <div>
-        <div ref class="color-wheel-wrapper">
-          <div ref class="color-wheel"></div>
+    const container = document.createElement("div");
+    render(
+      html`
+        <div>
+          <div class="color-wheel-wrapper">
+            <div class="color-wheel"></div>
+          </div>
+          <input type="number" value="${this.getAttribute("hue") ?? "0"}" />
         </div>
-        <input ref type="number" value="${this.getAttribute("hue") ?? "0"}" />
-      </div>
-    `;
+      `,
+      container,
+    );
+    const colorWheelWrapper = container.querySelector(".color-wheel-wrapper");
+    const colorWheel = container.querySelector(".color-wheel");
+    const hueInput = container.querySelector("input");
+    if (!colorWheelWrapper || !colorWheel || !hueInput)
+      throw new Error("Required elements not found");
 
     hueInput.addEventListener("change", (e) => {
       e.stopPropagation();
@@ -60,9 +63,10 @@ export class HueSelectComponent extends HTMLElement {
     });
 
     colorWheel.addEventListener("click", (event) => {
+      const mouseEvent = event as MouseEvent;
       const rect = colorWheel.getBoundingClientRect();
-      const x = event.clientX - rect.left - rect.width / 2;
-      const y = event.clientY - rect.top - rect.height / 2;
+      const x = mouseEvent.clientX - rect.left - rect.width / 2;
+      const y = mouseEvent.clientY - rect.top - rect.height / 2;
       const angle = Math.atan2(y, x) * (180 / Math.PI) + 90;
       const hue = (angle + 360) % 360;
 

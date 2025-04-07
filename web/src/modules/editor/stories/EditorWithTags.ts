@@ -1,4 +1,4 @@
-import { html } from "@/modules/render";
+import { html, render } from "lit-html";
 import { getCenteredWrapper, Story } from "./storyUtils";
 import { DI } from "@/modules/dependency-injection";
 import { TagDB, TagService } from "@/modules/tags";
@@ -16,13 +16,19 @@ export const storyEditorWithTags: Story = {
 
     const wrapper = getCenteredWrapper();
 
-    const [tag] = html`
-      <neote-editor
-        extension-tag="enabled"
-        data-tag-style="chip-light"
-        content='<neote-tag name="vegetables"></neote-tag> I like <neote-tag name="bananas"></neote-tag> and <neote-tag name="apples"></neote-tag>'
-      ></neote-editor>
-    `;
+    const container = document.createElement("div");
+    render(
+      html`
+        <neote-editor
+          extension-tag="enabled"
+          data-tag-style="chip-light"
+          content='<neote-tag name="vegetables"></neote-tag> I like <neote-tag name="bananas"></neote-tag> and <neote-tag name="apples"></neote-tag>'
+        ></neote-editor>
+      `,
+      container,
+    );
+    const tag = container.querySelector("neote-editor");
+    if (!tag) throw new Error("Tag not found");
 
     wrapper.appendChild(tag);
     root.appendChild(wrapper);

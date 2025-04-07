@@ -1,4 +1,4 @@
-import { html } from "@/modules/render";
+import { html, render } from "lit-html";
 import { getCenteredWrapper, Story } from "./storyUtils";
 import { TagStyles } from "../config/TagStyleConfig";
 
@@ -21,10 +21,16 @@ export const storyStyles: Story = {
 };
 
 const createTagStyle = (style: string) => {
-  const [wrapper] = html`
-    <div data-tag-style="${style}">
-      <neote-tag name="${style}"></neote-tag>
-    </div>
-  `;
+  const container = document.createElement("div");
+  render(
+    html`
+      <div data-tag-style="${style}">
+        <neote-tag name="${style}"></neote-tag>
+      </div>
+    `,
+    container,
+  );
+  const wrapper = container.querySelector("div[data-tag-style]");
+  if (!wrapper) throw new Error("Wrapper not found");
   return wrapper;
 };

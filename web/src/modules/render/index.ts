@@ -1,2 +1,2 @@
-export * from "./lib/html";
+export * from "lit-html";
 export * from "./utils/rawHtml";

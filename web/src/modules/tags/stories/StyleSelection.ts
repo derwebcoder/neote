@@ -1,9 +1,6 @@
-import { html } from "@/modules/render";
+import { html, render } from "lit-html";
 import { getCenteredWrapper, Story } from "./storyUtils";
-import {
-  NeoteTagStyleSelection,
-  TagStyleSelectEvent,
-} from "../components/NeoteTagStyleSelection";
+import { TagStyleSelectEvent } from "../components/NeoteTagStyleSelection";
 import { TagStyleService } from "../services/TagStyleService";
 
 export const storyStyleSelection: Story = {
@@ -15,13 +12,19 @@ export const storyStyleSelection: Story = {
     const tagStyleService = new TagStyleService();
     tagStyleService.init(container);
 
-    const [selection]: [NeoteTagStyleSelection] = html`
-      <neote-tag-style-selection
-        value="${tagStyleService.getStyle()}"
-        preview-style="font-family: system-ui, sans-serif; font-size: 14px; line-height: 1.4;"
-      >
-      </neote-tag-style-selection>
-    `;
+    const tempContainer = document.createElement("div");
+    render(
+      html`
+        <neote-tag-style-selection
+          value="${tagStyleService.getStyle()}"
+          preview-style="font-family: system-ui, sans-serif; font-size: 14px; line-height: 1.4;"
+        ></neote-tag-style-selection>
+      `,
+      tempContainer,
+    );
+    const selection = tempContainer.querySelector("neote-tag-style-selection");
+    if (!selection) throw new Error("Selection not found");
+
     selection.addEventListener("style-select", (e: TagStyleSelectEvent) => {
       const style = e.detail!.style;
       tagStyleService.updateStyle(style);

@@ -1,7 +1,7 @@
 import "./NeoteTagSuggestions.css";
 import { Tag, TagService } from "@/modules/tags";
 import { DI } from "@/modules/dependency-injection";
-import { html, rawHtml } from "@/modules/render";
+import { html, render } from "lit-html";
 
 type TagSelectEventDetail = { tag: string };
 export type TagSelectEvent = CustomEventInit<TagSelectEventDetail>;
@@ -227,9 +227,13 @@ export class NeoteTagSuggestions extends HTMLElement {
    * A part of the `render()` function
    */
   private async renderEmpty() {
-    const [wrapper] = html`
-      <div class="px-3 py-1 text-stone-500">No results</div>
-    `;
+    const container = document.createElement("div");
+    render(
+      html` <div class="px-3 py-1 text-stone-500">No results</div> `,
+      container,
+    );
+    const wrapper = container.querySelector("div");
+    if (!wrapper) throw new Error("Wrapper not found");
     this.appendChild(wrapper);
   }
 
@@ -241,18 +245,24 @@ export class NeoteTagSuggestions extends HTMLElement {
     if (query === "") {
       return;
     }
-    const [wrapper] = html`
-      <button
-        type="button"
-        class="${this.selectedIndex === 1
-          ? "bg-stone-300 rounded"
-          : ""} px-2 py-1 text-start hover:bg-stone-200"
-        data-tag="${query}"
-      >
-        <span class="text-sm text-stone-500">New tag</span>
-        <neote-tag name="${query}"></neote-tag>
-      </button>
-    `;
+    const container = document.createElement("div");
+    render(
+      html`
+        <button
+          type="button"
+          class="${this.selectedIndex === 1
+            ? "bg-stone-300 rounded"
+            : ""} px-2 py-1 text-start hover:bg-stone-200"
+          data-tag="${query}"
+        >
+          <span class="text-sm text-stone-500">New tag</span>
+          <neote-tag name="${query}"></neote-tag>
+        </button>
+      `,
+      container,
+    );
+    const wrapper = container.querySelector("button");
+    if (!wrapper) throw new Error("Wrapper not found");
     this.appendChild(wrapper);
   }
 
@@ -262,11 +272,12 @@ export class NeoteTagSuggestions extends HTMLElement {
    * because it does not know whether the option to add a new is also being rendered
    */
   private async renderTags(tags: Tag[], selectedIndex: number) {
-    const [wrapper] = html`
-      <div>
-        ${tags
-          .map((tag, index) =>
-            rawHtml(html`
+    const container = document.createElement("div");
+    render(
+      html`
+        <div>
+          ${tags.map(
+            (tag, index) => html`
               <button
                 type="button"
                 data-tag="${tag.getName()}"
@@ -276,11 +287,14 @@ export class NeoteTagSuggestions extends HTMLElement {
               >
                 <neote-tag name="${tag.getName()}"></neote-tag>
               </button>
-            `),
-          )
-          .join("")}
-      </div>
-    `;
+            `,
+          )}
+        </div>
+      `,
+      container,
+    );
+    const wrapper = container.querySelector("div");
+    if (!wrapper) throw new Error("Wrapper not found");
     this.append(...wrapper.children);
   }
 }

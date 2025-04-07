@@ -1,4 +1,4 @@
-import { html } from "@/modules/render";
+import { html, render } from "lit-html";
 import { getCenteredWrapper, Story } from "./storyUtils";
 
 export const storyBasic: Story = {
@@ -7,7 +7,10 @@ export const storyBasic: Story = {
   render: (root: HTMLElement) => {
     const wrapper = getCenteredWrapper();
 
-    const [tag] = html` <neote-tag name="neote"></neote-tag> `;
+    const container = document.createElement("div");
+    render(html`<neote-tag name="neote"></neote-tag>`, container);
+    const tag = container.querySelector("neote-tag");
+    if (!tag) throw new Error("Tag not found");
 
     wrapper.appendChild(tag);
     root.appendChild(wrapper);

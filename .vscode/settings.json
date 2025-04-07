@@ -49,5 +49,7 @@
   },
   "editor.quickSuggestions": {
     "strings": "on"
-  }
+  },
+  "github.copilot.chat.languageContext.typescript.enabled": false,
+  "chat.agent.enabled": true
 }

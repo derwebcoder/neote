@@ -1,11 +1,8 @@
-import { html } from "@/modules/render";
+import { html, render } from "lit-html";
 import { getCenteredWrapper, Story } from "./storyUtils";
 import { DI } from "@/modules/dependency-injection";
 import { TagDB, TagService } from "@/modules/tags";
-import {
-  NeoteTagSuggestions,
-  TagSelectEvent,
-} from "../components/NeoteTagSuggestions";
+import { TagSelectEvent } from "../components/NeoteTagSuggestions";
 
 export const storyTagSuggestions: Story = {
   title: "TagSuggestions",
@@ -21,18 +18,23 @@ export const storyTagSuggestions: Story = {
 
     const container = getCenteredWrapper();
 
-    const [wrapper, input, suggestions, log]: [
-      HTMLDivElement,
-      HTMLInputElement,
-      NeoteTagSuggestions,
-      HTMLDivElement,
-    ] = html`
+    const tempContainer = document.createElement("div");
+    render(
+      html`
       <div data-tag-style="token-gradient-light" class="flex flex-col gap-6">
-        <input ref type="text" class="border"></input>
-        <neote-tag-suggestions ref query=""></neote-tag-suggestions>
-        <div ref></div>
+        <input type="text" class="border"></input>
+        <neote-tag-suggestions query=""></neote-tag-suggestions>
+        <div></div>
       </div>
-    `;
+    `,
+      tempContainer,
+    );
+    const wrapper = tempContainer.querySelector("div[data-tag-style]");
+    const input = tempContainer.querySelector("input");
+    const suggestions = tempContainer.querySelector("neote-tag-suggestions");
+    const log = tempContainer.querySelector("div:last-child");
+    if (!wrapper || !input || !suggestions || !log)
+      throw new Error("Required elements not found");
 
     input.addEventListener("keyup", () => {
       const query = input.value;

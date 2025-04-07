@@ -1,4 +1,4 @@
-import { html, rawHtml } from "@/modules/render";
+import { html, render } from "lit-html";
 import "./NeoteTagStyleSelection.css";
 import { TagStyle, TagStyleNameMap, TagStyles } from "../config/TagStyleConfig";
 
@@ -42,27 +42,42 @@ export class NeoteTagStyleSelection extends HTMLElement {
     const previewClass = this.getAttribute("preview-class") ?? "";
     const previewStyle = this.getAttribute("preview-style") ?? "";
 
-    const [wrapper, select]: [HTMLDivElement, HTMLSelectElement] = html`
-      <div class="wrapper">
-        <select ref size="${TagStyles.length.toString()}">
-          ${TagStyles.map((style) =>
-            rawHtml(html`
-              <option value=${style} ${value === style ? "selected " : ""}>
-                ${TagStyleNameMap[style]}
-              </option>
-            `[0]),
-          ).join("")}
-        </select>
-        <div class="preview">
-          <p class="${previewClass}" style="${previewStyle}">
-            <neote-tag name="thought"></neote-tag>
-            <neote-tag name="philosophy"></neote-tag> Is the
-            <neote-tag name="universe"></neote-tag> really expanding or are our
-            minds just shrinking?
-          </p>
+    const container = document.createElement("div");
+    render(
+      html`
+        <div class="wrapper">
+          <select size="${TagStyles.length.toString()}" role="listbox">
+            ${TagStyles.map(
+              (style) =>
+                html`<option
+                  value=${style}
+                  ${value === style ? "selected" : ""}
+                >
+                  ${TagStyleNameMap[style]}
+                </option>`,
+            )}
+          </select>
+          <div class="preview">
+            <p class="${previewClass}" style="${previewStyle}">
+              <neote-tag name="thought"></neote-tag>
+              <neote-tag name="philosophy"></neote-tag> Is the
+              <neote-tag name="universe"></neote-tag> really expanding or are
+              our minds just shrinking?
+            </p>
+          </div>
         </div>
-      </div>
-    `;
+      `,
+      container,
+    );
+    const wrapper = container.querySelector(".wrapper");
+    const select = container.querySelector("select");
+    if (!wrapper || !select) {
+      console.error(
+        "Failed to render NeoteTagStyleSelection: Required elements not found.",
+      );
+      return;
+    }
+
     select.addEventListener("change", () => {
       const value = select.value as TagStyle;
       this.updateStyle(value);

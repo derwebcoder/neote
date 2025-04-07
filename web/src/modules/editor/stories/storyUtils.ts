@@ -1,4 +1,4 @@
-import { html } from "@/modules/render";
+import { html, render } from "lit-html";
 
 export type Story = {
   title: string;
@@ -7,18 +7,24 @@ export type Story = {
 };
 
 export const getCenteredWrapper = () => {
-  const [wrapper] = html`
-    <div
-      style="
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100%;
-        width: 100%;
-        padding: 8px;
-        box-sizing: border-box;
-      "
-    ></div>
-  `;
+  const container = document.createElement("div");
+  render(
+    html`
+      <div
+        style="
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+          width: 100%;
+          padding: 8px;
+          box-sizing: border-box;
+        "
+      ></div>
+    `,
+    container,
+  );
+  const wrapper = container.querySelector("div");
+  if (!wrapper) throw new Error("Wrapper not found");
   return wrapper;
 };
