@@ -1,7 +1,7 @@
 import "./NeoteTagSuggestions.css";
-import { Tag, TagService } from "@neote/tags";
-import { DI } from "@neote/dependency-injection";
-import { html, rawHtml } from "@neote/render";
+import { Tag, TagService } from "@/modules/tags";
+import { DI } from "@/modules/dependency-injection";
+import { html, rawHtml } from "@/modules/render";
 
 type TagSelectEventDetail = { tag: string };
 export type TagSelectEvent = CustomEventInit<TagSelectEventDetail>;

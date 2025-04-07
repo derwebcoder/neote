@@ -1,4 +1,4 @@
-import { html } from "@neote/render";
+import { html } from "@/modules/render";
 
 export type Story = {
   title: string;

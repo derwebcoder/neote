@@ -1,4 +1,4 @@
-import { TagDB, TagService } from "@neote/tags";
+import { TagDB, TagService } from "@/modules/tags";
 import { DI } from "./DI";
 import memoryAdapter from "pouchdb-adapter-memory";
 import PouchDB from "pouchdb-browser";

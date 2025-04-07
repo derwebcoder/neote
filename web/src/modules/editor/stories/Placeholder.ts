@@ -1,4 +1,4 @@
-import { html } from "@neote/render";
+import { html } from "@/modules/render";
 import { getCenteredWrapper, Story } from "./storyUtils";
 
 export const storyPlaceholder: Story = {
