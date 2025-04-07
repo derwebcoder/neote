@@ -2,7 +2,7 @@
   "git.enableSmartCommit": true,
   "git.autofetch": true,
   "javascript.preferences.importModuleSpecifier": "relative",
-  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.preferences.importModuleSpecifier": "non-relative",
   "git.confirmSync": false,
   "explorer.confirmDelete": false,
   "javascript.updateImportsOnFileMove.enabled": "always",

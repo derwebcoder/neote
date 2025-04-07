@@ -1,7 +1,7 @@
-import { html } from "@neote/render";
+import { html } from "@/modules/render";
 import { getCenteredWrapper, Story } from "./storyUtils";
-import { DI } from "@neote/dependency-injection";
-import { TagDB, TagService } from "@neote/tags";
+import { DI } from "@/modules/dependency-injection";
+import { TagDB, TagService } from "@/modules/tags";
 import {
   NeoteTagSuggestions,
   TagSelectEvent,

@@ -19,7 +19,6 @@ This means I have one git repository and best case only one package.json at the 
 
 - One overall setup to run the full app or parts of it.
 - Only one configuration file to maintain.
--
 
 #### Cons
 
