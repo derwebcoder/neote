@@ -1,4 +1,4 @@
-[[All docs](../../../docs/index.md)]
+[[All docs](./index.md)]
 
 # Custom Tiptap Extensions
 
