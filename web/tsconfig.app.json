@@ -24,7 +24,10 @@
 
     "types": ["vitest/globals"],
 
+    // necessary for shadcn config, see https://ui.shadcn.com/docs/installation/vite
+    "baseUrl": ".",
     "paths": {
+      // necessary for shadcn config, see https://ui.shadcn.com/docs/installation/vite
       "@/*": ["./src/*"]
     }
   },
