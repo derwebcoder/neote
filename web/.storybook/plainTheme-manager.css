@@ -14,7 +14,7 @@ div:has(> .sidebar-container) {
 
 .sidebar-subheading {
   font-weight: 900 !important;
-  font-size: 0.9rem !important;
+  font-size: 0.8rem !important;
   background-color: #f4f4f4 !important;
   border-radius: 8px;
 
@@ -23,7 +23,8 @@ div:has(> .sidebar-container) {
   }
 }
 
-.sidebar-item[data-nodetype=component] button  {
+.sidebar-item[data-nodetype=component] button,
+.sidebar-item[data-nodetype=group] button  {
   align-items: center;
 
   & > div > svg {

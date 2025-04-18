@@ -22,7 +22,7 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    "types": ["vitest/globals"],
+    "types": ["vitest/globals", "./src/global.d.ts"],
 
     // necessary for shadcn config, see https://ui.shadcn.com/docs/installation/vite
     "baseUrl": ".",
