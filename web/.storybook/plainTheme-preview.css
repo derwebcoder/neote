@@ -1,0 +1,36 @@
+
+.sbdocs-preview {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.sb-bar {
+  box-shadow: none !important;
+}
+
+div:has(> .docblock-code-toggle) {
+  bottom: unset;
+  top: 0px;
+  display: none;
+}
+
+.docblock-code-toggle {
+  border: none !important;
+}
+
+h3 {
+  padding-left: 36px !important;
+  background-color: #fafafa !important;
+  padding-block: 8px !important;
+  border-radius: 99px;
+  margin-top: 48px !important;
+}
+
+.docblock-argstable tbody {
+  border-radius: 20px;
+}
+
+.docblock-argstable tbody td {
+  border: none !important;
+  background-color: #fafafa !important;
+}
