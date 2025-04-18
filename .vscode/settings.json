@@ -49,5 +49,8 @@
   },
   "editor.quickSuggestions": {
     "strings": "on"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
