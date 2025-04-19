@@ -1,14 +1,33 @@
 import { html } from "@/modules/render";
 import "./NeoteHueSelect.css";
+import { CustomElement } from "@/modules/types";
 
 type HueSelectEventDetail = { hue: number };
 export type HueSelectEvent = CustomEventInit<HueSelectEventDetail>;
 
-export class HueSelectComponent extends HTMLElement {
+export type HueSelectAttributes = {
+  hue?: number;
+  "onhue-select"?: (event: HueSelectEvent) => void;
+};
+
+export class HueSelectComponent
+  extends HTMLElement
+  implements HueSelectAttributes
+{
   static observedAttributes = ["hue"];
+  private _hue: number = 0;
 
   constructor() {
     super();
+  }
+
+  get hue() {
+    return this._hue;
+  }
+
+  set hue(value) {
+    this._hue = value;
+    this.setAttribute("hue", this._hue + "");
   }
 
   connectedCallback() {
@@ -75,3 +94,15 @@ export class HueSelectComponent extends HTMLElement {
 }
 
 customElements.define("neote-hue-select", HueSelectComponent);
+
+declare module "react" {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "neote-hue-select": CustomElement<
+        HueSelectComponent,
+        HueSelectAttributes
+      >;
+    }
+  }
+}

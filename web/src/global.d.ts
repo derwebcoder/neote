@@ -1,9 +1,9 @@
-import type { NeoteTag } from "@/modules/tags/components/NeoteTag";
+// import type { NeoteTag } from "@/modules/tags/components/NeoteTag";
 
-declare module "react" {
-  namespace JSX {
-    interface IntrinsicElements {
-      "neote-tag": CustomElement<NeoteTag>;
-    }
-  }
-}
+// declare module "react" {
+//   namespace JSX {
+//     interface IntrinsicElements {
+//       "neote-tag": CustomElement<NeoteTag>;
+//     }
+//   }
+// }

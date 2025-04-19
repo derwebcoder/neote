@@ -3,9 +3,15 @@ import { TagIconMap } from "../config/TagIconConfig";
 import { Tag } from "../models/Tag";
 import { TagService } from "../services/TagService";
 import "./NeoteTag.css";
+import { CustomElement } from "@/modules/types/CustomElement";
 
-export class NeoteTag extends HTMLElement {
+type NeoteTagAttributes = {
+  name: string;
+};
+
+export class NeoteTag extends HTMLElement implements NeoteTagAttributes {
   static observedAttributes = ["name"];
+  private _name: string = "";
   private tag?: Tag;
   private tagService?: TagService;
   private unwatch?: () => void;
@@ -13,6 +19,15 @@ export class NeoteTag extends HTMLElement {
 
   constructor() {
     super();
+  }
+
+  get name() {
+    return this._name;
+  }
+
+  set name(value) {
+    this._name = value;
+    this.setAttribute("name", this._name);
   }
 
   connectedCallback() {
@@ -70,3 +85,12 @@ export class NeoteTag extends HTMLElement {
 }
 
 customElements.define("neote-tag", NeoteTag);
+
+declare module "react" {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "neote-tag": CustomElement<NeoteTag, NeoteTagAttributes>;
+    }
+  }
+}
