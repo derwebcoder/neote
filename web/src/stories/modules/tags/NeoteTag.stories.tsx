@@ -11,6 +11,7 @@ const Wrapper = ({
   style?: TagStyle;
   name: string;
 }) => {
+  // just for this story, don't do this in a react component!
   useEffect(() => {
     (async () => {
       const db = new TagDB();

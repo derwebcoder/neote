@@ -4,7 +4,7 @@ import "./NeoteTagStyleSelection";
 import { html, rawHtml } from "@/modules/render";
 import userEvent from "@testing-library/user-event";
 
-describe("NeoteTagStyleSelection", () => {
+describe("NeoteTagStyleSelect", () => {
   it("should render", () => {
     const [wrapper] = html`
       <neote-tag-style-selection value="chip-dark"></neote-tag-style-selection>
