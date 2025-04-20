@@ -4,13 +4,17 @@ Includes relevant high-level documentation about the project, architecture overv
 
 ## Architecture
 
-- [Data Architecture of Tags](../packages/tags/docs/tag_data_architecture.md)
-- [Tiptap Custom Extensions](./tiptap_custom_extensions.md)
+- [Data Architecture of Tags](./architecture/tag_data_architecture.md)
+- [Tiptap Custom Extensions](./architecture/tiptap_custom_extensions.md)
 
-## Research and Decisions
+## ADRs
 
 - [Monorepo](./adrs/monorepo.md)
 - [Offline First](./adrs/offline_first.md)
 - [React](./adrs/react.md)
 - [Routing Library](./adrs/routing_library.md)
 - [Web and Desktop App Architecture](./adrs/web+desktop_app_architecture.md)
+
+## Other
+
+- [Troubleshooting](./troubleshooting.md)

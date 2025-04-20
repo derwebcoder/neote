@@ -2,10 +2,16 @@ import "./NeoteTagSuggestions.css";
 import { Tag, TagService } from "@/modules/tags";
 import { DI } from "@/modules/dependency-injection";
 import { html, rawHtml } from "@/modules/render";
+import { CustomElement } from "@/modules/types";
 
 type TagSelectEventDetail = { tag: string };
 export type TagSelectEvent = CustomEventInit<TagSelectEventDetail>;
 
+export type NeoteTagSuggestionsAttributes = {
+  query?: string;
+  "select-only"?: boolean;
+  "ontag-select"?: (event: TagSelectEvent) => void;
+};
 /**
  * A custom element displaying a list of tags
  *
@@ -15,12 +21,17 @@ export type TagSelectEvent = CustomEventInit<TagSelectEventDetail>;
  * @attr {string} query The query to search for tags
  * @attr {string} select-only Whether to disable the feature to add a new tag should a query not yield an (exact) match.
  */
-export class NeoteTagSuggestions extends HTMLElement {
+export class NeoteTagSuggestions
+  extends HTMLElement
+  implements NeoteTagSuggestionsAttributes
+{
   static observedAttributes = ["query"];
   private tagService?: TagService;
   // note, this index starts at 1, because we use it with :nth-child()
   private selectedIndex = 1;
   private items: Tag[] = [];
+  private _query: string = "";
+  private _selectOnly: boolean = false;
 
   constructor() {
     super();
@@ -30,6 +41,24 @@ export class NeoteTagSuggestions extends HTMLElement {
       await this.update();
       await this.render();
     })();
+  }
+
+  get query() {
+    return this._query;
+  }
+
+  set query(value) {
+    this._query = value;
+    this.setAttribute("query", this._query);
+  }
+
+  get selectOnly() {
+    return this._selectOnly;
+  }
+
+  set selectOnly(value) {
+    this._selectOnly = value;
+    this.setAttribute("select-only", this._selectOnly ? "true" : "false");
   }
 
   connectedCallback() {
@@ -286,3 +315,15 @@ export class NeoteTagSuggestions extends HTMLElement {
 }
 
 customElements.define("neote-tag-suggestions", NeoteTagSuggestions);
+
+declare module "react" {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "neote-tag-suggestions": CustomElement<
+        NeoteTagSuggestions,
+        NeoteTagSuggestionsAttributes
+      >;
+    }
+  }
+}

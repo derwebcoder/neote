@@ -2,6 +2,13 @@ import "./NeoteEditor.css";
 import { AnyExtension, Editor, Extension } from "@tiptap/core";
 import { getBaseExtensions } from "../extensions/Base";
 import { getTagExtension } from "../extensions/Tags";
+import { CustomElement } from "@/modules/types";
+
+export interface NeoteEditorAttributes {
+  content?: string;
+  placeholder?: string;
+  "extension-tag"?: "enabled" | "disabled" | "selectonly";
+}
 
 /**
  * A custom element displaying a rich text editor using TipTap internally.
@@ -12,12 +19,42 @@ import { getTagExtension } from "../extensions/Tags";
  * @attr {'enabled' | 'disabled' | 'selectonly'} extension-tag The mode for the tag extension}
  * @method setContent Update the content of the editor
  */
-export class NeoteEditor extends HTMLElement {
+export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
   static observedAttributes = ["content"];
   private editor?: Editor;
+  private _content: string = "";
+  private _placeholder: string = "";
+  private _extensionTag: "enabled" | "disabled" | "selectonly" = "disabled";
 
   constructor() {
     super();
+  }
+
+  get content() {
+    return this._content;
+  }
+
+  set content(value) {
+    this._content = value;
+    this.setAttribute("content", this._content);
+  }
+
+  get placeholder() {
+    return this._placeholder;
+  }
+
+  set placeholder(value) {
+    this._placeholder = value;
+    this.setAttribute("placeholder", this._placeholder);
+  }
+
+  get extensionTag() {
+    return this._extensionTag;
+  }
+
+  set extensionTag(value) {
+    this._extensionTag = value;
+    this.setAttribute("extension-tag", this._extensionTag);
   }
 
   connectedCallback() {
@@ -77,3 +114,12 @@ export class NeoteEditor extends HTMLElement {
 }
 
 customElements.define("neote-editor", NeoteEditor);
+
+declare module "react" {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace JSX {
+    interface IntrinsicElements {
+      "neote-editor": CustomElement<NeoteEditor, NeoteEditorAttributes>;
+    }
+  }
+}
