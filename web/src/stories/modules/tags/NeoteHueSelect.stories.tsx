@@ -1,24 +1,15 @@
 import { HueSelectAttributes } from "@/modules/tags/components/NeoteHueSelect";
+import "@/modules/tags/components/NeoteHueSelect";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
 const Wrapper = ({ hue, "onhue-select": onHueSelect }: HueSelectAttributes) => {
   return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        flexDirection: "column",
-        gap: "10px",
-      }}
-    >
-      <neote-hue-select
-        hue={hue}
-        style={{ width: "75px" }}
-        onhue-select={onHueSelect}
-      ></neote-hue-select>
-    </div>
+    <neote-hue-select
+      hue={hue}
+      style={{ width: "75px" }}
+      onhue-select={onHueSelect}
+    ></neote-hue-select>
   );
 };
 
