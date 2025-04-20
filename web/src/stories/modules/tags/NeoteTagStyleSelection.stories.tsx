@@ -67,7 +67,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     value: "chip-border",
-    "preview-class": "p-4 m-4 bg-gray-100",
+    "preview-class": "p-4 m-4 bg-gray-100 user-content",
     "preview-style": "max-width: 500px; border-radius: 8px;",
     "wrapper-class": "",
     "wrapper-style": "",

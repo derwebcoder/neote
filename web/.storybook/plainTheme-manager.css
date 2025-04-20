@@ -34,7 +34,7 @@ div:has(> .sidebar-container) {
 
 .sidebar-item[data-nodetype=document] a,
 .sidebar-item[data-nodetype=story] a {
-  padding-left: 22px;
+  padding-left: 38px;
 }
 
 .sidebar-item svg {

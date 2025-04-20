@@ -1,0 +1,90 @@
+/*
+  Use the components layer for any more complicated classes you want
+  to add to your project that you'd still like to be able to
+  override with utility classes.
+
+  see https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
+*/
+
+@layer components {
+  /*
+    Used for common styling of user generated content
+    For example for the editor or the notes
+  */
+  .user-content {
+    font-size: var(--text-sm);
+    color: var(--color-stone-800);
+    font-family: var(--font-sans);
+
+    h1, h2, h3, h4, h5, h6 {
+      color: var(--color-stone-600);
+      padding-block-start: --spacing(1);
+      padding-block-end: --spacing(2);
+      font-weight: bold;
+
+      &::before {
+        margin-inline-end: --spacing(2);
+      }
+    }
+
+    h2::before {
+      content: "\2514";
+    }
+
+    h3::before {
+      content: "\2514\2500";
+    }
+
+    h4::before {
+      content: "\2514\2500\2500";
+    }
+
+    h5::before {
+      content: "\2514\2500\2500\2500";
+    }
+
+    h6::before {
+      content: "\2514\2500\2500\2500\2500";
+    }
+
+    p {
+      margin-block-end: --spacing(2);
+    }
+
+    ul {
+      list-style-type: disc;
+
+      li {
+        margin-inline-start: --spacing(4);
+      }
+    }
+
+    * > p {
+      margin-block: 0.1em !important;
+    }
+
+    p > code {
+      background-color: #eee;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-xs);
+      padding: 0.25em 0.3em;
+      font-weight: 300 !important;
+      font-family: var(--font-mono);
+
+      &::after,
+      &::before {
+        display: none;
+      }
+    }
+
+    pre {
+      background-color: #eee;
+      border-radius: var(--radius-sm);
+      font-size: var(--text-xs);
+      padding: --spacing(1) --spacing(3);
+      font-weight: 300 !important;
+      margin-block: --spacing(1);
+      font-family: var(--font-mono);
+    }
+  }
+}
