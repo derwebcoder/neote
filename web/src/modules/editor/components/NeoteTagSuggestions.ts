@@ -195,6 +195,8 @@ export class NeoteTagSuggestions
       } else {
         this.selectedIndex = 1;
       }
+    } else {
+      this.selectedIndex = 1;
     }
   }
 
