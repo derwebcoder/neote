@@ -7,6 +7,8 @@ import "@/modules/tags/components/NeoteTag";
 import { TagStyle } from "@/modules/tags/config/TagStyleConfig";
 import { NeoteEditorAttributes } from "@/modules/editor/components/NeoteEditor";
 
+import "./test.css";
+
 const Wrapper = ({
   style = "chip-border",
   content,
@@ -78,7 +80,7 @@ export const Placeholder: Story = {
 export const WithTags: Story = {
   args: {
     content:
-      "<neote-tag name='vegetables'></neote-tag> I like <neote-tag name='bananas'></neote-tag> and <neote-tag name='apples'></neote-tag>",
+      "Yes <neote-tag name='vegetables'></neote-tag> I like <neote-tag name='bananas'></neote-tag> and <neote-tag name='apples'></neote-tag>",
     "extension-tag": "enabled",
     style: "chip-border",
   },
