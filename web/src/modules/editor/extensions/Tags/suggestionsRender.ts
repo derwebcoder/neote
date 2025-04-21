@@ -12,6 +12,12 @@ export const getSuggestionRender = (
     let wrapper: HTMLElement;
     let component: NeoteTagSuggestions;
     let listener: (e: TagSelectEvent) => void;
+    // we need to keep a reference to the command,
+    // because in onStart it will still have a range value in the scope
+    // that will be outdated if the user typed in some chars to filter suggestions
+    // so we need to update it in onUpdate, so that the listener in onStart
+    // is always using the latest command
+    let command: (item: { name?: string }) => void;
 
     return {
       onStart: (props) => {
@@ -23,6 +29,8 @@ export const getSuggestionRender = (
         // we want to attach the component to the editor
         // for easier positioning
         wrapper = props.editor.$doc.element.parentElement!;
+
+        command = props.command;
 
         component = document.createElement(
           "neote-tag-suggestions",
@@ -40,7 +48,7 @@ export const getSuggestionRender = (
         // which contains the selected tag name
         listener = (e: TagSelectEvent) => {
           const tag = e.detail?.tag;
-          props.command({ name: tag });
+          command({ name: tag });
         };
         component.addEventListener("tag-select", listener);
 
@@ -51,6 +59,7 @@ export const getSuggestionRender = (
       },
 
       onUpdate(props) {
+        command = props.command;
         const getClientRect = props.clientRect;
         if (!getClientRect) {
           return;
