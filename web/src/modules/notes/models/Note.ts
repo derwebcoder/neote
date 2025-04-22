@@ -72,3 +72,14 @@ export class Note {
     return new Note(id, preppedHtml, text, dateCreated, tags, contextTags);
   }
 }
+
+export type NoteBasic = {
+  html: HTMLString;
+  text: string;
+  dateCreated: Date;
+  tags: string[];
+  contextTags: string[];
+};
+
+export type NodeExistingDocument = PouchDB.Core.ExistingDocument<NoteBasic>;
+export type NoteDocument = PouchDB.Core.Document<NoteBasic>;
