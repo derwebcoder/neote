@@ -1,8 +1,0 @@
-/*
-  (!) This file is only used for this package to try out the theme with
-  the local index.html file.
-*/
-
-@import "tailwindcss";
-
-@import "./src/index.css";
