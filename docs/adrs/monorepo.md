@@ -11,7 +11,7 @@ Glossary:
 
 ## The different options
 
-### One repository, minimal separation
+### One repository, no separation
 
 This means I have one git repository and best case only one package.json at the root level but no sub folder with their own packages. This requires all code to share the same setup.
 
@@ -84,3 +84,27 @@ Same as for "One repository, full separation" but with addition of:
 #### Discussion
 
 I don't see any benefit at all compared to "One repository, full separation". I think this is a valid use case when a package is really a standalone thing and should really be distributed / published. But this won't be the case for this project.
+
+### One repository, minimal separation
+
+This means we theoretically allow to create multiple separate workspaces / packages. But we don't do this per default but only when absolutely necessary. This could happen when it is really planned to publish a package standalone. Or when the tooling / setup is different.
+The default should be to have one bigger workspace / project and to start with a new "package" inside of this one. To make a refactoring easier, it can be encapsulated in it's own folder with a strict external API. Should one of the examples above become true, the code can still be separated into its own package.
+
+#### Pros
+
+- Less maintenance of tooling / dependencies / infrastructure for each package - it scales better
+- Using the mindset of packages / modules is still possible (but requires more self-discipline)
+
+#### Cons
+
+- Could be easy to fall into the trap of messy code
+
+#### Discussion
+
+This solution would not enforce any artificial separation but allows for natural evolution of the code. It still requires to keep the mindset even for non-packages.
+
+## Decision
+
+This project actually started with "One repository, full separation" but quickly became unmaintainable. Different packages had different dependency versions because they were created at different times. Adding a new feature or maintaining the custom stories also quickly required much manual effort to keep everything at the same code quality. It also became complicated when a package required special typescript or vite setups, like shadcn with their `@/` import path and setup. It would have become necessary to actually build packages instead of just importing source files directly.
+
+So I decided to refactor everything to "One repository, minimal separation" and move everything inside of one `/web` folder. The only exception is the apps/desktop project which required a special vite / electron forge setup. Every previous package now lives inside the `web/src/modules` folder. It's much easier now to configure and maintain the project.
