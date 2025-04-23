@@ -1,8 +1,0 @@
-/*
-  this needs to point to the monorepo root so it also finds all tailwind classes in other
-  packages like @neote/ui
-*/
-@import "tailwindcss" source("../../../");
-
-@import '@neote/theme';
-@import '@neote/ui/styles';
