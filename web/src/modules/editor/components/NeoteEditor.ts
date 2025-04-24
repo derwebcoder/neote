@@ -110,7 +110,6 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
         },
       },
     });
-    console.log("schema", this.editor.schema);
   }
 }
 

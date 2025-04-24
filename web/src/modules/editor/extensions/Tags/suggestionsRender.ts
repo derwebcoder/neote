@@ -79,6 +79,13 @@ export const getSuggestionRender = (
           return true;
         }
 
+        if (!component.onExternalKeyDown) {
+          console.error(
+            "It looks like the neote-tag-suggestions component is missing.",
+          );
+          return false;
+        }
+
         // the extension needs to handle the user input
         // and forwards this to the component
         // which can either act on it (return true, for example for up/down/enter)

@@ -1,9 +1,0 @@
-.user-content {
-  & neote-tag:first-of-type {
-    display: none;
-  }
-
-  & * + neote-tag {
-    display: inline;
-  }
-}

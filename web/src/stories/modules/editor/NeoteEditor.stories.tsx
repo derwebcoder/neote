@@ -7,8 +7,6 @@ import "@/modules/tags/components/NeoteTag";
 import { TagStyle } from "@/modules/tags/config/TagStyleConfig";
 import { NeoteEditorAttributes } from "@/modules/editor/components/NeoteEditor";
 
-import "./test.css";
-
 const Wrapper = ({
   style = "chip-border",
   content,
