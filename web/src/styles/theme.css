@@ -3,6 +3,18 @@
 
   See https://tailwindcss.com/docs/theme#extending-the-default-theme
 */
-@layer theme {
+@theme {
+  --animate-ballooning: ballooning 5s ease-in infinite;
 
+  @keyframes ballooning {
+    50% {
+      transform: translateY(-25%) rotate(-5deg);
+    }
+    25% {
+      transform: translateY(-10%) rotate(5deg);
+    }
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+  }
 }

@@ -57,6 +57,10 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
     this.setAttribute("extension-tag", this._extensionTag);
   }
 
+  focusEditor() {
+    this.editor?.commands.focus();
+  }
+
   connectedCallback() {
     this.init();
   }

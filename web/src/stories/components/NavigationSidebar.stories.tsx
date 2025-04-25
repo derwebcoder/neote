@@ -1,3 +1,4 @@
+import { EditorMain } from "@/components/EditorMain/EditorMain";
 import { NavigationSidebar } from "@/components/NavigationSidebar/NavigationSidebar";
 import type { Meta, StoryObj } from "@storybook/react";
 
@@ -24,8 +25,8 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     headerSlot: (
-      <div className="flex items-center justify-between p-4">
-        <h1 className="text-lg font-bold">Header</h1>
+      <div className="h-28 py-2">
+        <EditorMain />
       </div>
     ),
   },
