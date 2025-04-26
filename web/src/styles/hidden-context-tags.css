@@ -1,0 +1,18 @@
+/*
+  Use the components layer for any more complicated classes you want
+  to add to your project that you'd still like to be able to
+  override with utility classes.
+
+  see https://tailwindcss.com/docs/adding-custom-styles#adding-component-classes
+*/
+
+@layer components {
+  /*
+    Used when displaying a note but we also display the context tags separately
+  */
+  .hidden-context-tags {
+    neote-tag[data-context-tag] {
+      display: none !important;
+    }
+  }
+}

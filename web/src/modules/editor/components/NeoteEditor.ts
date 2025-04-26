@@ -3,11 +3,20 @@ import { AnyExtension, Editor, Extension } from "@tiptap/core";
 import { getBaseExtensions } from "../extensions/Base";
 import { getTagExtension } from "../extensions/Tags";
 import { CustomElement } from "@/modules/types";
+import { HTMLString } from "@/modules/notes/models/HTML";
+
+type EditorSubmitEventDetail = { content: HTMLString };
+export type EditorSubmitEvent = CustomEventInit<EditorSubmitEventDetail>;
+
+type EditorEscapeEventDetail = object;
+export type EditorEscapeEvent = CustomEventInit<EditorEscapeEventDetail>;
 
 export interface NeoteEditorAttributes {
   content?: string;
   placeholder?: string;
   "extension-tag"?: "enabled" | "disabled" | "selectonly";
+  "oneditor-submit"?: (event: EditorSubmitEvent) => void;
+  "oneditor-escape"?: (event: EditorEscapeEvent) => void;
 }
 
 /**
@@ -73,11 +82,11 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
     this.init();
   }
 
-  // attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-  //   // if (name === "content" && oldValue !== newValue) {
-  //   //   this.init(newValue);
-  //   // }
-  // }
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    if (name === "content" && oldValue !== newValue) {
+      this.setContent(newValue);
+    }
+  }
 
   public async setContent(content: string) {
     this.editor?.commands.setContent(content, true, {
@@ -100,6 +109,7 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
       }
     }
 
+    console.log("content", this.getAttribute("content"));
     this.editor = new Editor({
       element: this,
       extensions: [
@@ -111,6 +121,37 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
         attributes: {
           role: "textbox",
           class: `user-content`,
+        },
+        handleKeyDown: (_view, event) => {
+          // if (isUserSelectingTag || isUserSelectingExtension) {
+          //   // user currently has the selection open and might have pressed enter to select an item
+          //   return false;
+          // }
+          if (event.key === "Escape") {
+            this.dispatchEvent(
+              new CustomEvent<EditorEscapeEventDetail>("editor-escape", {
+                bubbles: true,
+                detail: {},
+              }),
+            );
+            return;
+          }
+
+          if (event.key !== "Enter" || event.shiftKey) {
+            return false;
+          }
+
+          const html = this.editor?.getHTML().trim() ?? "";
+          if (html === "") {
+            return false;
+          }
+          this.dispatchEvent(
+            new CustomEvent<EditorSubmitEventDetail>("editor-submit", {
+              bubbles: true,
+              detail: { content: html },
+            }),
+          );
+          return true;
         },
       },
     });

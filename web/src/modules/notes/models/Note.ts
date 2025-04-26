@@ -20,6 +20,7 @@ export class Note {
   }
 
   public getHtml() {
+    console.log("getHtml", this.html);
     return this.html;
   }
 

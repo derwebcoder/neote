@@ -3,6 +3,7 @@
 
 @import './styles/theme.css';
 @import './styles/user-content.css';
+@import './styles/hidden-context-tags.css';
 
 @custom-variant dark (&:is(.dark *));
 
