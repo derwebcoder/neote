@@ -9,18 +9,18 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { Note as NoteModel } from "@/modules/notes/models/Note";
+import { Note } from "@/modules/notes/models/Note";
 import { DI } from "@/modules/dependency-injection";
 import { Pencil, Trash } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { EditorSubmitEvent } from "@/modules/editor/components/NeoteEditor";
 
 type Props = {
-  note: NoteModel;
+  note: Note;
   blur?: boolean;
 };
 
-export const Note = (props: Props) => {
+export const NoteDisplay = (props: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const { note, blur = false } = props;
@@ -41,6 +41,7 @@ export const Note = (props: Props) => {
   };
 
   const handleDelete = async () => {
+    setIsDeleting(false);
     await noteService.delete(note);
   };
 
