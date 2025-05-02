@@ -6,7 +6,7 @@ export class Tag {
     private description: string = "",
     private icon: keyof typeof TagIconMap = "hash",
     private hue: number = 0,
-    private state: "draft" | "stored",
+    private state: "draft" | "stored" = "draft",
   ) {}
 
   public getName() {
