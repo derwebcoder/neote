@@ -35,6 +35,8 @@ const tagDB = new TagDB();
 const tagService = await TagService.construct(tagDB);
 DI.inject("TagService", tagService);
 
+(window as any).DI = DI;
+
 // Render the app
 const rootElement = document.getElementById("root")!;
 if (!rootElement.innerHTML) {

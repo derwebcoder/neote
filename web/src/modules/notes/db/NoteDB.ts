@@ -16,7 +16,7 @@ export class NoteDB {
   }
 
   public async getAll() {
-    return this.db.allDocs({ include_docs: true });
+    return this.db.allDocs({ include_docs: true, descending: true });
   }
 
   public async create(note: NoteBasic) {
@@ -46,12 +46,18 @@ export class NoteDB {
     return this.db.put(updatedTag);
   }
 
-  public async watch(
+  public watch(
     callback: (change: PouchDB.Core.ChangesResponseChange<NoteBasic>) => void,
   ) {
-    this.db
+    const changes = this.db
       .changes({ live: true, since: "now", include_docs: true })
-      .on("change", callback);
+      .on("change", callback)
+      .on("error", (err) => {
+        console.error("Error watching changes:", err);
+      });
+    return () => {
+      changes.cancel();
+    };
   }
 
   public async xxxBEWARE__destroy() {

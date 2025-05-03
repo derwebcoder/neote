@@ -109,7 +109,6 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
       }
     }
 
-    console.log("content", this.getAttribute("content"));
     this.editor = new Editor({
       element: this,
       extensions: [
