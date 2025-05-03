@@ -20,6 +20,7 @@ import {
   Settings2,
   ListTodo,
 } from "lucide-react";
+import React from "react";
 
 // Menu items.
 const items = [
@@ -55,7 +56,16 @@ export type NavigationSidebarProps = {
 
 export const NavigationSidebar = ({ headerSlot }: NavigationSidebarProps) => {
   return (
-    <SidebarProvider defaultOpen={true}>
+    <SidebarProvider
+      defaultOpen={true}
+      className="w-fit"
+      style={
+        {
+          "--sidebar-width": "18rem",
+          "--sidebar-width-mobile": "18rem",
+        } as React.CSSProperties
+      }
+    >
       <Sidebar variant="sidebar" collapsible="icon">
         <SidebarHeader>{headerSlot}</SidebarHeader>
         <SidebarSeparator />
