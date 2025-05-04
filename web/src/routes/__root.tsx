@@ -13,7 +13,7 @@ export const Route = createRootRoute({
           </div>
         }
       />
-      <main>
+      <main className="w-full">
         <Outlet />
       </main>
       <TanStackRouterDevtools />

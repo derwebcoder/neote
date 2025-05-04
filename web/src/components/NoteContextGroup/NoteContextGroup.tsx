@@ -2,12 +2,12 @@ import { Note } from "@/modules/notes/models/Note";
 import { Tag } from "@/modules/tags";
 import { NoteDisplay } from "@/components/NoteDisplay/NoteDisplay";
 
-type Props = {
+export type NoteContextGroupProps = {
   context: Tag[];
   notes: Note[];
 };
 
-export const NoteContextGroup = (props: Props) => {
+export const NoteContextGroup = (props: NoteContextGroupProps) => {
   const { context, notes } = props;
 
   return (
