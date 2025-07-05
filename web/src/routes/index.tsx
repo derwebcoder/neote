@@ -34,18 +34,22 @@ function Index() {
 
   if (!sections || sections.length <= 0) {
     return (
-      <div className="flex h-full flex-col bg-white px-8 py-10">
+      <div className="flex h-full flex-col px-8 py-10">
         Add your first note in the input in the top left!
       </div>
     );
   }
 
   return (
-    <div className="flex h-full w-full flex-col bg-white px-8 py-10">
+    <div className="flex h-full w-full flex-col px-8 py-10">
       <ul>
         {sections.map((section) => {
           if (section.type === "date") {
-            return <DateSeparator date={section.date} key={section.key} />;
+            return (
+              <div className="flex justify-center" key={section.key}>
+                <DateSeparator date={section.date} />
+              </div>
+            );
           }
           return (
             <NoteContextGroup

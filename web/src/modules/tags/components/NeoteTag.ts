@@ -7,6 +7,7 @@ import { CustomElement } from "@/modules/types/CustomElement";
 
 type NeoteTagAttributes = {
   name: string;
+  plain?: boolean;
 };
 
 export class NeoteTag extends HTMLElement implements NeoteTagAttributes {
@@ -80,7 +81,13 @@ export class NeoteTag extends HTMLElement implements NeoteTagAttributes {
       `url(data:image/svg+xml;utf8,${encodeURIComponent(TagIconMap[this.tag?.getIcon() ?? "hash"])})`,
     );
 
-    this.style.setProperty("--hue-color", this.tag?.getHue().toString() ?? "1");
+    console.log("plain", this.getAttribute("plain"));
+    if (!this.getAttribute("plain") && this.getAttribute("plain") !== "") {
+      this.style.setProperty(
+        "--hue-color",
+        this.tag?.getHue().toString() ?? "1",
+      );
+    }
   }
 }
 

@@ -48,7 +48,10 @@ export const NoteDisplay = (props: Props) => {
   return (
     <article
       key={note.getId()}
-      className={cn(`group relative flex`, blur ? "blur-sm" : "why")}
+      className={cn(
+        `group relative flex rounded-lg bg-gray-50/85 px-3 py-2 text-gray-700 transition-transform duration-200`,
+        blur ? "blur-sm" : "",
+      )}
     >
       {isEditing ? (
         <div className="h-full w-full">
