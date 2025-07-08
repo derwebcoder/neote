@@ -9,6 +9,7 @@ import {
 import { useAllNotes } from "@/hooks/useAllNotes";
 import { DI } from "@/modules/dependency-injection";
 import { Note } from "@/modules/notes/models/Note";
+import { MainTemplate } from "@/templates/MainTemplate";
 import { createFileRoute } from "@tanstack/react-router";
 import { differenceInCalendarDays } from "date-fns";
 
@@ -29,19 +30,23 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  return <MainTemplate menuSlot={<>Hello</>} mainSlot={<Main />} />;
+}
+
+const Main = () => {
   const notes = useAllNotes();
   const sections = groupNotes(notes);
 
   if (!sections || sections.length <= 0) {
     return (
-      <div className="flex h-full flex-col bg-white px-8 py-10">
+      <div className="flex h-full flex-col px-8 py-10">
         Add your first note in the input in the top left!
       </div>
     );
   }
 
   return (
-    <div className="flex h-full w-full flex-col bg-white px-8 py-10">
+    <div className="flex h-full w-full flex-col px-8 py-10">
       <ul>
         {sections.map((section) => {
           if (section.type === "date") {
@@ -58,7 +63,7 @@ function Index() {
       </ul>
     </div>
   );
-}
+};
 
 const groupNotes = (notes: Note[]): Section[] => {
   const tagService = DI.resolve("TagService");

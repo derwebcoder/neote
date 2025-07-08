@@ -1,110 +1,133 @@
-import { Badge } from "@/components/ui/badge";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuBadge,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarProvider,
-  SidebarSeparator,
-} from "@/components/ui/sidebar";
 import {
   StickyNote,
   BotMessageSquare,
   GraduationCap,
-  Settings2,
   ListTodo,
+  Settings2,
 } from "lucide-react";
-import React from "react";
+import Logo from "@/assets/logo.svg";
+import { SidebarNavItem } from "@/components/SidebarNavItem/SidebarNavItem";
 
 // Menu items.
 const items = [
   {
     title: "Notes",
     url: "#",
-    icon: StickyNote,
+    icon: <StickyNote color="url(#gray_gradient)" strokeWidth={1.5} />,
     badge: null,
   },
   {
     title: "Chat",
     url: "#",
-    icon: BotMessageSquare,
+    icon: <BotMessageSquare color="url(#gray_gradient)" strokeWidth={1.5} />,
     badge: "soon",
   },
   {
     title: "Tasks",
     url: "#",
-    icon: ListTodo,
+    icon: <ListTodo color="url(#gray_gradient)" strokeWidth={1.5} />,
     badge: "soon",
   },
   {
     title: "Learn",
     url: "#",
-    icon: GraduationCap,
+    icon: <GraduationCap color="url(#gray_gradient)" strokeWidth={1.5} />,
     badge: "soon",
   },
 ];
 
-export type NavigationSidebarProps = {
-  headerSlot?: React.ReactNode;
-};
-
-export const NavigationSidebar = ({ headerSlot }: NavigationSidebarProps) => {
+export const NavigationSidebar = () => {
   return (
-    <SidebarProvider
-      defaultOpen={true}
-      className="w-fit"
-      style={
-        {
-          "--sidebar-width": "18rem",
-          "--sidebar-width-mobile": "18rem",
-        } as React.CSSProperties
-      }
-    >
-      <Sidebar variant="sidebar" collapsible="icon">
-        <SidebarHeader>{headerSlot}</SidebarHeader>
-        <SidebarSeparator />
-        <SidebarContent>
-          <SidebarGroup>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {items.map((item) => (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
-                      <a href={item.url}>
-                        <item.icon />
-                        <span>{item.title}</span>
-                      </a>
-                    </SidebarMenuButton>
-                    {item.badge && (
-                      <SidebarMenuBadge>
-                        <Badge variant="outline">{item.badge}</Badge>
-                      </SidebarMenuBadge>
-                    )}
-                  </SidebarMenuItem>
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        </SidebarContent>
-        <SidebarFooter>
-          <SidebarMenu>
-            <SidebarMenuItem>
-              <SidebarMenuButton asChild>
-                <a href="#">
-                  <Settings2 />
-                  <span>Settings</span>
-                </a>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
-          </SidebarMenu>
-        </SidebarFooter>
-      </Sidebar>
-    </SidebarProvider>
+    <>
+      <nav className="flex flex-col items-center px-2">
+        <a href="#" className="pt-4 pb-6">
+          <div className="flex aspect-square size-10 items-center justify-center rounded-lg">
+            <img src={Logo} alt="logo" />
+          </div>
+          <div className="grid flex-1 text-left text-sm leading-tight">
+            <span className="sr-only truncate font-medium">Neote</span>
+          </div>
+        </a>
+        <div className="flex h-full flex-col items-center justify-between">
+          <ol>
+            {items.map((item) => (
+              <li key={item.title} className="pb-3">
+                <SidebarNavItem href={item.url}>
+                  {item.icon}
+                  <span className="sr-only">{item.title}</span>
+                </SidebarNavItem>
+              </li>
+            ))}
+          </ol>
+          <ol>
+            <li className="pb-2">
+              <SidebarNavItem href={"/settings"}>
+                <Settings2 color="url(#gray_gradient)" strokeWidth={1.5} />
+                <span className="sr-only">Settings</span>
+              </SidebarNavItem>
+            </li>
+          </ol>
+        </div>
+      </nav>
+      <svg width="0" height="0">
+        <defs>
+          <linearGradient
+            id="blue_gradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stop-color="#0ef" />
+            <stop offset="100%" stop-color="#00f" />
+          </linearGradient>
+          <linearGradient
+            id="green_gradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stop-color="#fd0" />
+            <stop offset="100%" stop-color="#0d0" />
+          </linearGradient>
+          <linearGradient
+            id="red_gradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stop-color="#f0e" />
+            <stop offset="100%" stop-color="#f00" />
+          </linearGradient>
+          <linearGradient
+            id="cyan_gradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stop-color="#add" />
+            <stop offset="100%" stop-color="#0dd" />
+          </linearGradient>
+          <linearGradient
+            id="gray_gradient"
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="100%"
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stop-color="#d6d3d1" />
+            <stop offset="100%" stop-color="#57534e" />
+          </linearGradient>
+        </defs>
+      </svg>
+    </>
   );
 };

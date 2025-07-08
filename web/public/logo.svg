@@ -1,0 +1,64 @@
+<svg
+  width="216"
+  height="216"
+  viewBox="0 0 216 216"
+  xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink"
+  aria-hidden="true"
+  role="img"
+>
+  <defs>
+    <linearGradient id="insetShadow" x1="50%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#456" />
+      <stop offset="30%" stop-color="#111" />
+    </linearGradient>
+    <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="20%" stop-color="#ff00ff" />
+      <stop offset="40%" stop-color="#00ffff" />
+      <stop offset="50%" stop-color="#00ff00" />
+      <stop offset="60%" stop-color="#ffff00" />
+    </linearGradient>
+  </defs>
+  <g transform="rotate(-5 108 108)" x="50" y="0">
+    <rect
+      x="7"
+      y="7"
+      width="202"
+      height="202"
+      rx="55"
+      ry="55"
+      fill="#111"
+    />
+    <rect
+      x="8"
+      y="8"
+      width="200"
+      height="200"
+      rx="54"
+      ry="54"
+      fill="url(#insetShadow)"
+    />
+    <rect
+      x="12"
+      y="12"
+      width="192"
+      height="192"
+      rx="48"
+      ry="48"
+      fill="#111"
+    />
+    <text>
+      <tspan
+        font-size="240"
+        x="48"
+        y="162"
+        fill="none"
+        stroke-width="8"
+        stroke="url(#neonGradient)"
+        font-family="serif"
+      >
+        n
+      </tspan>
+    </text>
+  </g>
+</svg>
