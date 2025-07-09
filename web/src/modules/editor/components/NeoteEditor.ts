@@ -136,7 +136,8 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
             return;
           }
 
-          if (event.key !== "Enter" || event.shiftKey) {
+          // Only submit on Enter + CMD (macOS) or Enter + Ctrl (Windows/Linux)
+          if (!(event.key === "Enter" && (event.metaKey || event.ctrlKey))) {
             return false;
           }
 

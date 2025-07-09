@@ -10,7 +10,10 @@
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit"
   },
-  "eslint.validate": ["typescript", "typescriptreact"],
+  "eslint.validate": [
+    "typescript",
+    "typescriptreact"
+  ],
   "editor.formatOnSave": true,
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
@@ -51,6 +54,6 @@
     "strings": "on"
   },
   "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   }
 }

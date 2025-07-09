@@ -1,16 +1,15 @@
 import { BalloonButton } from "@/components/BalloonButton/BalloonButton";
 import { Button } from "@/components/ui/button";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 import "@/modules/editor";
 import { NeoteEditor } from "@/modules/editor/components/NeoteEditor";
 import "@/modules/tags";
-import { SquareArrowOutDownRight, SquareArrowUpLeft } from "lucide-react";
+import { Send } from "lucide-react";
 import { FocusEventHandler, useState } from "react";
 
 export const EditorMain = () => {
   const [isTyping, setIsTyping] = useState(false);
-  const [isExpanded, setIsExpanded] = useLocalStorage("editor-expanded", false);
 
   const handleTyping: FocusEventHandler<NeoteEditor> = () => {
     setIsTyping(true);
@@ -20,11 +19,18 @@ export const EditorMain = () => {
     setIsTyping(false);
   };
 
+  const handleSubmit = () => {
+    // TODO: Implement submit functionality
+    console.log("Submit button clicked");
+  };
+
+  const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+  const shortcut = isMac ? 'CMD + Enter' : 'CTRL + Enter';
+
   return (
     <div
       className={cn(
         "relative z-50 flex h-full w-full transition-all duration-300 ease-in-out",
-        isTyping && isExpanded && "h-[150%] w-[140%]",
       )}
     >
       <neote-editor
@@ -36,28 +42,24 @@ export const EditorMain = () => {
       ></neote-editor>
       <div className="absolute right-1 flex h-full flex-col justify-between py-1">
         <BalloonButton mute={isTyping} />
-        <Button
-          variant={"ghost"}
-          size={"icon"}
-          className={cn(
-            "hover:text-stone-600",
-            isTyping ? "text-stone-200" : "text-stone-400",
-          )}
-          onMouseDown={() => {
-            setIsExpanded((prev) => !prev);
-            // when clicking on the expand button, we want to focus the editor
-            // otherwise the click would not have any visual effect for the user
-            // we also need a timeout otherwise a click while the editor is focused
-            // would cause the editor to lose focus
-            window.setTimeout(() => {
-              (
-                document.querySelector("neote-editor") as NeoteEditor
-              ).focusEditor();
-            }, 0);
-          }}
-        >
-          {isExpanded ? <SquareArrowUpLeft /> : <SquareArrowOutDownRight />}
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant={"ghost"}
+              size={"icon"}
+              className={cn(
+                "hover:text-stone-600",
+                isTyping ? "bg-stone-100 opacity-70" : "",
+              )}
+              onClick={handleSubmit}
+            >
+              <Send color={isTyping ? "url(#green_gradient)" : "url(#gray_gradient)"} />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Add note ({shortcut})</p>
+          </TooltipContent>
+        </Tooltip>
       </div>
     </div>
   );
