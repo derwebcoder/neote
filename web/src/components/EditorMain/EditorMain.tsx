@@ -36,7 +36,7 @@ export const EditorMain = () => {
       <neote-editor
         extension-tag="enabled"
         placeholder="Type here ..."
-        className="h-full w-full rounded-sm border-1 border-stone-200 bg-white outline-0 focus-within:border-stone-400"
+        className="p-2 pe-8 h-full w-full rounded-sm border-1 border-stone-200 bg-white outline-0 focus-within:border-stone-400"
         onFocus={handleTyping}
         onBlur={handleBlur}
       ></neote-editor>
