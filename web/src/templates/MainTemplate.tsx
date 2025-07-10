@@ -7,7 +7,7 @@ export type MainTemplateProps = {
 
 export const MainTemplate = ({ menuSlot, mainSlot }: MainTemplateProps) => {
   return (
-    <div className="grid h-full grid-cols-12 gap-4 px-4 py-4" data-tag-style="chip-border">
+    <div className="grid h-full grid-cols-12 gap-4 px-4 py-4" data-tag-style="token-gradient-light">
       <div className="col-span-5 flex flex-col gap-4">
         <div className="h-24 rounded-sm shadow shadow-stone-300">
           <EditorMain />
