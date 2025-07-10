@@ -51,7 +51,7 @@ const Main = () => {
         {sections.map((section) => {
           if (section.type === "date") {
             return (
-              <div key={section.key} className="sticky top-0 z-10 flex justify-center py-2">
+              <div key={section.key} className="sticky top-0 flex justify-center py-2">
                 <DateSeparator date={section.date} />
               </div>
             );

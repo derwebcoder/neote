@@ -79,8 +79,8 @@ export const NavigationSidebar = () => {
             y2="100%"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%" stop-color="#0ef" />
-            <stop offset="100%" stop-color="#00f" />
+            <stop offset="0%" stopColor="#0ef" />
+            <stop offset="100%" stopColor="#00f" />
           </linearGradient>
           <linearGradient
             id="green_gradient"
@@ -90,8 +90,8 @@ export const NavigationSidebar = () => {
             y2="100%"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%" stop-color="#fd0" />
-            <stop offset="100%" stop-color="#0d0" />
+            <stop offset="0%" stopColor="#fd0" />
+            <stop offset="100%" stopColor="#0d0" />
           </linearGradient>
           <linearGradient
             id="red_gradient"
@@ -101,8 +101,8 @@ export const NavigationSidebar = () => {
             y2="100%"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%" stop-color="#f0e" />
-            <stop offset="100%" stop-color="#f00" />
+            <stop offset="0%" stopColor="#f0e" />
+            <stop offset="100%" stopColor="#f00" />
           </linearGradient>
           <linearGradient
             id="cyan_gradient"
@@ -112,8 +112,8 @@ export const NavigationSidebar = () => {
             y2="100%"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%" stop-color="#add" />
-            <stop offset="100%" stop-color="#0dd" />
+            <stop offset="0%" stopColor="#add" />
+            <stop offset="100%" stopColor="#0dd" />
           </linearGradient>
           <linearGradient
             id="gray_gradient"
@@ -123,8 +123,8 @@ export const NavigationSidebar = () => {
             y2="100%"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset="0%" stop-color="#d6d3d1" />
-            <stop offset="100%" stop-color="#57534e" />
+            <stop offset="0%" stopColor="#d6d3d1" />
+            <stop offset="100%" stopColor="#57534e" />
           </linearGradient>
         </defs>
       </svg>
