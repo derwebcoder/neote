@@ -22,6 +22,23 @@ export const EditorMain = () => {
     setIsTyping(false);
   };
 
+  const triggerSubmit = () => {
+    const editor = document.querySelector("neote-editor div[contenteditable]") as HTMLElement | null;
+    if (editor) {
+      const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
+      const event = new KeyboardEvent("keydown", {
+        key: "Enter",
+        code: "Enter",
+        bubbles: true,
+        cancelable: true,
+        ...(isMac
+          ? { metaKey: true }
+          : { ctrlKey: true }),
+      });
+      editor.dispatchEvent(event);
+    }
+  }
+
   const handleSubmit = (e: EditorSubmitEvent) => {
     if (!e.detail?.content || e.detail?.content.trim() === "") {
       return;
@@ -58,7 +75,7 @@ export const EditorMain = () => {
                 "hover:text-stone-600",
                 isTyping ? "bg-stone-100 opacity-70" : "",
               )}
-              onClick={handleSubmit}
+              onClick={triggerSubmit}
             >
               <Send color={isTyping ? "url(#green_gradient)" : "url(#gray_gradient)"} />
             </Button>
