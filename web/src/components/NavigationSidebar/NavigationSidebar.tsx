@@ -48,7 +48,7 @@ export const NavigationSidebar = () => {
             <span className="sr-only truncate font-medium">Neote</span>
           </div>
         </a>
-        <div className="flex h-full flex-col items-center justify-between">
+        <div className="flex h-full flex-col items-center">
           <ol>
             {items.map((item) => (
               <li key={item.title} className="pb-3">
@@ -59,6 +59,7 @@ export const NavigationSidebar = () => {
               </li>
             ))}
           </ol>
+          <hr className="w-full border-stone-300 mt-3 pb-6" />
           <ol>
             <li className="pb-2">
               <SidebarNavItem href={"/settings"}>
