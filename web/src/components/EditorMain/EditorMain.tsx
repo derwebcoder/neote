@@ -1,14 +1,17 @@
 import { BalloonButton } from "@/components/BalloonButton/BalloonButton";
 import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useNoteService } from "@/hooks/useNoteService";
 import { cn } from "@/lib/utils";
 import "@/modules/editor";
-import { NeoteEditor } from "@/modules/editor/components/NeoteEditor";
+import { EditorSubmitEvent, NeoteEditor } from "@/modules/editor/components/NeoteEditor";
+import { Note } from "@/modules/notes/models/Note";
 import "@/modules/tags";
 import { Send } from "lucide-react";
 import { FocusEventHandler, useState } from "react";
 
 export const EditorMain = () => {
+  const noteService = useNoteService()
   const [isTyping, setIsTyping] = useState(false);
 
   const handleTyping: FocusEventHandler<NeoteEditor> = () => {
@@ -19,9 +22,12 @@ export const EditorMain = () => {
     setIsTyping(false);
   };
 
-  const handleSubmit = () => {
-    // TODO: Implement submit functionality
-    console.log("Submit button clicked");
+  const handleSubmit = (e: EditorSubmitEvent) => {
+    if (!e.detail?.content || e.detail?.content.trim() === "") {
+      return;
+    }
+    const note = Note.getDataFromHtmlString(e.detail.content);
+    noteService.create(note)
   };
 
   const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
@@ -39,6 +45,7 @@ export const EditorMain = () => {
         className="p-2 pe-8 h-full w-full rounded-sm border-1 border-stone-200 bg-white outline-0 focus-within:border-stone-400"
         onFocus={handleTyping}
         onBlur={handleBlur}
+        oneditor-submit={handleSubmit}
       ></neote-editor>
       <div className="absolute right-1 flex h-full flex-col justify-between py-1">
         <BalloonButton mute={isTyping} />

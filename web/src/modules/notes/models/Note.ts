@@ -61,14 +61,7 @@ export class Note {
   }
 
   static build(html: HTMLString) {
-    const dateCreated = new Date();
-    const id = dateCreated.toJSON();
-    const preppedHtml = noteUtils.cleanTagStyles(
-      noteUtils.markContextTags(html),
-    );
-    const text = noteUtils.getPlainText(preppedHtml);
-    const tags = noteUtils.getTagsFromHtml(preppedHtml);
-    const contextTags = noteUtils.getContextTagsFromHtml(preppedHtml);
+    const { id, html: preppedHtml, text, dateCreated, tags, contextTags } = Note.getDataFromHtmlString(html);
     return new Note(id, preppedHtml, text, dateCreated, tags, contextTags);
   }
 }
