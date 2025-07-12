@@ -1,7 +1,9 @@
 import { BalloonButton } from "@/components/BalloonButton/BalloonButton";
+import { EditorPIP } from "@/components/EditorPIP/EditorPIP";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 import { useNoteService } from "@/hooks/useNoteService";
+import { usePIP } from "@/hooks/usePIP";
 import { cn } from "@/lib/utils";
 import "@/modules/editor";
 import { EditorSubmitEvent, NeoteEditor } from "@/modules/editor/components/NeoteEditor";
@@ -13,6 +15,7 @@ import { FocusEventHandler, useState } from "react";
 export const EditorMain = () => {
   const noteService = useNoteService()
   const [isTyping, setIsTyping] = useState(false);
+  const { triggerPIP, PIPWrapper, PIPWindow } = usePIP()
 
   const handleTyping: FocusEventHandler<NeoteEditor> = () => {
     setIsTyping(true);
@@ -21,6 +24,10 @@ export const EditorMain = () => {
   const handleBlur = () => {
     setIsTyping(false);
   };
+
+  const handleBalloonClick = () => {
+    triggerPIP()
+  }
 
   const triggerSubmit = () => {
     const editor = document.querySelector("neote-editor div[contenteditable]") as HTMLElement | null;
@@ -56,6 +63,9 @@ export const EditorMain = () => {
         "relative z-50 flex h-full w-full transition-all duration-300 ease-in-out",
       )}
     >
+      <PIPWrapper>
+        <EditorPIP customWindow={PIPWindow} />
+      </PIPWrapper>
       <neote-editor
         extension-tag="enabled"
         placeholder="Type here ..."
@@ -65,7 +75,7 @@ export const EditorMain = () => {
         oneditor-submit={handleSubmit}
       ></neote-editor>
       <div className="absolute right-1 flex h-full flex-col justify-between py-1">
-        <BalloonButton mute={isTyping} />
+        <BalloonButton mute={isTyping} onClick={handleBalloonClick} />
         <Tooltip>
           <TooltipTrigger asChild>
             <Button

@@ -160,6 +160,14 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
 
 customElements.define("neote-editor", NeoteEditor);
 
+export const defineNeoteEditor = (customWindow: Window = window) => {
+  if (customWindow.customElements.get("neote-editor")) {
+    return;
+  }
+  console.log('register')
+  customWindow.customElements.define("neote-editor", NeoteEditor);
+}
+
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace JSX {
