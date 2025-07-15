@@ -1,8 +1,9 @@
+import { defineNeoteEditor } from "@/modules/editor/components/NeoteEditor";
 import { useState } from "react";
-import { createPortal } from "react-dom";
+import ReactDOM from "react-dom/client";
 import { toast } from "sonner";
 
-export const usePIP = () => {
+export const usePIP = ({ Children }: { Children: React.ReactNode }) => {
 	const [PIPWindow, setPIPWindow] = useState<Window | undefined>();
 
 	const triggerPIP = async () => {
@@ -63,21 +64,21 @@ export const usePIP = () => {
 		pip.document.head.append(themeColor);
 
 		setPIPWindow(pip);
-	};
 
-	const PIPWrapper = ({ children }: { children: React.ReactNode }) => (
-		<>
-			{PIPWindow &&
-				createPortal(
-					children,
-					PIPWindow.document.body,
-				)}
-		</>
-	)
+		defineNeoteEditor(pip);
+
+		const root = ReactDOM.createRoot(pip.document.body);
+		root.render(Children);
+
+		// const editor = document.createElement("neote-editor") as NeoteEditor;
+		// editor.extensionTag = "enabled";
+		// editor.placeholder = "Type here ...";
+		// editor.className = "p-2 pe-8 h-full w-full rounded-sm border-1 border-stone-200 bg-white outline-0 focus-within:border-stone-400";
+		// pip.document.body.appendChild(editor);
+	};
 
 	return {
 		triggerPIP,
-		PIPWrapper,
 		PIPWindow
 	}
 }

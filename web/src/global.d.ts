@@ -1,5 +1,7 @@
 // import type { NeoteTag } from "@/modules/tags/components/NeoteTag";
 
+import { Environment } from "@/types/environment";
+
 // declare module "react" {
 //   namespace JSX {
 //     interface IntrinsicElements {
@@ -16,6 +18,7 @@ interface DocumentPictureInPicture {
 declare global {
 	interface Window {
 		documentPictureInPicture?: DocumentPictureInPicture;
+    neote?: Environment
 	}
 }
 

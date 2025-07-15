@@ -1,16 +1,12 @@
-import "@/modules/tags";
-import { defineNeoteEditor } from "@/modules/editor/components/NeoteEditor";
 
-export const EditorPIP = ({ customWindow = window }: { customWindow?: Window }) => {
-
-  defineNeoteEditor(customWindow);
+export const EditorPIP = () => {
 
   return (
     <div className="flex h-[100vh]">
       <neote-editor
         extension-tag="enabled"
         placeholder="Type here ..."
-        className="p-2 pe-8 h-full w-full rounded-sm border-1 border-stone-200 bg-white outline-0 focus-within:border-stone-400"
+        className="p-2 pe-8 h-full w-full border-0 bg-white outline-0 [.is-app_&]:pt-0"
       // onFocus={handleTyping}
       // onBlur={handleBlur}
       // oneditor-submit={handleSubmit}

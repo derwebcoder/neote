@@ -14,11 +14,17 @@ contextBridge.exposeInMainWorld("versions", {
 });
 
 contextBridge.exposeInMainWorld("neote", {
+  isApp: true,
   ai: {
     chatCompletion: (
       messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
     ) => {
       return ipcRenderer.invoke("ai:chatCompletion", messages);
+    },
+  },
+  window: {
+    openFloatingEditor: () => {
+      return ipcRenderer.invoke("window:openFloatingEditor");
     },
   },
 });

@@ -164,8 +164,9 @@ export const defineNeoteEditor = (customWindow: Window = window) => {
   if (customWindow.customElements.get("neote-editor")) {
     return;
   }
-  console.log('register')
+ console.log('register')
   customWindow.customElements.define("neote-editor", NeoteEditor);
+  console.log('registered')
 }
 
 declare module "react" {

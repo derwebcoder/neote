@@ -53,6 +53,38 @@ app.whenReady().then(() => {
     }
   });
 
+  ipcMain.handle("window:openFloatingEditor", async (event, messages) => {
+    const floatingWindow = new BrowserWindow({
+      width: 1000,
+      height: 600,
+      // remove the default titlebar
+      titleBarStyle: 'hidden',
+      // expose window controls in Windows/Linux
+      ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {}),
+      webPreferences: {
+        preload: path.join(__dirname, "preload.js"),
+      },
+    });
+
+    // see https://www.electronjs.org/docs/latest/api/base-window#winsetalwaysontopflag-level-relativelevel
+    floatingWindow.setAlwaysOnTop(true, 'floating')
+
+    floatingWindow.setOpacity(1)
+
+    floatingWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
+  
+    // and load the index.html of the app.
+    if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+      // mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+      floatingWindow.loadURL("http://localhost:5173/floating");
+      floatingWindow.webContents.openDevTools();
+    } else {
+      floatingWindow.loadFile(
+        path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/floating.html`),
+      );
+    }
+  });
+
   createWindow();
 });
 
