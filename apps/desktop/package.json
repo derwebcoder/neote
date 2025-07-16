@@ -44,6 +44,7 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.0.9",
+    "@xstate/store": "^3.8.2",
     "electron-squirrel-startup": "^1.0.1",
     "openai": "^4.86.1",
     "react": "^19.0.0",
