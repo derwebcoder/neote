@@ -2,6 +2,7 @@ import { BrowserWindow, screen } from "electron";
 import path from "node:path";
 import { floatingWindowAtom, mainWindowAtom } from "../../state/windows";
 import { rememberWindow } from "../../utils/rememberWindow";
+import { getSettings } from "../../storage";
 
 
 export const createFloatingWindow = () => {
@@ -24,7 +25,7 @@ export const createFloatingWindow = () => {
   // see https://www.electronjs.org/docs/latest/api/base-window#winsetalwaysontopflag-level-relativelevel
   floatingWindow.setAlwaysOnTop(true, 'floating')
 
-  floatingWindow.setOpacity(1)
+  floatingWindow.setOpacity(getSettings().floatingWindow.opacity)
 
   floatingWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
 

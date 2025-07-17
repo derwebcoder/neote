@@ -7,6 +7,7 @@ import {
 } from "lucide-react";
 import Logo from "@/assets/logo.svg";
 import { SidebarNavItem } from "@/components/SidebarNavItem/SidebarNavItem";
+import { SettingsDialogButton } from "@/components/Settings/SettingsDialogButton";
 
 // Menu items.
 const items = [
@@ -62,10 +63,7 @@ export const NavigationSidebar = () => {
           <hr className="w-full border-stone-300 mt-3 pb-6" />
           <ol>
             <li className="pb-2">
-              <SidebarNavItem href={"/settings"}>
-                <Settings2 color="url(#gray_gradient)" strokeWidth={1.5} />
-                <span className="sr-only">Settings</span>
-              </SidebarNavItem>
+              <SettingsDialogButton />
             </li>
           </ol>
         </div>
