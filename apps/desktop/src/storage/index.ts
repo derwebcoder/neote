@@ -1,15 +1,15 @@
 import { app } from "electron"
 import path from "node:path";
 import fs from "node:fs";
-import { storageAtom } from "../state/storage";
-import { Storage } from "../types/storage";
+import { defaultStorage, storageAtom } from "../state/storage";
+import { Settings, Storage } from "../types/storage";
 
 const FILE_NAME = 'storage.json'
 
 export const loadStorage = () => {
   const userDataPath = app.getPath('userData')
   const storagePath = path.join(userDataPath, FILE_NAME)
-  let storage = '{}'
+  let storage = ''
   try {
     storage = fs.readFileSync(storagePath, 'utf8')
   } catch (error) {
@@ -17,18 +17,16 @@ export const loadStorage = () => {
   }
 
   if (!storage || storage.trim() === '') {
-    storageAtom.set({})
+    storageAtom.set(defaultStorage)
     return
   }
 
   try {
     const parsedStorage = JSON.parse(storage)
     storageAtom.set(parsedStorage)
-    return parsedStorage
   } catch (error) {
     console.info('Invalid storage file, using empty storage.')
-    storageAtom.set({})
-    return {}
+    storageAtom.set(defaultStorage)
   }
 }
 
@@ -46,4 +44,14 @@ export const saveStorage = (storage: Storage) => {
 
 export const getStorage = () => {
   return storageAtom.get()
+}
+
+export const getSettings = () => {
+  return storageAtom.get().settings
+}
+
+export const setSettings = (settings: Settings) => {
+  const storage = storageAtom.get()
+  storage.settings = settings
+  saveStorage(storage)
 }

@@ -1,9 +1,10 @@
-import { app, BrowserWindow, ipcMain } from "electron";
-import path from "node:path";
+import { app, BrowserWindow } from "electron";
 import started from "electron-squirrel-startup";
-import OpenAI from "openai";
 import { createMainWindow } from "./windows/main";
 import { loadStorage } from "./storage";
+import { registerSettingsIPC } from "./ipc/settings";
+import { registerAIIPC } from "./ipc/ai";   
+import { registerWindowIPC } from "./ipc/window";
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (started) {
@@ -14,58 +15,13 @@ if (started) {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.whenReady().then(() => {
-  const openai = new OpenAI({
-    baseURL: "http://localhost:11434/v1/",
-    // required but ignored
-    apiKey: "ollama",
-  });
-
-  ipcMain.handle("ai:chatCompletion", async (event, messages) => {
-    try {
-      const completion = await openai.chat.completions.create({
-        model: "llama3.2",
-        messages,
-      });
-      return completion.choices[0].message;
-    } catch (error) {
-      return false;
-    }
-  });
-
-  ipcMain.handle("window:openFloatingEditor", async (event, messages) => {
-    const floatingWindow = new BrowserWindow({
-      width: 1000,
-      height: 600,
-      // remove the default titlebar
-      titleBarStyle: 'hidden',
-      // expose window controls in Windows/Linux
-      ...(process.platform !== 'darwin' ? { titleBarOverlay: true } : {}),
-      webPreferences: {
-        preload: path.join(__dirname, "preload.js"),
-      },
-    });
-
-    // see https://www.electronjs.org/docs/latest/api/base-window#winsetalwaysontopflag-level-relativelevel
-    floatingWindow.setAlwaysOnTop(true, 'floating')
-
-    floatingWindow.setOpacity(1)
-
-    floatingWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
-  
-    // and load the index.html of the app.
-    if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-      // mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
-      floatingWindow.loadURL("http://localhost:5173/floating");
-      floatingWindow.webContents.openDevTools();
-    } else {
-      floatingWindow.loadFile(
-        path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/floating.html`),
-      );
-    }
-  });
+  registerAIIPC()
+  registerWindowIPC()
+  registerSettingsIPC()
 
   loadStorage()
-  createMainWindow();
+
+  createMainWindow()
 });
 
 // Quit when all windows are closed, except on macOS. There, it's common

@@ -2,16 +2,10 @@
 
 import { ipcRenderer } from "electron";
 import OpenAI from "openai";
+import { Settings } from "./types/storage";
 
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
 const { contextBridge } = require("electron");
-
-contextBridge.exposeInMainWorld("versions", {
-  node: () => process.versions.node,
-  chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
-  // we can also expose variables, not just functions
-});
 
 contextBridge.exposeInMainWorld("neote", {
   isApp: true,
@@ -27,4 +21,8 @@ contextBridge.exposeInMainWorld("neote", {
       return ipcRenderer.invoke("window:openFloatingEditor");
     },
   },
+  settings: {
+    get: () => ipcRenderer.invoke("settings:get"),
+    set: (settings: Settings) => ipcRenderer.invoke("settings:set", settings),
+  }
 });
