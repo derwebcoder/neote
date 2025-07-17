@@ -7,7 +7,7 @@ export const registerAIIPC = () => {
     // required but ignored
     apiKey: "ollama",
   });
-  ipcMain.handle("ai:chatCompletion", async (event, messages) => {
+  ipcMain.handle("ai:chatCompletion", async (event, messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]) => {
   try {
     const completion = await openai.chat.completions.create({
       model: "llama3.2",

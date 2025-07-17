@@ -8,8 +8,8 @@
   },
   "workspaces": [
     "apps/*",
-    "packages/*",
-    "config/*"
+    "shared",
+    "web/*"
   ],
   "devDependencies": {
     "@eslint/js": "^9.17.0",

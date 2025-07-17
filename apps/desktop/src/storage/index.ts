@@ -2,7 +2,8 @@ import { app } from "electron"
 import path from "node:path";
 import fs from "node:fs";
 import { defaultStorage, storageAtom } from "../state/storage";
-import { Settings, Storage } from "../types/storage";
+import { Storage } from "../types/storage";
+import { SharedSettings } from "@neote/shared";
 
 const FILE_NAME = 'storage.json'
 
@@ -50,7 +51,7 @@ export const getSettings = () => {
   return storageAtom.get().settings
 }
 
-export const setSettings = (settings: Settings) => {
+export const setSettings = (settings: SharedSettings) => {
   const storage = storageAtom.get()
   storage.settings = settings
   saveStorage(storage)

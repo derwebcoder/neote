@@ -1,13 +1,7 @@
-export type AppEnvironment = {
+import { WebAppBridge } from "@neote/shared";
+
+export type AppEnvironment = WebAppBridge & {
   isApp: true,
-} & {
-  ai: {
-    // chatCompletion: (messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[]) => Promise<OpenAI.Chat.Completions.ChatCompletionMessageParam[]>;
-    chatCompletion: (messages: any[]) => Promise<any[]>;
-  };
-  window: {
-    openFloatingEditor: () => void;
-  };
 }
 
 export type BrowserEnvironment = {

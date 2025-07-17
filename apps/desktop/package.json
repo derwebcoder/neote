@@ -43,6 +43,7 @@
     "vite-tsconfig-paths": "^5.1.4"
   },
   "dependencies": {
+    "@neote/shared": "1.0.0",
     "@tailwindcss/vite": "^4.0.9",
     "@xstate/store": "^3.8.2",
     "electron-squirrel-startup": "^1.0.1",
