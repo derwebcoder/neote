@@ -9,8 +9,12 @@ export const rememberWindow = (id: string, window: BrowserWindow) => {
   }
 
   const handleClose = () => {
+    const bounds = window.getBounds()
+    if (bounds.width <= 140 || bounds.height <= 50) {
+      return
+    }
     storage.windowBounds = storage.windowBounds || {}
-    storage.windowBounds[id] = window.getBounds()
+    storage.windowBounds[id] = bounds
     saveStorage(storage)
   }
 

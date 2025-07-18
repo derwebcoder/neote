@@ -1,6 +1,6 @@
 // import type { NeoteTag } from "@/modules/tags/components/NeoteTag";
 
-import { Environment } from "@/types/environment";
+import { Environment } from "@/types/Environment";
 
 // declare module "react" {
 //   namespace JSX {
