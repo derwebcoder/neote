@@ -55,7 +55,6 @@ export const createFloatingWindow = () => {
         }
         floatingWindow.setBounds(previousBounds, true)
       }, 100)
-      console.log('focus', previousBounds)
     }
   })
   floatingWindow.on('blur', () => {
@@ -63,7 +62,6 @@ export const createFloatingWindow = () => {
       floatingWindow.setOpacity(getSettings().floatingWindow.opacity / 100)
     }
     if (getSettings().floatingWindow.shrinkOnBlur) {
-      console.log('blur')
       previousBounds = floatingWindow.getBounds()
       const { x, y, width, height } = previousBounds
       const display = screen.getDisplayMatching(previousBounds)

@@ -2,12 +2,14 @@ import { Switch } from "@/components/ui/switch"
 import { SettingControl, SettingControlFrame } from "@/components/Settings/SettingControl"
 import { Slider } from "@/components/ui/slider"
 import { settingsStore, useFloatingWindowSettings } from "@/stores/settingsStore"
+import { isAppEnvironment } from "@/lib/environmentUtils"
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Laptop2 } from "lucide-react"
+import { cn } from "@/lib/utils"
 
 export const FloatingEditorSettings = () => {
-
   const settings = useFloatingWindowSettings()
-
-  console.log(settings)
+  const isApp = isAppEnvironment(window.neote)
 
   const handleOpacityChange = (value: number) => {
     settingsStore.trigger.update({
@@ -41,33 +43,45 @@ export const FloatingEditorSettings = () => {
 
   return (
     <div className="flex flex-col gap-4 mt-4">
-      <SettingControlFrame>
-        <SettingControl
-          title="Opacity"
-          description="Control the opacity of the window."
-          action={
-            <Slider
-              max={100}
-              min={20}
-              step={1}
-              className="w-[80px]"
-              value={[settings.opacity ?? 100]}
-              onValueChange={(value) => handleOpacityChange(value[0])}
-            />}
-        />
-        <SettingControl
-          title="Opaque on focus"
-          description="When you focus on the floating editor, it will become opaque."
-          action={<Switch checked={settings.opaqueOnFocus ?? false} onCheckedChange={handleOpaqueOnFocusChange} />}
-        />
-      </SettingControlFrame>
-      <SettingControlFrame>
-        <SettingControl
-          title="Shrink on blur"
-          description="When the floating editor is not focused, it will shrink."
-          action={<Switch checked={settings.shrinkOnBlur ?? false} onCheckedChange={handleShrinkOnBlurChange} />}
-        />
-      </SettingControlFrame>
+      {!isApp && (
+        <Alert className="mb-4">
+          <Laptop2 className="h-4 w-4" />
+          <AlertTitle>Desktop App Feature</AlertTitle>
+          <AlertDescription>
+            These settings are only available in the Neote desktop app. Download the app to unlock floating editor functionality and customize its behavior!
+          </AlertDescription>
+        </Alert>
+      )}
+      <div className={cn(!isApp && "opacity-40")}>
+        <SettingControlFrame>
+          <SettingControl
+            title="Opacity"
+            description="Control the opacity of the window."
+            action={
+              <Slider
+                max={100}
+                min={20}
+                step={1}
+                className="w-[80px]"
+                value={[settings.opacity ?? 100]}
+                onValueChange={(value) => handleOpacityChange(value[0])}
+                disabled={!isApp}
+              />}
+          />
+          <SettingControl
+            title="Opaque on focus"
+            description="When you focus on the floating editor, it will become opaque."
+            action={<Switch checked={settings.opaqueOnFocus ?? false} onCheckedChange={handleOpaqueOnFocusChange} disabled={!isApp} />}
+          />
+        </SettingControlFrame>
+        <SettingControlFrame>
+          <SettingControl
+            title="Shrink on blur"
+            description="When the floating editor is not focused, it will shrink."
+            action={<Switch checked={settings.shrinkOnBlur ?? false} onCheckedChange={handleShrinkOnBlurChange} disabled={!isApp} />}
+          />
+        </SettingControlFrame>
+      </div>
     </div>
   )
 }
