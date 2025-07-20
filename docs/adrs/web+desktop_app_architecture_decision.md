@@ -70,9 +70,11 @@ This is the most simple solution. Just by adding `root: '../web'` to the vite.re
 
 For the build I also needed to update the `build: {outDir: '...'}` value to point back again to the /apps/desktop folder. Because otherwise the build output folder would be created in /apps/web and would not have been packaged correctly. In this case I changed the outDir to `"../desktop/.vite/renderer/main_window"` which includes the `name` attribute of the renderer config in forge.config.ts.
 
+**(!) See also [the architecture doc](../architecture/web+desktop_app_architecture.md)!**
+
 The only problem with this solution is that it would not support multiple renderers with one vite.renderer.config.ts, because the [original Forge VitePlugin code generates the output dir name based on the forge.config.ts renderer name attribute](https://github.com/electron/forge/blob/main/packages/plugin/vite/src/config/vite.renderer.config.ts#L15C15-L15C39).
 
-I suppose a solution would be to have a separate vite.rendererX.config.ts for each window.
+I suppose a solution would be to have a separate vite.rendererX.config.ts for each window if this would become necessary in the future for some reason.
 
 ## Decision
 

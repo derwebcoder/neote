@@ -8,75 +8,94 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-// Import Routes
+import { Route as rootRouteImport } from './routes/__root'
+import { Route as FloatingRouteRouteImport } from './routes/floating/route'
+import { Route as AppRouteRouteImport } from './routes/_app/route'
+import { Route as AppIndexRouteImport } from './routes/_app/index'
+import { Route as AppAboutRouteImport } from './routes/_app/about'
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as FloatingRouteImport } from './routes/floating/route'
-import { Route as AppRouteImport } from './routes/_app/route'
-import { Route as AppIndexImport } from './routes/_app/index'
-import { Route as AppAboutImport } from './routes/_app/about'
-
-// Create/Update Routes
-
-const FloatingRouteRoute = FloatingRouteImport.update({
+const FloatingRouteRoute = FloatingRouteRouteImport.update({
   id: '/floating',
   path: '/floating',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const AppRouteRoute = AppRouteImport.update({
+const AppRouteRoute = AppRouteRouteImport.update({
   id: '/_app',
-  getParentRoute: () => rootRoute,
+  getParentRoute: () => rootRouteImport,
 } as any)
-
-const AppIndexRoute = AppIndexImport.update({
+const AppIndexRoute = AppIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => AppRouteRoute,
 } as any)
-
-const AppAboutRoute = AppAboutImport.update({
+const AppAboutRoute = AppAboutRouteImport.update({
   id: '/about',
   path: '/about',
   getParentRoute: () => AppRouteRoute,
 } as any)
 
-// Populate the FileRoutesByPath interface
+export interface FileRoutesByFullPath {
+  '/floating': typeof FloatingRouteRoute
+  '/about': typeof AppAboutRoute
+  '/': typeof AppIndexRoute
+}
+export interface FileRoutesByTo {
+  '/floating': typeof FloatingRouteRoute
+  '/about': typeof AppAboutRoute
+  '/': typeof AppIndexRoute
+}
+export interface FileRoutesById {
+  __root__: typeof rootRouteImport
+  '/_app': typeof AppRouteRouteWithChildren
+  '/floating': typeof FloatingRouteRoute
+  '/_app/about': typeof AppAboutRoute
+  '/_app/': typeof AppIndexRoute
+}
+export interface FileRouteTypes {
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '/floating' | '/about' | '/'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/floating' | '/about' | '/'
+  id: '__root__' | '/_app' | '/floating' | '/_app/about' | '/_app/'
+  fileRoutesById: FileRoutesById
+}
+export interface RootRouteChildren {
+  AppRouteRoute: typeof AppRouteRouteWithChildren
+  FloatingRouteRoute: typeof FloatingRouteRoute
+}
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/_app': {
-      id: '/_app'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof AppRouteImport
-      parentRoute: typeof rootRoute
-    }
     '/floating': {
       id: '/floating'
       path: '/floating'
       fullPath: '/floating'
-      preLoaderRoute: typeof FloatingRouteImport
-      parentRoute: typeof rootRoute
+      preLoaderRoute: typeof FloatingRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
-    '/_app/about': {
-      id: '/_app/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AppAboutImport
-      parentRoute: typeof AppRouteImport
+    '/_app': {
+      id: '/_app'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof AppRouteRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/_app/': {
       id: '/_app/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof AppIndexImport
-      parentRoute: typeof AppRouteImport
+      preLoaderRoute: typeof AppIndexRouteImport
+      parentRoute: typeof AppRouteRoute
+    }
+    '/_app/about': {
+      id: '/_app/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AppAboutRouteImport
+      parentRoute: typeof AppRouteRoute
     }
   }
 }
-
-// Create and export the route tree
 
 interface AppRouteRouteChildren {
   AppAboutRoute: typeof AppAboutRoute
@@ -92,78 +111,10 @@ const AppRouteRouteWithChildren = AppRouteRoute._addFileChildren(
   AppRouteRouteChildren,
 )
 
-export interface FileRoutesByFullPath {
-  '': typeof AppRouteRouteWithChildren
-  '/floating': typeof FloatingRouteRoute
-  '/about': typeof AppAboutRoute
-  '/': typeof AppIndexRoute
-}
-
-export interface FileRoutesByTo {
-  '/floating': typeof FloatingRouteRoute
-  '/about': typeof AppAboutRoute
-  '/': typeof AppIndexRoute
-}
-
-export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/_app': typeof AppRouteRouteWithChildren
-  '/floating': typeof FloatingRouteRoute
-  '/_app/about': typeof AppAboutRoute
-  '/_app/': typeof AppIndexRoute
-}
-
-export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/floating' | '/about' | '/'
-  fileRoutesByTo: FileRoutesByTo
-  to: '/floating' | '/about' | '/'
-  id: '__root__' | '/_app' | '/floating' | '/_app/about' | '/_app/'
-  fileRoutesById: FileRoutesById
-}
-
-export interface RootRouteChildren {
-  AppRouteRoute: typeof AppRouteRouteWithChildren
-  FloatingRouteRoute: typeof FloatingRouteRoute
-}
-
 const rootRouteChildren: RootRouteChildren = {
   AppRouteRoute: AppRouteRouteWithChildren,
   FloatingRouteRoute: FloatingRouteRoute,
 }
-
-export const routeTree = rootRoute
+export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-/* ROUTE_MANIFEST_START
-{
-  "routes": {
-    "__root__": {
-      "filePath": "__root.tsx",
-      "children": [
-        "/_app",
-        "/floating"
-      ]
-    },
-    "/_app": {
-      "filePath": "_app/route.tsx",
-      "children": [
-        "/_app/about",
-        "/_app/"
-      ]
-    },
-    "/floating": {
-      "filePath": "floating/route.tsx"
-    },
-    "/_app/about": {
-      "filePath": "_app/about.tsx",
-      "parent": "/_app"
-    },
-    "/_app/": {
-      "filePath": "_app/index.tsx",
-      "parent": "/_app"
-    }
-  }
-}
-ROUTE_MANIFEST_END */

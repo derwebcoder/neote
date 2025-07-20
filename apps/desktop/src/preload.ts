@@ -1,7 +1,6 @@
 // See the Electron documentation for details on how to use preload scripts:
 
 import { ipcRenderer } from "electron";
-import OpenAI from "openai";
 import { SharedSettings, WebAppBridge } from "@neote/shared";
 
 // https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts

@@ -16,12 +16,6 @@ let defaultSettings: Settings = {
   },
 }
 
-if (isAppEnvironment(window.neote)) {
-  console.log('e', await window.neote?.settings.get())
-  defaultSettings = toMerged(defaultSettings, await window.neote?.settings.get() ?? {})
-}
-
-
 export const settingsStore = createStore({
   context: defaultSettings,
   on: {
@@ -30,6 +24,19 @@ export const settingsStore = createStore({
     },
   },
 })
+
+export const initSettingsStore = async () => {
+  if (isAppEnvironment(window.neote)) {
+    const settings = await window.neote.settings.get()
+    settingsStore.trigger.update({
+      settings: settings
+    })
+  }
+}
+
+export const getSettingsStore = () => {
+  return settingsStore
+}
 
 const sharedSettingsSelector = settingsStore.select((state) => state.floatingWindow)
 sharedSettingsSelector.subscribe((state) => {

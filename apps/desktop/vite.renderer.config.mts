@@ -2,12 +2,20 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
+// import { tanstackRouter } from "@tanstack/router-plugin/vite";
 
 // https://vite.dev/config/
 export default defineConfig({
   // we point this to our web project folder
   root: "../../web/",
-  plugins: [react(), tailwindcss(), tsconfigPaths()],
+  plugins: [
+    react(), 
+    tailwindcss(), 
+    tsconfigPaths(), 
+    // we actually don't need this here for the desktop app ...
+    // it causes issues when running the desktop app in dev mode
+    // tanstackRouter({ target: "react", autoCodeSplitting: true }),
+  ],
   build: {
     // this is relative to the `root` directory, so we need to go back to our desktop folder
     // and in the original VitePlugin of Forge, this is a string template that receives the
