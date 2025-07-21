@@ -19,13 +19,8 @@ export const createMainWindow = () => {
     // Open the DevTools.
     mainWindow.webContents.openDevTools();
   } else {
-    mainWindow.loadFile(
-      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
-      {
-        // we're using tanstacks hash router history
-        hash: "/",
-      }
-    );
+    // the neote-app protocol expects a bundle host and a path relative to the .vite/renderer output folder
+    mainWindow.loadURL("neote-app://bundle/main_window/index.html");
   }
 
   mainWindowAtom.set(mainWindow)

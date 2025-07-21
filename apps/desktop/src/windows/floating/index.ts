@@ -29,19 +29,15 @@ export const createFloatingWindow = () => {
 
   floatingWindow.setVisibleOnAllWorkspaces(true, { visibleOnFullScreen: true })
 
+  floatingWindow.focus()
+
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     // mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
     floatingWindow.loadURL("http://localhost:5173#/floating");
     floatingWindow.webContents.openDevTools();
   } else {
-    floatingWindow.loadFile(
-      path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`),
-      {
-        // we're using tanstacks hash router history
-        hash: "/floating",
-      }
-    );
+    floatingWindow.loadURL("neote-app://bundle/main_window/index.html#/floating");
   }
 
   let previousBounds: Rectangle | null = null

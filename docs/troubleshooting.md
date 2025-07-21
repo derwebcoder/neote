@@ -18,3 +18,7 @@ Then check the tanstack initializer in `/web/src/main.tsx`. At the time of writi
 
 For debugging you can run `npm run package` in the desktop apps folder.
 Then in a terminal execute `npx @electron/asar extract out/neote-darwin-arm64/neote.app/Contents/Resources/app.asar ./tmp` to unpack the neote.app and have a look at the vite build files in `./tmp`.
+
+## neote was stopped unexpectedly - desktop app error
+
+It could be that another window was still running and not exited correctly. Just ignore and try a second time.
