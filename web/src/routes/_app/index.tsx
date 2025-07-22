@@ -46,7 +46,7 @@ const Main = () => {
   }
 
   return (
-    <div className="flex h-full w-full flex-col px-8 py-10">
+    <div className="flex h-full w-full flex-col px-8 pb-10">
       <ul>
         {sections.map((section) => {
           if (section.type === "date") {
