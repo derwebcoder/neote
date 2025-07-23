@@ -13,7 +13,7 @@ import { DI } from "@/modules/dependency-injection";
 import { NoteDB } from "@/modules/notes/db/NoteDB";
 import { NoteService } from "@/modules/notes/services/NoteService";
 import { TagDB, TagService } from "@/modules/tags";
-import { getBrowserEnvironment, isAppEnvironment } from "@/lib/environmentUtils";
+import { getBrowserEnvironment, isAppEnvironment } from "@/modules/environment";
 import { initSettingsStore } from "@/stores/settingsStore";
 
 // If neote exists, it means we are in the desktop app

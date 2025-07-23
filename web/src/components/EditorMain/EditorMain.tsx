@@ -4,7 +4,7 @@ import { Button } from "@/modules/ui/elements/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/modules/ui/elements/tooltip";
 import { useNoteService } from "@/hooks/useNoteService";
 import { usePIP } from "@/hooks/usePIP";
-import { isAppEnvironment } from "@/lib/environmentUtils";
+import { isAppEnvironment } from "@/modules/environment";
 import { cn } from "@/modules/ui/lib/utils";
 import "@/modules/editor";
 import { EditorSubmitEvent, NeoteEditor } from "@/modules/editor/components/NeoteEditor";

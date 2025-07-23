@@ -2,7 +2,7 @@ import { createStore } from "@xstate/store"
 import { useSelector } from "@xstate/store/react"
 import { Settings } from "@/types/Settings"
 import { toMerged } from "es-toolkit"
-import { isAppEnvironment } from "@/lib/environmentUtils"
+import { isAppEnvironment } from "@/modules/environment"
 import { DeepPartial } from "@/types/DeepPartial"
 
 let defaultSettings: Settings = {
