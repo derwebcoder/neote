@@ -1,11 +1,11 @@
-import { Switch } from "@/components/ui/switch"
+import { Switch } from "@/modules/ui/elements/switch"
 import { SettingControl, SettingControlFrame } from "@/components/Settings/SettingControl"
-import { Slider } from "@/components/ui/slider"
+import { Slider } from "@/modules/ui/elements/slider"
 import { settingsStore, useFloatingWindowSettings } from "@/stores/settingsStore"
 import { isAppEnvironment } from "@/lib/environmentUtils"
-import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
+import { Alert, AlertDescription, AlertTitle } from "@/modules/ui/elements/alert"
 import { Laptop2 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn } from "@/modules/ui/lib/utils"
 
 export const FloatingEditorSettings = () => {
   const settings = useFloatingWindowSettings()

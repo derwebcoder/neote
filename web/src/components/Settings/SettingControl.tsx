@@ -1,4 +1,4 @@
-import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardAction, CardDescription, CardHeader, CardTitle } from "@/modules/ui/elements/card"
 
 type SettingControlProps = {
   title: string

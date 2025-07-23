@@ -1,5 +1,5 @@
 import { NavigationSidebar } from "@/components/NavigationSidebar/NavigationSidebar";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "@/modules/ui/elements/sonner";
 import { createFileRoute, Outlet } from "@tanstack/react-router";
 import { TanStackRouterDevtools } from "@tanstack/react-router-devtools";
 

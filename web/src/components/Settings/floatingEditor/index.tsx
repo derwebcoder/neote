@@ -1,7 +1,7 @@
 import { BalloonIcon } from "@/assets/BalloonIcon";
 import { FloatingEditorSettings } from "@/components/Settings/floatingEditor/FloatingEditorSettings";
 import type { SettingsItem } from "@/components/Settings/settingsList";
-import { cn } from "@/lib/utils";
+import { cn } from "@/modules/ui/lib/utils";
 
 export const floatingEditorSettings: SettingsItem = {
   name: "Floating editor",

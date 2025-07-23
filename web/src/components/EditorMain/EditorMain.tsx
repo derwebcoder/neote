@@ -1,11 +1,11 @@
 import { BalloonButton } from "@/components/BalloonButton/BalloonButton";
 import { EditorPIP } from "@/components/EditorPIP/EditorPIP";
-import { Button } from "@/components/ui/button";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/modules/ui/elements/button";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/modules/ui/elements/tooltip";
 import { useNoteService } from "@/hooks/useNoteService";
 import { usePIP } from "@/hooks/usePIP";
 import { isAppEnvironment } from "@/lib/environmentUtils";
-import { cn } from "@/lib/utils";
+import { cn } from "@/modules/ui/lib/utils";
 import "@/modules/editor";
 import { EditorSubmitEvent, NeoteEditor } from "@/modules/editor/components/NeoteEditor";
 import { Note } from "@/modules/notes/models/Note";

@@ -1,5 +1,5 @@
 import { settings } from "@/components/Settings/settingsList"
-import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/modules/ui/elements/sidebar"
 import { useState } from "react"
 
 export const Settings = () => {

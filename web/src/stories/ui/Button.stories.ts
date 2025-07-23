@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/modules/ui/elements/button";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 

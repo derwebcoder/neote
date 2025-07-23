@@ -7,12 +7,12 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
+} from "@/modules/ui/elements/alert-dialog";
+import { Button } from "@/modules/ui/elements/button";
 import { Note } from "@/modules/notes/models/Note";
 import { DI } from "@/modules/dependency-injection";
 import { Pencil, Trash } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn } from "@/modules/ui/lib/utils";
 import { EditorSubmitEvent } from "@/modules/editor/components/NeoteEditor";
 
 type Props = {
