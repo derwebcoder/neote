@@ -1,4 +1,4 @@
-import { BrowserEnvironment } from "@/modules/environment/types/Environments"
+import { BrowserEnvironment } from "$/types/Environments"
 
 export const getBrowserEnvironment = (): BrowserEnvironment => {
   return {

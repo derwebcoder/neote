@@ -1,4 +1,4 @@
-import { AppEnvironment, Environment } from "@/modules/environment/types/Environments"
+import { AppEnvironment, Environment } from "$/types/Environments"
 
 export const isAppEnvironment = (env?: Environment): env is AppEnvironment => {
   if (env?.isApp) {
