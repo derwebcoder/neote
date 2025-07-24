@@ -1,4 +1,4 @@
-import { noteUtils } from "@/lib/noteUtils";
+import { noteUtils } from "$/utils/noteUtils";
 import { HTMLString } from "@/modules/notes/models/HTML";
 
 export class Note {
@@ -13,7 +13,7 @@ export class Note {
     // All tags, including the context tags
     private tags: string[],
     private contextTags: string[],
-  ) {}
+  ) { }
 
   public getId() {
     return this.id;

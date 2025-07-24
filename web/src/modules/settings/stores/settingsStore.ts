@@ -1,9 +1,9 @@
 import { createStore } from "@xstate/store"
 import { useSelector } from "@xstate/store/react"
-import { Settings } from "@/types/Settings"
+import { Settings } from "@/modules/types/Settings"
 import { toMerged } from "es-toolkit"
-import { isAppEnvironment } from "@/modules/environment"
-import { DeepPartial } from "@/types/DeepPartial"
+import { isAppEnvironment, getAppEnvironment } from "@/modules/environment"
+import { DeepPartial } from "@/modules/types/DeepPartial"
 
 let defaultSettings: Settings = {
   animations: {
@@ -26,8 +26,8 @@ export const settingsStore = createStore({
 })
 
 export const initSettingsStore = async () => {
-  if (isAppEnvironment(window.neote)) {
-    const settings = await window.neote.settings.get()
+  if (isAppEnvironment()) {
+    const settings = await getAppEnvironment().settings.get()
     settingsStore.trigger.update({
       settings: settings
     })
@@ -40,9 +40,8 @@ export const getSettingsStore = () => {
 
 const sharedSettingsSelector = settingsStore.select((state) => state.floatingWindow)
 sharedSettingsSelector.subscribe((state) => {
-  console.log(state)
-  if (isAppEnvironment(window.neote)) {
-    window.neote.settings.set({
+  if (isAppEnvironment()) {
+    getAppEnvironment().settings.set({
       floatingWindow: state
     })
   }

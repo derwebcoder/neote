@@ -1,6 +1,6 @@
 // import type { NeoteTag } from "@/modules/tags/components/NeoteTag";
 
-import { Environment } from "@/types/Environment";
+import { Environment } from "@/modules/environment/types/Environments";
 
 // declare module "react" {
 //   namespace JSX {
@@ -18,8 +18,8 @@ interface DocumentPictureInPicture {
 declare global {
 	interface Window {
 		documentPictureInPicture?: DocumentPictureInPicture;
-    neote?: Environment
+		neote?: Environment
 	}
 }
 
-export type {}
+export type { }

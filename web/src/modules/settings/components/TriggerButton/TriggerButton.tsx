@@ -1,8 +1,8 @@
-import { Settings } from "@/components/Settings/Settings"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/modules/ui/elements/dialog"
+import { RootPage } from "$/pages/RootPage"
+import { Dialog, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from "@/modules/ui/elements/dialog"
 import { Settings2 } from "lucide-react"
 
-export const SettingsDialogButton = () => {
+export const TriggerButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -16,7 +16,7 @@ export const SettingsDialogButton = () => {
         <DialogDescription className="sr-only">
           Customize your settings here.
         </DialogDescription>
-        <Settings />
+        <RootPage />
       </DialogContent>
     </Dialog>
   )

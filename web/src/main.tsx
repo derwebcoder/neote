@@ -13,16 +13,12 @@ import { DI } from "@/modules/dependency-injection";
 import { NoteDB } from "@/modules/notes/db/NoteDB";
 import { NoteService } from "@/modules/notes/services/NoteService";
 import { TagDB, TagService } from "@/modules/tags";
-import { getBrowserEnvironment, isAppEnvironment } from "@/modules/environment";
-import { initSettingsStore } from "@/stores/settingsStore";
+import { initEnvironment, isAppEnvironment } from "@/modules/environment";
+import { initSettingsStore } from "@/modules/settings/stores/settingsStore";
 
-// If neote exists, it means we are in the desktop app
-// and it was set by the preload script
-if (!window.neote) {
-  window.neote = getBrowserEnvironment()
-}
+initEnvironment()
 
-if (isAppEnvironment(window.neote)) {
+if (isAppEnvironment()) {
   window.document.body.classList.add('is-app')
 }
 

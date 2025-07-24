@@ -6,9 +6,6 @@
     },
     {
       "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./src/modules/environment/tsconfig.json"
     }
   ],
   "compilerOptions": {

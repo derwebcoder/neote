@@ -1,6 +1,6 @@
 import { BrowserEnvironment } from "$/types/Environments"
 
-export const getBrowserEnvironment = (): BrowserEnvironment => {
+export const createBrowserEnvironment = (): BrowserEnvironment => {
   return {
     isApp: false,
   }

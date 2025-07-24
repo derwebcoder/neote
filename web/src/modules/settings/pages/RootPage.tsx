@@ -1,10 +1,9 @@
-import { settings } from "@/components/Settings/settingsList"
+import { settings } from "$/config/settingsList"
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/modules/ui/elements/sidebar"
 import { useState } from "react"
 
-export const Settings = () => {
+export const RootPage = () => {
   const [selectedItem, setSelectedItem] = useState<(typeof settings)[number]>(settings[0])
-
   return (
     <SidebarProvider className="items-start">
       <Sidebar collapsible="none" className="hidden md:flex">

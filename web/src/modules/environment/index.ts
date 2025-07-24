@@ -1,3 +1,5 @@
 export * from "./types/Environments"
-export * from "./utils/getBrowserEnvironment"
+export * from "./utils/createBrowserEnvironment"
 export * from "./utils/isAppEnvironment"
+export * from "./utils/getAppEnvironment"
+export * from "./utils/initEnvironment"

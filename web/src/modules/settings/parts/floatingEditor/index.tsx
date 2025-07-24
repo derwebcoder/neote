@@ -1,6 +1,6 @@
 import { BalloonIcon } from "@/assets/BalloonIcon";
-import { FloatingEditorSettings } from "@/components/Settings/floatingEditor/FloatingEditorSettings";
-import type { SettingsItem } from "@/components/Settings/settingsList";
+import { FloatingEditorSettings } from "./FloatingEditorSettings";
+import type { SettingsItem } from "$/config/settingsList";
 import { cn } from "@/modules/ui/lib/utils";
 
 export const floatingEditorSettings: SettingsItem = {

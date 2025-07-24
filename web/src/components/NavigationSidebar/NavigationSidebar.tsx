@@ -3,11 +3,10 @@ import {
   BotMessageSquare,
   GraduationCap,
   ListTodo,
-  Settings2,
 } from "lucide-react";
 import Logo from "@/assets/logo.svg";
 import { SidebarNavItem } from "@/components/SidebarNavItem/SidebarNavItem";
-import { SettingsDialogButton } from "@/components/Settings/SettingsDialogButton";
+import { TriggerButton as SettingsButton } from "@/modules/settings/components/TriggerButton/TriggerButton";
 
 // Menu items.
 const items = [
@@ -63,7 +62,7 @@ export const NavigationSidebar = () => {
           <hr className="w-full border-stone-300 mt-3 pb-6" />
           <ol>
             <li className="pb-2">
-              <SettingsDialogButton />
+              <SettingsButton />
             </li>
           </ol>
         </div>

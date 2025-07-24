@@ -1,7 +1,8 @@
 import { Switch } from "@/modules/ui/elements/switch"
-import { SettingControl, SettingControlFrame } from "@/components/Settings/SettingControl"
+import { Item } from "$/components/Item/Item"
+import { Group } from "$/components/Group/Group"
 import { Slider } from "@/modules/ui/elements/slider"
-import { settingsStore, useFloatingWindowSettings } from "@/stores/settingsStore"
+import { settingsStore, useFloatingWindowSettings } from "$/stores/settingsStore"
 import { isAppEnvironment } from "@/modules/environment"
 import { Alert, AlertDescription, AlertTitle } from "@/modules/ui/elements/alert"
 import { Laptop2 } from "lucide-react"
@@ -9,7 +10,7 @@ import { cn } from "@/modules/ui/lib/utils"
 
 export const FloatingEditorSettings = () => {
   const settings = useFloatingWindowSettings()
-  const isApp = isAppEnvironment(window.neote)
+  const isApp = isAppEnvironment()
 
   const handleOpacityChange = (value: number) => {
     settingsStore.trigger.update({
@@ -53,8 +54,8 @@ export const FloatingEditorSettings = () => {
         </Alert>
       )}
       <div className={cn(!isApp && "opacity-40")}>
-        <SettingControlFrame>
-          <SettingControl
+        <Group>
+          <Item
             title="Opacity"
             description="Control the opacity of the window."
             action={
@@ -68,19 +69,19 @@ export const FloatingEditorSettings = () => {
                 disabled={!isApp}
               />}
           />
-          <SettingControl
+          <Item
             title="Opaque on focus"
             description="When you focus on the floating editor, it will become opaque."
             action={<Switch checked={settings.opaqueOnFocus ?? false} onCheckedChange={handleOpaqueOnFocusChange} disabled={!isApp} />}
           />
-        </SettingControlFrame>
-        <SettingControlFrame>
-          <SettingControl
+        </Group>
+        <Group>
+          <Item
             title="Shrink on blur"
             description="When the floating editor is not focused, it will shrink."
             action={<Switch checked={settings.shrinkOnBlur ?? false} onCheckedChange={handleShrinkOnBlurChange} disabled={!isApp} />}
           />
-        </SettingControlFrame>
+        </Group>
       </div>
     </div>
   )

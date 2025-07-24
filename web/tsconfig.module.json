@@ -1,23 +1,15 @@
 {
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
-    "types": [
-      "vitest/globals",
-      "./src/global.d.ts"
-    ],
-    // necessary for shadcn config, see https://ui.shadcn.com/docs/installation/vite
     "baseUrl": ".",
     "paths": {
       // necessary for shadcn config, see https://ui.shadcn.com/docs/installation/vite
-      "@/*": [
-        "./src/*"
+      "@/modules/*": [
+        "../*"
       ]
     }
   },
   "include": [
-    "src"
-  ],
-  "exclude": [
     "src/modules"
   ]
 }

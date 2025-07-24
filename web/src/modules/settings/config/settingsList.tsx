@@ -1,4 +1,4 @@
-import { floatingEditorSettings } from "@/components/Settings/floatingEditor";
+import { floatingEditorSettings } from "$/parts/floatingEditor";
 import { SettingsIcon } from "lucide-react";
 
 export type SettingsItem = {
