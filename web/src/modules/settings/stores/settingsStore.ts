@@ -1,13 +1,15 @@
 import { createStore } from "@xstate/store"
 import { useSelector } from "@xstate/store/react"
-import { Settings } from "@/modules/types/Settings"
+import { Settings } from "$/types/Settings"
 import { toMerged } from "es-toolkit"
 import { isAppEnvironment, getAppEnvironment } from "@/modules/environment"
 import { DeepPartial } from "@/modules/types/DeepPartial"
 
 let defaultSettings: Settings = {
-  animations: {
-    enabled: true,
+  general: {
+    animations: {
+      enabled: true,
+    },
   },
   floatingWindow: {
     opacity: 100,
@@ -26,10 +28,32 @@ export const settingsStore = createStore({
 })
 
 export const initSettingsStore = async () => {
+
+  syncFromLocalStorage("general")
+
+  settingsStore.trigger.update({
+    settings: {
+      general: {
+        animations: {
+          enabled: false,
+        },
+      },
+    }
+  })
+
   if (isAppEnvironment()) {
+    // this loads floatingWindow settings for example
     const settings = await getAppEnvironment().settings.get()
     settingsStore.trigger.update({
       settings: settings
+    })
+
+    // update shared settings whenever they change
+    const sharedSettingsSelector = settingsStore.select((state) => state.floatingWindow)
+    sharedSettingsSelector.subscribe((state) => {
+      getAppEnvironment().settings.set({
+        floatingWindow: state
+      })
     })
   }
 }
@@ -38,16 +62,42 @@ export const getSettingsStore = () => {
   return settingsStore
 }
 
-const sharedSettingsSelector = settingsStore.select((state) => state.floatingWindow)
-sharedSettingsSelector.subscribe((state) => {
-  if (isAppEnvironment()) {
-    getAppEnvironment().settings.set({
-      floatingWindow: state
-    })
-  }
-})
+export const updateSettings = (settings: DeepPartial<Settings>) => {
+  settingsStore.trigger.update({
+    settings: settings
+  })
+}
 
 export const useFloatingWindowSettings = () => {
   const settings = useSelector(settingsStore, (state) => state.context.floatingWindow)
   return settings
+}
+
+export const useGeneralSettings = () => {
+  const settings = useSelector(settingsStore, (state) => state.context.general)
+  return settings
+}
+
+export const syncFromLocalStorage = (key: keyof Settings) => {
+  const FULL_KEY = `neote_settings_${key}`
+
+  const selector = settingsStore.select((state) => state[key])
+  selector.subscribe((state) => {
+    localStorage.setItem(FULL_KEY, JSON.stringify(state))
+  })
+
+  const settings = localStorage.getItem(FULL_KEY)
+  if (!settings) {
+    return
+  }
+
+  try {
+    settingsStore.trigger.update({
+      settings: {
+        [key]: JSON.parse(settings)
+      }
+    })
+  } catch (e) {
+    console.error(e)
+  }
 }

@@ -2,7 +2,7 @@ import { Switch } from "@/modules/ui/elements/switch"
 import { Item } from "$/components/Item/Item"
 import { Group } from "$/components/Group/Group"
 import { Slider } from "@/modules/ui/elements/slider"
-import { settingsStore, useFloatingWindowSettings } from "$/stores/settingsStore"
+import { updateSettings, useFloatingWindowSettings } from "$/stores/settingsStore"
 import { isAppEnvironment } from "@/modules/environment"
 import { Alert, AlertDescription, AlertTitle } from "@/modules/ui/elements/alert"
 import { Laptop2 } from "lucide-react"
@@ -13,31 +13,25 @@ export const FloatingEditorSettings = () => {
   const isApp = isAppEnvironment()
 
   const handleOpacityChange = (value: number) => {
-    settingsStore.trigger.update({
-      settings: {
-        floatingWindow: {
-          opacity: value,
-        },
+    updateSettings({
+      floatingWindow: {
+        opacity: value,
       },
     })
   }
 
   const handleOpaqueOnFocusChange = (value: boolean) => {
-    settingsStore.trigger.update({
-      settings: {
-        floatingWindow: {
-          opaqueOnFocus: value,
-        },
+    updateSettings({
+      floatingWindow: {
+        opaqueOnFocus: value,
       },
     })
   }
 
   const handleShrinkOnBlurChange = (value: boolean) => {
-    settingsStore.trigger.update({
-      settings: {
-        floatingWindow: {
-          shrinkOnBlur: value,
-        },
+    updateSettings({
+      floatingWindow: {
+        shrinkOnBlur: value,
       },
     })
   }

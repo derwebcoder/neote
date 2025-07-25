@@ -1,5 +1,5 @@
 import { floatingEditorSettings } from "$/parts/floatingEditor";
-import { SettingsIcon } from "lucide-react";
+import { generalSettings } from "$/parts/general";
 
 export type SettingsItem = {
   name: string
@@ -8,10 +8,6 @@ export type SettingsItem = {
 }
 
 export const settings: SettingsItem[] = [
-  {
-    name: "General",
-    icon: <SettingsIcon />,
-    component: <span>Something</span>,
-  },
+  generalSettings,
   floatingEditorSettings,
 ]

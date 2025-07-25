@@ -40,3 +40,5 @@ export class TagStyleService {
     return storedValue as TagStyle;
   }
 }
+
+export const tagStyleService = new TagStyleService()

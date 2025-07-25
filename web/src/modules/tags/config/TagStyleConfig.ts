@@ -12,7 +12,7 @@ export const TagStyles = [
 
 export type TagStyle = (typeof TagStyles)[number];
 
-export const getDefaultTagStyle = (): TagStyle => "chip-light";
+export const getDefaultTagStyle = (): TagStyle => "token-gradient-light";
 
 export const TagStyleNameMap: Record<TagStyle, string> = {
   basic: "Basic",
