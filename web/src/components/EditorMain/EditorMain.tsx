@@ -4,7 +4,7 @@ import { Button } from "@/modules/ui/elements/button";
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/modules/ui/elements/tooltip";
 import { useNoteService } from "@/hooks/useNoteService";
 import { usePIP } from "@/hooks/usePIP";
-import { isAppEnvironment } from "@/modules/environment";
+import { getAppEnvironment, isAppEnvironment } from "@/modules/environment";
 import { cn } from "@/modules/ui/lib/utils";
 import { defineNeoteEditor, EditorSubmitEvent, NeoteEditor } from "@/modules/editor/components/NeoteEditor";
 import { Note } from "@/modules/notes/models/Note";
@@ -30,8 +30,8 @@ export const EditorMain = () => {
   };
 
   const handleBalloonClick = () => {
-    if (isAppEnvironment(window.neote)) {
-      window.neote.window.openFloatingEditor()
+    if (isAppEnvironment()) {
+      getAppEnvironment().window.openFloatingEditor()
       return
     }
     triggerPIP()
