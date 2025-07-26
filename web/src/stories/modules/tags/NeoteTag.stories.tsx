@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TagDB, TagService } from "@/modules/tags";
 import { DI } from "@/modules/dependency-injection";
 import { useEffect } from "react";
-import { TagStyle } from "@/modules/tags/config/TagStyleConfig";
+import { TagStyle } from "@/modules/tags";
 
 const Wrapper = ({
   style = "basic",

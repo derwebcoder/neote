@@ -2,16 +2,16 @@ import { Switch } from "@/modules/ui/elements/switch"
 import { Item } from "$/components/Item/Item"
 import { Group } from "$/components/Group/Group"
 import { updateSettings, useGeneralSettings } from "$/stores/settingsStore"
-import { tagStyleService } from "@/modules/tags/services/TagStyleService"
+import { defineNeoteTagStyleSelect, NeoteTagStyleSelectEvent, tagStyleService } from "@/modules/tags"
 import { useState } from "react"
-import '@/modules/tags/components/NeoteTagStyleSelection'
-import { TagStyleSelectEvent } from "@/modules/tags/components/NeoteTagStyleSelection"
+
+defineNeoteTagStyleSelect()
 
 export const GeneralSettings = () => {
   const settings = useGeneralSettings()
   const [tagStyle, setTagStyle] = useState(tagStyleService.getStyle())
 
-  const handleTagStyleChange = (event: TagStyleSelectEvent) => {
+  const handleTagStyleChange = (event: NeoteTagStyleSelectEvent) => {
     console.log('event', event)
     tagStyleService.updateStyle(event.detail?.style ?? "basic")
     setTagStyle(event.detail?.style ?? "basic")

@@ -5,7 +5,7 @@ import { NoteDB } from "@/modules/notes/db/NoteDB";
 import { NoteService } from "@/modules/notes/services/NoteService";
 import { DI } from "@/modules/dependency-injection";
 import { TagDB, TagService } from "@/modules/tags";
-import { defineNeoteTag } from "@/modules/tags/components/NeoteTag";
+import { defineNeoteTag } from "@/modules/tags";
 
 defineNeoteTag()
 

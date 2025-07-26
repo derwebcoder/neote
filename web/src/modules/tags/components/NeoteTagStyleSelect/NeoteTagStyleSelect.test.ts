@@ -1,8 +1,10 @@
 import "@testing-library/jest-dom";
 import { within } from "@testing-library/dom";
-import "./NeoteTagStyleSelection";
 import { html, rawHtml } from "@/modules/render";
 import userEvent from "@testing-library/user-event";
+import { defineNeoteTagStyleSelect } from "./NeoteTagStyleSelect";
+
+defineNeoteTagStyleSelect()
 
 describe("NeoteTagStyleSelect", () => {
   it("should render", () => {

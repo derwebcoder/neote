@@ -1,10 +1,11 @@
-import { defineNeoteHueSelect, HueSelectAttributes } from "@/modules/tags/components/NeoteHueSelect";
+import { defineNeoteHueSelect } from "@/modules/tags";
+import { NeoteHueSelectAttributes } from "@/modules/tags/components/NeoteHueSelect/NeoteHueSelect";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 
 defineNeoteHueSelect()
 
-const Wrapper = ({ hue, "onhue-select": onHueSelect }: HueSelectAttributes) => {
+const Wrapper = ({ hue, "onhue-select": onHueSelect }: NeoteHueSelectAttributes) => {
   return (
     <neote-hue-select
       hue={hue}

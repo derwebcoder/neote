@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { TagDB, TagService } from "@/modules/tags";
+import { TagDB, TagService, TagStyle } from "@/modules/tags";
 import { DI } from "@/modules/dependency-injection";
 import { useEffect } from "react";
-import { TagStyle } from "@/modules/tags/config/TagStyleConfig";
 import { defineNeoteEditor, NeoteEditorAttributes } from "@/modules/editor/components/NeoteEditor";
 import { defineNeoteTagSuggestions } from "@/modules/editor/components/NeoteTagSuggestions";
-import { defineNeoteTag } from "@/modules/tags/components/NeoteTag";
+import { defineNeoteTag } from "@/modules/tags";
 
 defineNeoteTag()
 defineNeoteTagSuggestions()

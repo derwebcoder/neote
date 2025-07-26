@@ -1,7 +1,7 @@
 import { DI } from "@/modules/dependency-injection";
-import { TagIconMap } from "../config/TagIconConfig";
-import { Tag } from "../models/Tag";
-import { TagService } from "../services/TagService";
+import { TagIconMap } from "$/config/TagIconConfig";
+import { Tag } from "$/models/Tag";
+import { TagService } from "$/services/TagService";
 import "./NeoteTag.css";
 import { CustomElement } from "@/modules/types/CustomElement";
 

@@ -15,7 +15,7 @@ import { NoteService } from "@/modules/notes/services/NoteService";
 import { TagDB, TagService } from "@/modules/tags";
 import { initEnvironment, isAppEnvironment } from "@/modules/environment";
 import { initSettingsStore } from "@/modules/settings/stores/settingsStore";
-import { tagStyleService } from "@/modules/tags/services/TagStyleService";
+import { tagStyleService } from "@/modules/tags";
 
 initEnvironment()
 

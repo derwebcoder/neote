@@ -10,7 +10,7 @@ import { defineNeoteEditor, EditorSubmitEvent, NeoteEditor } from "@/modules/edi
 import { Note } from "@/modules/notes/models/Note";
 import { Send } from "lucide-react";
 import { FocusEventHandler, useState } from "react";
-import { defineNeoteTag } from "@/modules/tags/components/NeoteTag";
+import { defineNeoteTag } from "@/modules/tags";
 
 defineNeoteEditor()
 defineNeoteTag()

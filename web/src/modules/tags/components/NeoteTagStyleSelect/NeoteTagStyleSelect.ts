@@ -1,10 +1,10 @@
 import { html, rawHtml } from "@/modules/render";
 import "./NeoteTagStyleSelection.css";
-import { TagStyle, TagStyleNameMap, TagStyles } from "../config/TagStyleConfig";
+import { TagStyle, TagStyleNameMap, TagStyles } from "$/config/TagStyleConfig";
 import { CustomElement } from "@/modules/types";
 
 type TagStyleSelectEventDetail = { style: TagStyle };
-export type TagStyleSelectEvent = CustomEventInit<TagStyleSelectEventDetail>;
+export type NeoteTagStyleSelectEvent = CustomEventInit<TagStyleSelectEventDetail>;
 
 export type NeoteTagStyleSelectAttributes = {
   value?: TagStyle;
@@ -12,7 +12,7 @@ export type NeoteTagStyleSelectAttributes = {
   "preview-style"?: string;
   "wrapper-class"?: string;
   "wrapper-style"?: string;
-  "style-select"?: (event: TagStyleSelectEvent) => void;
+  "style-select"?: (event: NeoteTagStyleSelectEvent) => void;
 };
 
 export class NeoteTagStyleSelect

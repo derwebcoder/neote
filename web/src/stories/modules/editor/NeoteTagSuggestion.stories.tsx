@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { NeoteTagSuggestionsAttributes } from "@/modules/editor/components/NeoteTagSuggestions";
 import { fn } from "@storybook/test";
 import { defineNeoteTagSuggestions } from "@/modules/editor/components/NeoteTagSuggestions";
-import { defineNeoteTag } from "@/modules/tags/components/NeoteTag";
+import { defineNeoteTag } from "@/modules/tags";
 
 defineNeoteTag()
 defineNeoteTagSuggestions()
