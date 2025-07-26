@@ -1,5 +1,5 @@
 import { html, rawHtml } from "@/modules/render";
-import "./NeoteTagStyleSelection.css";
+import "./NeoteTagStyleSelect.css";
 import { TagStyle, TagStyleNameMap, TagStyles } from "$/config/TagStyleConfig";
 import { CustomElement } from "@/modules/types";
 
