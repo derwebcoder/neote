@@ -6,12 +6,15 @@ import { useNoteService } from "@/hooks/useNoteService";
 import { usePIP } from "@/hooks/usePIP";
 import { isAppEnvironment } from "@/modules/environment";
 import { cn } from "@/modules/ui/lib/utils";
-import "@/modules/editor";
-import { EditorSubmitEvent, NeoteEditor } from "@/modules/editor/components/NeoteEditor";
+import { defineNeoteEditor, EditorSubmitEvent, NeoteEditor } from "@/modules/editor/components/NeoteEditor";
 import { Note } from "@/modules/notes/models/Note";
-import "@/modules/tags";
 import { Send } from "lucide-react";
 import { FocusEventHandler, useState } from "react";
+import { defineNeoteTag } from "@/modules/tags/components/NeoteTag";
+
+defineNeoteEditor()
+defineNeoteTag()
+
 
 export const EditorMain = () => {
   const noteService = useNoteService()

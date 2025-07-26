@@ -12,8 +12,7 @@ export type HueSelectAttributes = {
 
 export class HueSelectComponent
   extends HTMLElement
-  implements HueSelectAttributes
-{
+  implements HueSelectAttributes {
   static observedAttributes = ["hue"];
   private _hue: number = 0;
 
@@ -34,7 +33,7 @@ export class HueSelectComponent
     this.render();
   }
 
-  disconnectedCallback() {}
+  disconnectedCallback() { }
 
   adoptedCallback() {
     this.render();
@@ -93,7 +92,12 @@ export class HueSelectComponent
   }
 }
 
-customElements.define("neote-hue-select", HueSelectComponent);
+export const defineNeoteHueSelect = (customWindow: Window = window) => {
+  if (customWindow.customElements.get("neote-hue-select")) {
+    return;
+  }
+  customWindow.customElements.define("neote-hue-select", HueSelectComponent);
+}
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace

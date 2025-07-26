@@ -2,10 +2,14 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TagDB, TagService } from "@/modules/tags";
 import { DI } from "@/modules/dependency-injection";
 import { useEffect } from "react";
-import "@/modules/editor";
-import "@/modules/tags/components/NeoteTag";
 import { TagStyle } from "@/modules/tags/config/TagStyleConfig";
-import { NeoteEditorAttributes } from "@/modules/editor/components/NeoteEditor";
+import { defineNeoteEditor, NeoteEditorAttributes } from "@/modules/editor/components/NeoteEditor";
+import { defineNeoteTagSuggestions } from "@/modules/editor/components/NeoteTagSuggestions";
+import { defineNeoteTag } from "@/modules/tags/components/NeoteTag";
+
+defineNeoteTag()
+defineNeoteTagSuggestions()
+defineNeoteEditor()
 
 const Wrapper = ({
   style = "chip-border",

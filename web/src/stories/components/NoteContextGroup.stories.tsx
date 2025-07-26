@@ -5,7 +5,9 @@ import { NoteDB } from "@/modules/notes/db/NoteDB";
 import { NoteService } from "@/modules/notes/services/NoteService";
 import { DI } from "@/modules/dependency-injection";
 import { Tag, TagDB, TagService } from "@/modules/tags";
-import "@/modules/tags/components/NeoteTag";
+import { defineNeoteTag } from "@/modules/tags/components/NeoteTag";
+
+defineNeoteTag()
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {

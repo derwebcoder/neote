@@ -1,11 +1,12 @@
 import { DI } from "@/modules/dependency-injection";
 import { TagDB, TagService } from "@/modules/tags";
-import { NeoteTagStyleSelectAttributes } from "@/modules/tags/components/NeoteTagStyleSelection";
-import "@/modules/tags/components/NeoteTagStyleSelection";
+import { defineNeoteTagStyleSelect, NeoteTagStyleSelectAttributes } from "@/modules/tags/components/NeoteTagStyleSelection";
 import { TagStyles } from "@/modules/tags/config/TagStyleConfig";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
 import { useEffect } from "react";
+
+defineNeoteTagStyleSelect()
 
 const Wrapper = ({
   value,

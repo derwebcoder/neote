@@ -1,7 +1,8 @@
-import { HueSelectAttributes } from "@/modules/tags/components/NeoteHueSelect";
-import "@/modules/tags/components/NeoteHueSelect";
+import { defineNeoteHueSelect, HueSelectAttributes } from "@/modules/tags/components/NeoteHueSelect";
 import type { Meta, StoryObj } from "@storybook/react";
 import { fn } from "@storybook/test";
+
+defineNeoteHueSelect()
 
 const Wrapper = ({ hue, "onhue-select": onHueSelect }: HueSelectAttributes) => {
   return (

@@ -2,7 +2,7 @@
 
 ## I don't see a custom component being rendered
 
-The custom element probably wasn't properly rendered. Make sure to import the whole file of the custom element like `import "@/modules/tags/components/NeoteHueSelect";`. If you only import a type from the file, the build process might be trying to be smart and remove the import completely.
+The custom element probably wasn't properly rendered. Make sure to import the `defineX()` function from the custom element.
 
 ## There is only a black dot in place of a tag (or other custom element)
 

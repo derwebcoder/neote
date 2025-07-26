@@ -4,6 +4,7 @@ import { getBaseExtensions } from "../extensions/Base";
 import { getTagExtension } from "../extensions/Tags";
 import { CustomElement } from "@/modules/types";
 import { HTMLString } from "@/modules/notes/models/HTML";
+import { defineNeoteTagSuggestions } from "$/components/NeoteTagSuggestions";
 
 type EditorSubmitEventDetail = { content: HTMLString };
 export type EditorSubmitEvent = CustomEventInit<EditorSubmitEventDetail>;
@@ -18,6 +19,8 @@ export interface NeoteEditorAttributes {
   "oneditor-submit"?: (event: EditorSubmitEvent) => void;
   "oneditor-escape"?: (event: EditorEscapeEvent) => void;
 }
+
+defineNeoteTagSuggestions()
 
 /**
  * A custom element displaying a rich text editor using TipTap internally.
@@ -158,15 +161,11 @@ export class NeoteEditor extends HTMLElement implements NeoteEditorAttributes {
   }
 }
 
-customElements.define("neote-editor", NeoteEditor);
-
 export const defineNeoteEditor = (customWindow: Window = window) => {
   if (customWindow.customElements.get("neote-editor")) {
     return;
   }
- console.log('register')
   customWindow.customElements.define("neote-editor", NeoteEditor);
-  console.log('registered')
 }
 
 declare module "react" {

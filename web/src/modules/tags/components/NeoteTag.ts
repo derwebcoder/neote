@@ -84,7 +84,12 @@ export class NeoteTag extends HTMLElement implements NeoteTagAttributes {
   }
 }
 
-customElements.define("neote-tag", NeoteTag);
+export const defineNeoteTag = (customWindow: Window = window) => {
+  if (customWindow.customElements.get("neote-tag")) {
+    return;
+  }
+  customWindow.customElements.define("neote-tag", NeoteTag);
+}
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace

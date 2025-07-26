@@ -96,7 +96,12 @@ export class NeoteTagStyleSelect
   }
 }
 
-customElements.define("neote-tag-style-select", NeoteTagStyleSelect);
+export const defineNeoteTagStyleSelect = (customWindow: Window = window) => {
+  if (customWindow.customElements.get("neote-tag-style-select")) {
+    return;
+  }
+  customWindow.customElements.define("neote-tag-style-select", NeoteTagStyleSelect);
+}
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace

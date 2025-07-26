@@ -23,8 +23,7 @@ export type NeoteTagSuggestionsAttributes = {
  */
 export class NeoteTagSuggestions
   extends HTMLElement
-  implements NeoteTagSuggestionsAttributes
-{
+  implements NeoteTagSuggestionsAttributes {
   static observedAttributes = ["query"];
   private tagService?: TagService;
   // note, this index starts at 1, because we use it with :nth-child()
@@ -66,7 +65,7 @@ export class NeoteTagSuggestions
     this.update().then(() => this.render());
   }
 
-  disconnectedCallback() {}
+  disconnectedCallback() { }
 
   adoptedCallback() {
     this.update().then(() => this.render());
@@ -276,8 +275,8 @@ export class NeoteTagSuggestions
       <button
         type="button"
         class="${this.selectedIndex === 1
-          ? "bg-stone-300 rounded"
-          : ""} px-2 py-1 text-start hover:bg-stone-200"
+        ? "bg-stone-300 rounded"
+        : ""} px-2 py-1 text-start hover:bg-stone-200"
         data-tag="${query}"
       >
         <span class="text-sm text-stone-500">New tag</span>
@@ -296,27 +295,32 @@ export class NeoteTagSuggestions
     const [wrapper] = html`
       <div>
         ${tags
-          .map((tag, index) =>
-            rawHtml(html`
+        .map((tag, index) =>
+          rawHtml(html`
               <button
                 type="button"
                 data-tag="${tag.getName()}"
                 class="${index + 1 === selectedIndex
-                  ? "bg-stone-300 rounded"
-                  : ""} px-2 py-1 text-start hover:bg-stone-200"
+              ? "bg-stone-300 rounded"
+              : ""} px-2 py-1 text-start hover:bg-stone-200"
               >
                 <neote-tag name="${tag.getName()}"></neote-tag>
               </button>
             `),
-          )
-          .join("")}
+        )
+        .join("")}
       </div>
     `;
     this.append(...wrapper.children);
   }
 }
 
-customElements.define("neote-tag-suggestions", NeoteTagSuggestions);
+export const defineNeoteTagSuggestions = (customWindow: Window = window) => {
+  if (customWindow.customElements.get("neote-tag-suggestions")) {
+    return;
+  }
+  customWindow.customElements.define("neote-tag-suggestions", NeoteTagSuggestions);
+}
 
 declare module "react" {
   // eslint-disable-next-line @typescript-eslint/no-namespace

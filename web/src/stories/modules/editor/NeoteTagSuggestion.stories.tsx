@@ -2,10 +2,13 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { TagDB, TagService } from "@/modules/tags";
 import { DI } from "@/modules/dependency-injection";
 import { useEffect, useState } from "react";
-import "@/modules/editor";
-import "@/modules/tags/components/NeoteTag";
 import { NeoteTagSuggestionsAttributes } from "@/modules/editor/components/NeoteTagSuggestions";
 import { fn } from "@storybook/test";
+import { defineNeoteTagSuggestions } from "@/modules/editor/components/NeoteTagSuggestions";
+import { defineNeoteTag } from "@/modules/tags/components/NeoteTag";
+
+defineNeoteTag()
+defineNeoteTagSuggestions()
 
 const Wrapper = ({
   query: queryParam,
