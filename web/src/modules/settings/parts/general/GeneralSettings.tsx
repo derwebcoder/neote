@@ -19,38 +19,38 @@ export const GeneralSettings = () => {
 
   return (
     <div className="flex flex-col gap-4 mt-4">
-      <div>
-        <Group>
-          <Item
-            title="Animations"
-            description="Enable or disable animations."
-            action={
-              <Switch
-                checked={settings.animations.enabled}
-                onCheckedChange={(value) => updateSettings({
-                  general: {
-                    animations: {
-                      enabled: value,
-                    },
+      <Group>
+        <Item
+          title="Animations"
+          description="Enable or disable animations."
+          actionRight={
+            <Switch
+              checked={settings.animations.enabled}
+              onCheckedChange={(value) => updateSettings({
+                general: {
+                  animations: {
+                    enabled: value,
                   },
-                })}
-              />
-            }
-          />
-        </Group>
-        <Group>
-          <Item
-            title="Tag style"
-            description="The style of the tags."
-            action={
+                },
+              })}
+            />
+          }
+        />
+      </Group>
+      <Group>
+        <Item
+          title="Tag style"
+          description="The style of the tags."
+          actionBottom={
+            <div className="text-xs text-muted-foreground">
               <neote-tag-style-select
                 value={tagStyle}
                 onstyle-select={handleTagStyleChange}
               />
-            }
-          />
-        </Group>
-      </div>
+            </div>
+          }
+        />
+      </Group>
     </div>
   )
 }

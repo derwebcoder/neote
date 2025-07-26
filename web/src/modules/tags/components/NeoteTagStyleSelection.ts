@@ -17,8 +17,7 @@ export type NeoteTagStyleSelectAttributes = {
 
 export class NeoteTagStyleSelect
   extends HTMLElement
-  implements NeoteTagStyleSelectAttributes
-{
+  implements NeoteTagStyleSelectAttributes {
   static observedAttributes = ["value"];
   private _value: TagStyle = "basic";
 
@@ -39,7 +38,7 @@ export class NeoteTagStyleSelect
     this.render();
   }
 
-  disconnectedCallback() {}
+  disconnectedCallback() { }
 
   adoptedCallback() {
     this.render();
@@ -72,16 +71,16 @@ export class NeoteTagStyleSelect
       <div class="wrapper ${wrapperClass}" style="${wrapperStyle}">
         <select ref size="${TagStyles.length.toString()}">
           ${TagStyles.map((style) =>
-            rawHtml(html`
+      rawHtml(html`
               <option value=${style} ${value === style ? "selected " : ""}>
                 ${TagStyleNameMap[style]}
               </option>
             `[0]),
-          ).join("")}
+    ).join("")}
         </select>
         <div class="preview" data-tag-style="${value ?? "basic"}">
           <p class="${previewClass}" style="${previewStyle}">
-            <neote-tag name="quote">quote</neote-tag> Don't be pushed around by
+            <neote-tag name="inspiration">inspiration</neote-tag> <neote-tag name="quote">quote</neote-tag> Don't be pushed around by
             the <neote-tag name="fear"></neote-tag> in your mind. Be led by the
             <neote-tag name="dream"></neote-tag> in your heart.
           </p>

@@ -47,12 +47,12 @@ export const FloatingEditorSettings = () => {
           </AlertDescription>
         </Alert>
       )}
-      <div className={cn(!isApp && "opacity-40")}>
+      <div className={cn("flex flex-col gap-4 mt-4", !isApp && "opacity-40")}>
         <Group>
           <Item
             title="Opacity"
             description="Control the opacity of the window."
-            action={
+            actionRight={
               <Slider
                 max={100}
                 min={20}
@@ -66,14 +66,14 @@ export const FloatingEditorSettings = () => {
           <Item
             title="Opaque on focus"
             description="When you focus on the floating editor, it will become opaque."
-            action={<Switch checked={settings.opaqueOnFocus ?? false} onCheckedChange={handleOpaqueOnFocusChange} disabled={!isApp} />}
+            actionRight={<Switch checked={settings.opaqueOnFocus ?? false} onCheckedChange={handleOpaqueOnFocusChange} disabled={!isApp} />}
           />
         </Group>
         <Group>
           <Item
             title="Shrink on blur"
             description="When the floating editor is not focused, it will shrink."
-            action={<Switch checked={settings.shrinkOnBlur ?? false} onCheckedChange={handleShrinkOnBlurChange} disabled={!isApp} />}
+            actionRight={<Switch checked={settings.shrinkOnBlur ?? false} onCheckedChange={handleShrinkOnBlurChange} disabled={!isApp} />}
           />
         </Group>
       </div>
