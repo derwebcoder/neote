@@ -2,6 +2,12 @@
 
 import { Environment } from "@/modules/environment/types/Environments";
 
+// CSS module declarations
+declare module "*.css" {
+  const content: any;
+  export default content;
+}
+
 // declare module "react" {
 //   namespace JSX {
 //     interface IntrinsicElements {
