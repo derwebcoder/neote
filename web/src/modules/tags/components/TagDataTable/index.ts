@@ -1,0 +1,1 @@
+export { DataTableContainer as TagDataTable } from './DataTable/DataTableContainer'

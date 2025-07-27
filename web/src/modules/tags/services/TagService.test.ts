@@ -131,7 +131,7 @@ describe("TagService", () => {
   it("should let me observe changes to a tag", async () => {
     const callback = vi.fn();
 
-    tagService.observe("money", callback);
+    tagService.observeTag("money", callback);
 
     const moneyTag = tagService.get("money");
     const cashTag = tagService.get("cash");

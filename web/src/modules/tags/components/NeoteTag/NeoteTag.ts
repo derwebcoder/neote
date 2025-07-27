@@ -63,7 +63,7 @@ export class NeoteTag extends HTMLElement implements NeoteTagAttributes {
     this.tagService = await DI.resolveAsync("TagService");
     this.tag = this.tagService.get(name);
 
-    this.unwatch = this.tagService.observe(name, (tag) => {
+    this.unwatch = this.tagService.observeTag(name, (tag) => {
       this.tag = tag;
       this.render();
     });

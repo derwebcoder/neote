@@ -12,7 +12,8 @@ import { Tag, TagExistingDocument } from "../models/Tag";
 export class TagService {
   private db: TagDB;
   private cache: Map<string, Tag> = new Map();
-  private watcher: Record<string, Array<(tag: Tag) => void>> = {};
+  private tagWatcher: Record<string, Array<(tag: Tag) => void>> = {};
+  private watcher: Array<(tags: Tag[]) => void> = [];
 
   private constructor(tagDB: TagDB) {
     this.db = tagDB;
@@ -33,6 +34,10 @@ export class TagService {
     const tagService = new this(tagDB);
     await tagService.hydrateCache();
     return tagService;
+  }
+
+  public getAll() {
+    return [...this.cache.values()];
   }
 
   public get(name: string) {
@@ -83,12 +88,20 @@ export class TagService {
     return false;
   }
 
-  public observe(name: string, callback: (tag: Tag) => void) {
-    this.watcher[name] = this.watcher[name] || [];
-    this.watcher[name].push(callback);
+  public observe(callback: (tags: Tag[]) => void) {
+    this.watcher.push(callback);
 
     return () => {
-      this.watcher[name] = this.watcher[name].filter((cb) => cb !== callback);
+      this.watcher = this.watcher.filter((cb) => cb !== callback);
+    };
+  }
+
+  public observeTag(name: string, callback: (tag: Tag) => void) {
+    this.tagWatcher[name] = this.tagWatcher[name] || [];
+    this.tagWatcher[name].push(callback);
+
+    return () => {
+      this.tagWatcher[name] = this.tagWatcher[name].filter((cb) => cb !== callback);
     };
   }
 
@@ -107,11 +120,14 @@ export class TagService {
   }
 
   private publish(tag: Tag) {
-    if (this.watcher[tag.getName()]) {
-      this.watcher[tag.getName()].forEach((callback) => {
+    if (this.tagWatcher[tag.getName()]) {
+      this.tagWatcher[tag.getName()].forEach((callback) => {
         callback(tag);
       });
     }
+    this.watcher.forEach((callback) => {
+      callback(this.getAll());
+    });
   }
 
   public async hydrateCache() {
