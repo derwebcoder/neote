@@ -18,8 +18,18 @@ export const columns: ColumnDef<Tag>[] = [
     },
   },
   {
-    accessorKey: "description",
     header: "Description",
+    cell: ({ row }) => {
+      const tag = row.original
+      const description = tag.getDescription()
+
+      const handleBlur = (event: React.FocusEvent<HTMLTextAreaElement>) => {
+        tag.setDescription(event.target.value)
+        DI.resolve("TagService").update(tag)
+      }
+
+      return <textarea defaultValue={description} onBlur={handleBlur} className="w-full h-full p-1 resize-none" />
+    },
   },
   {
     header: "Icon",
