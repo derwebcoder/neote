@@ -1,0 +1,14 @@
+.TagIconSelect {
+  &::before {
+    content: "";
+    display: inline-block;
+    -webkit-mask-image: var(--icon);
+    mask-image: var(--icon);
+    background: currentColor;
+    width: 16px;
+    height: 16px;
+    margin-inline-end: 0px;
+    align-self: center;
+    margin-inline-end: 4px;
+  }
+}

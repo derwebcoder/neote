@@ -31,3 +31,5 @@ export const TagIconMap = {
   users: getSvgIcon(icons.Users),
   zap: getSvgIcon(icons.Zap),
 } as const;
+
+export const TagIconNames = Object.keys(TagIconMap) as (keyof typeof TagIconMap)[];

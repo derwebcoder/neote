@@ -3,6 +3,7 @@ import { Tag } from "@/modules/tags/models/Tag"
 import { defineNeoteTag } from "$/components/NeoteTag/NeoteTag"
 import { defineNeoteHueSelect, NeoteHueSelectEvent } from "$/components/NeoteHueSelect/NeoteHueSelect"
 import { DI } from "@/modules/dependency-injection"
+import { TagIconSelect } from "$/components/TagIconSelect/TagIconSelect"
 
 defineNeoteTag()
 defineNeoteHueSelect()
@@ -21,8 +22,12 @@ export const columns: ColumnDef<Tag>[] = [
     header: "Description",
   },
   {
-    accessorKey: "icon",
     header: "Icon",
+    cell: ({ row }) => {
+      const tag = row.original
+
+      return <TagIconSelect tag={tag} />
+    },
   },
   {
     header: "Color",
