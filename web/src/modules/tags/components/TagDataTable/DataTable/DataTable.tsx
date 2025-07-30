@@ -32,6 +32,12 @@ export function DataTable<TData, TValue>({
   return (
     <div className="rounded-md border">
       <Table>
+        <colgroup>
+          <col span={1} />
+          <col span={1} style={{ minWidth: "200px" }} />
+          <col span={1} style={{ width: "190px" }} />
+          <col span={1} style={{ width: "100px" }} />
+        </colgroup>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>

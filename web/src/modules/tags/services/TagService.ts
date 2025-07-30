@@ -4,6 +4,8 @@ import { getDefaultIcon, TagIconMap } from "../config/TagIconConfig";
 import { TagDB } from "../db/TagDB";
 import { Tag, TagExistingDocument } from "../models/Tag";
 
+type UpdateReason = 'init' | 'update' | 'delete';
+
 /**
  * A service for CRUD operations on tags.
  *
@@ -12,7 +14,7 @@ import { Tag, TagExistingDocument } from "../models/Tag";
 export class TagService {
   private db: TagDB;
   private cache: Map<string, Tag> = new Map();
-  private tagWatcher: Record<string, Array<(tag: Tag) => void>> = {};
+  private tagWatcher: Record<string, Array<(tag: Tag, reason?: UpdateReason) => void>> = {};
   private watcher: Array<(tags: Tag[]) => void> = [];
 
   private constructor(tagDB: TagDB) {
@@ -21,11 +23,12 @@ export class TagService {
     this.db.watch(async (change) => {
       if (change.deleted) {
         this.cache.delete(change.id);
+        this.publish(this.get(change.id), 'delete');
       } else {
         // we can assert here because we set `include_docs: true` in the watch method
         const tag = this.convertDocToTag(change.doc!);
         this.cache.set(change.id, tag);
-        this.publish(tag);
+        this.publish(tag, 'update');
       }
     });
   }
@@ -119,10 +122,10 @@ export class TagService {
     return matches.slice(0, limit);
   }
 
-  private publish(tag: Tag) {
+  private publish(tag: Tag, reason?: 'init' | 'update' | 'delete') {
     if (this.tagWatcher[tag.getName()]) {
       this.tagWatcher[tag.getName()].forEach((callback) => {
-        callback(tag);
+        callback(tag, reason);
       });
     }
     this.watcher.forEach((callback) => {
@@ -139,7 +142,7 @@ export class TagService {
       }
       const tag = this.convertDocToTag(tagDoc);
       this.cache.set(result.id, tag);
-      this.publish(tag);
+      this.publish(tag, 'init');
     });
     return true;
   }

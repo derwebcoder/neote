@@ -5,7 +5,10 @@ export const useGetAllTags = () => {
   const tagService = DI.resolve("TagService");
   const [tags, setTags] = useState(tagService.getAll());
   useEffect(() => {
-    const unsubscribe = tagService.observe(setTags);
+    const unsubscribe = tagService.observe((tags) => {
+      console.log(tags)
+      setTags(tags)
+    });
     return () => unsubscribe();
   }, [tagService]);
   return tags;
