@@ -32,6 +32,7 @@ export const columns: ColumnDef<Tag>[] = [
     },
   },
   {
+    accessorKey: "description",
     header: "Description",
     cell: ({ row }) => {
       const tag = row.original
@@ -66,6 +67,7 @@ export const columns: ColumnDef<Tag>[] = [
   },
   {
     accessorKey: "hue",
+    enableGlobalFilter: false,
     header: ({ column }) => {
       return (
         <Button
