@@ -4,8 +4,8 @@ import { defineNeoteTag } from "$/components/NeoteTag/NeoteTag"
 import { defineNeoteHueSelect, NeoteHueSelectEvent } from "$/components/NeoteHueSelect/NeoteHueSelect"
 import { DI } from "@/modules/dependency-injection"
 import { TagIconSelect } from "$/components/TagIconSelect/TagIconSelect"
-import { MoreHorizontal } from "lucide-react"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/modules/ui/elements/dropdown-menu"
+import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/modules/ui/elements/dropdown-menu"
 import { Button } from "@/modules/ui/elements/button"
 
 defineNeoteTag()
@@ -13,7 +13,18 @@ defineNeoteHueSelect()
 
 export const columns: ColumnDef<Tag>[] = [
   {
-    header: "Tag",
+    accessorKey: "name",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Tag
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       const name = row.original.getName()
 
