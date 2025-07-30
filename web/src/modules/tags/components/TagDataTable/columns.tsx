@@ -46,7 +46,18 @@ export const columns: ColumnDef<Tag>[] = [
     },
   },
   {
-    header: "Icon",
+    accessorKey: "icon",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Icon
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       const tag = row.original
 
@@ -54,7 +65,18 @@ export const columns: ColumnDef<Tag>[] = [
     },
   },
   {
-    header: "Color",
+    accessorKey: "hue",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Color
+          <ArrowUpDown className="ml-2 h-4 w-4" />
+        </Button>
+      )
+    },
     cell: ({ row }) => {
       const hue = row.original.getHue()
 
