@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import Logo from "@/assets/logo.svg";
 import { SidebarNavItem } from "@/components/SidebarNavItem/SidebarNavItem";
+import { TriggerButton as TagSettingButton } from "@/modules/tags/components/TagDataTable/TriggerButton/TriggerButton";
 import { TriggerButton as SettingsButton } from "@/modules/settings/components/TriggerButton/TriggerButton";
 
 // Menu items.
@@ -61,6 +62,9 @@ export const NavigationSidebar = () => {
           </ol>
           <hr className="w-full border-stone-300 mt-3 pb-6" />
           <ol>
+            <li className="pb-2">
+              <TagSettingButton />
+            </li>
             <li className="pb-2">
               <SettingsButton />
             </li>

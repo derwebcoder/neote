@@ -44,7 +44,7 @@ export function DataTable<TData, TValue>({
   })
 
   return (
-    <div>
+    <div className="flex flex-col overflow-hidden h-full">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter tags ..."
@@ -52,18 +52,18 @@ export function DataTable<TData, TValue>({
           onChange={(event) =>
             table.setGlobalFilter(String(event.target.value))
           }
-          className="max-w-sm text-sm h-8"
+          className="max-w-xs text-sm h-8 ms-2"
         />
       </div>
-      <div className="rounded-md border">
-        <Table>
+      <div className="rounded-md border overflow-hidden">
+        <Table className="overflow-y-auto h-full">
           <colgroup>
             <col span={1} />
             <col span={1} style={{ minWidth: "200px" }} />
             <col span={1} style={{ width: "190px" }} />
             <col span={1} style={{ width: "100px" }} />
           </colgroup>
-          <TableHeader>
+          <TableHeader className="sticky top-0 bg-white z-10">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {

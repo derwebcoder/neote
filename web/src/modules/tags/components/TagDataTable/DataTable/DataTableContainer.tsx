@@ -5,8 +5,6 @@ import { useGetAllTags } from "$/hooks/useGetAllTags"
 export const DataTableContainer = () => {
   const tags = useGetAllTags()
   return (
-    <div>
-      <DataTable columns={columns} data={tags} />
-    </div>
+    <DataTable columns={columns} data={tags} />
   )
 }
